@@ -17,16 +17,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: flutter pub get
+      - run: dart pub get
       - run: dart format --fix --set-exit-if-changed .
-      - run: flutter analyze
-      - run: flutter test --coverage
-      - name: Setup LCOV
-        uses: hrishikesh-kadam/setup-lcov@v1
-      - name: Report code coverage
-        uses: zgosalvez/github-actions-report-lcov@v3
-        with:
-          coverage-files: coverage/lcov*.info
-          artifact-name: code-coverage-report
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          update-comment: true
+      - run: dart analyze
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: dart test

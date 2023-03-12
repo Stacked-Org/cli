@@ -15,8 +15,8 @@
       "@semantic-release/exec",
       {
         "verifyConditionsCmd": "if [ -z \"$CREDENTIALS\" ]; then exit 1; fi && mkdir -p ~/.config/dart && echo \"$CREDENTIALS\" > ~/.config/dart/pub-credentials.json",
-        "prepareCmd": "sed -i 's/^version: .*$/version: ${nextRelease.version}/' pubspec.yaml",
-        "publishCmd": "flutter pub publish -f"
+        "prepareCmd": "dart run build_runner build --delete-conflicting-outputs && sed -i 's/^version: .*$/version: ${nextRelease.version}/' pubspec.yaml",
+        "publishCmd": "dart pub publish -f"
       }
     ],
     [
