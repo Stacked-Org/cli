@@ -33,6 +33,11 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             fileType: FileType.text
           ),
           TemplateFile(
+            relativeOutputPath: kAppWebTemplateBuildYamlStkPath,
+            content: kAppWebTemplateBuildYamlStkContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
             relativeOutputPath: kAppWebTemplateMainIconPngStkPath,
             content: kAppWebTemplateMainIconPngStkContent,
             fileType: FileType.image
@@ -348,6 +353,56 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
           TemplateFile(
             relativeOutputPath: kViewEmptyTemplateGenericViewV1Path,
             content: kViewEmptyTemplateGenericViewV1Content,
+            fileType: FileType.text
+          ),
+        ],
+        modificationFiles: [
+          ModificationFile(
+            relativeModificationPath: 'lib/app/app.dart',
+            modificationIdentifier: '// @stacked-route',
+            modificationTemplate: '''MaterialRoute(page: {{viewName}}),''',
+            modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
+            modificationName: 'Add {{viewName}} route where @StackedApp annotation is located',
+          ),
+          ModificationFile(
+            relativeModificationPath: 'lib/app/app.dart',
+            modificationIdentifier: '// @stacked-import',
+            modificationTemplate: '''import \'package:{{packageName}}/{{{viewImportPath}}}/{{viewFolderName}}/{{viewFileName}}\';''',
+            modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
+            modificationName: 'Add {{viewName}} route import where @StackedApp annotation is located',
+          ),
+        ],
+      ),
+      'web' : StackedTemplate(
+        templateFiles: [
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewmodelTestPath,
+            content: kViewWebTemplateGenericViewmodelTestContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewmodelPath,
+            content: kViewWebTemplateGenericViewmodelContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewMobilePath,
+            content: kViewWebTemplateGenericViewMobileContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewTabletPath,
+            content: kViewWebTemplateGenericViewTabletContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewPath,
+            content: kViewWebTemplateGenericViewContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kViewWebTemplateGenericViewDesktopPath,
+            content: kViewWebTemplateGenericViewDesktopContent,
             fileType: FileType.text
           ),
         ],

@@ -25,7 +25,7 @@ const String kAppWebTemplateStackedJsonStkContent = '''
     "register_mocks_function": "registerServices",
     "v1": false,
     "line_length": 80,
-    "preferWeb": true,
+    "prefer_web": true,
 }
 ''';
 
@@ -145,22 +145,22 @@ import 'package:stacked_services/stacked_services.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RouterService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   // @stacked-mock-spec
 ])
 void registerServices() {
-  getAndRegisterNavigationService();
+  getAndRegisterRouterService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   // @stacked-mock-register
 }
 
-MockNavigationService getAndRegisterNavigationService() {
-  _removeRegistrationIfExists<NavigationService>();
-  final service = MockNavigationService();
-  locator.registerSingleton<NavigationService>(service);
+MockRouterService getAndRegisterRouterService() {
+  _removeRegistrationIfExists<RouterService>();
+  final service = MockRouterService();
+  locator.registerSingleton<RouterService>(service);
   return service;
 }
 
@@ -215,6 +215,23 @@ void _removeRegistrationIfExists<T extends Object>() {
   }
 }
 
+''';
+
+// --------------------------------------------------
+
+
+// -------- BuildYamlStk Template Data ----------
+
+const String kAppWebTemplateBuildYamlStkPath =
+    'build.yaml.stk';
+
+const String kAppWebTemplateBuildYamlStkContent = '''
+targets:
+  \$default:
+    builders:
+      stacked_generator|stackedRouterGenerator:
+        options:
+          navigator2: true
 ''';
 
 // --------------------------------------------------
@@ -390,10 +407,13 @@ import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  setupLocator();
+  setPathUrlStrategy();
+  setupLocator(
+    stackedRouter: stackedRouter,
+  );
   setupDialogUi();
   setupBottomSheetUi();
 
@@ -405,7 +425,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(builder: (_) => MaterialApp(
+    return ResponsiveApp(builder: (_) => MaterialApp.router(
         title: 'Stacked Application',
         theme: Theme.of(context).copyWith(
           primaryColor: kcBackgroundColor,
@@ -414,12 +434,8 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.black,
               ),
         ),
-        initialRoute: Routes.startupView,
-        onGenerateRoute: StackedRouter().onGenerateRoute,
-        navigatorKey: StackedService.navigatorKey,
-        navigatorObservers: [
-          StackedService.routeObserver,
-        ],
+        routerDelegate: stackedRouter.delegate(),
+        routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
     );
   }
@@ -975,7 +991,6 @@ const String kAppWebTemplateHomeViewContent = '''
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 import 'home_view.desktop.dart';
 import 'home_view.tablet.dart';
@@ -988,7 +1003,7 @@ class HomeView extends StackedView<HomeViewModel> {
   @override
   Widget builder(
     BuildContext context,
-    HomeViewModel viewModel,
+    HomeViewModel  viewModel,
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
@@ -1002,7 +1017,7 @@ class HomeView extends StackedView<HomeViewModel> {
   HomeViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      HomeViewModel();
+  HomeViewModel();
 }
 
 ''';
@@ -1157,14 +1172,14 @@ import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+  final _routerService = locator<RouterService>();
 
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
     // This is where you can make decisions on where your app should navigate when
     // you have custom startup logic
 
-    await _navigationService.replaceWithHomeView();
+    await _routerService.replaceWith(const HomeViewRoute());
   }
 }
 
@@ -1371,14 +1386,14 @@ import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(
   routes: [
+    MaterialRoute(page: StartupView, initial: true),
     MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
     // @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
-    LazySingleton(classType: NavigationService),
+    LazySingleton(classType: RouterService),
     // @stacked-service
   ],
   bottomsheets: [
@@ -1483,8 +1498,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.1.0+3
-  stacked_services: ^0.9.9
+  stacked: ^3.2.0
+  stacked_services: ^1.0.0
+  url_strategy: ^0.2.0
   responsive_builder: ^0.6.0
 
 dev_dependencies:
@@ -1499,7 +1515,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: ^0.8.5
+  stacked_generator: 1.0.0
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
@@ -2696,8 +2712,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.1.0+3
-  stacked_services: ^0.9.9
+  stacked: ^3.2.0
+  stacked_services: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -2711,7 +2727,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: ^0.8.5
+  stacked_generator: ^1.0.0
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
@@ -3133,6 +3149,192 @@ class {{viewName}} extends StatelessWidget {
     );
   }
 }
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewmodelTest Template Data ----------
+
+const String kViewWebTemplateGenericViewmodelTestPath =
+    'test/viewmodels/generic_viewmodel_test.dart.stk';
+
+const String kViewWebTemplateGenericViewmodelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('{{viewModelName}} Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewmodel Template Data ----------
+
+const String kViewWebTemplateGenericViewmodelPath =
+    'lib/ui/views/generic/generic_viewmodel.dart.stk';
+
+const String kViewWebTemplateGenericViewmodelContent = '''
+import 'package:stacked/stacked.dart';
+
+class {{viewModelName}} extends BaseViewModel {
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewMobile Template Data ----------
+
+const String kViewWebTemplateGenericViewMobilePath =
+    'lib/ui/views/generic/generic_view.mobile.dart.stk';
+
+const String kViewWebTemplateGenericViewMobileContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}}Mobile extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Mobile({super.key});
+
+  @override
+  Widget build(BuildContext context, {{viewModelName}} viewModel) {
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Hello, MOBILE UI!',
+          style: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewTablet Template Data ----------
+
+const String kViewWebTemplateGenericViewTabletPath =
+    'lib/ui/views/generic/generic_view.tablet.dart.stk';
+
+const String kViewWebTemplateGenericViewTabletContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Tablet({super.key});
+
+  @override
+  Widget build(BuildContext context, {{viewModelName}} viewModel) {
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Hello, TABLET UI!',
+          style: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericView Template Data ----------
+
+const String kViewWebTemplateGenericViewPath =
+    'lib/ui/views/generic/generic_view.dart.stk';
+
+const String kViewWebTemplateGenericViewContent = '''
+import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewFileNameWithoutExtension}}.desktop.dart';
+import '{{viewFileNameWithoutExtension}}.tablet.dart';
+import '{{viewFileNameWithoutExtension}}.mobile.dart';
+import '{{viewModelFileName}}';
+
+class {{viewName}} extends StackedView<{{viewModelName}}> {
+  const {{viewName}}({super.key});
+
+  @override
+  Widget builder(
+    BuildContext context,
+    {{viewModelName}}  viewModel,
+    Widget? child,
+  ) {
+    return ScreenTypeLayout.builder(
+      mobile: (_) => const {{viewName}}Mobile(),
+      tablet: (_) => const {{viewName}}Tablet(),
+      desktop: (_) => const {{viewName}}Desktop(),
+    );
+  }
+
+  @override
+  {{viewModelName}} viewModelBuilder(
+    BuildContext context,
+  ) =>
+  {{viewModelName}}();
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewDesktop Template Data ----------
+
+const String kViewWebTemplateGenericViewDesktopPath =
+    'lib/ui/views/generic/generic_view.desktop.dart.stk';
+
+const String kViewWebTemplateGenericViewDesktopContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Desktop({super.key});
+
+  @override
+  Widget build(BuildContext context, {{viewModelName}} viewModel) {
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Hello, DESKTOP UI!',
+          style: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 ''';
 
 // --------------------------------------------------
