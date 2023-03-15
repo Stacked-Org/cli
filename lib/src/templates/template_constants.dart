@@ -144,32 +144,28 @@ import 'package:stacked_cli/src/templates/compiled_templates.dart';
 Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
   {{#stackedTemplates}}
   '{{name}}': {
-    {{#templates}}
-      '{{type}}' : StackedTemplate(
-        templateFiles: [
-        {{#files}}
-          TemplateFile(
+  {{#templates}}
+    '{{type}}': StackedTemplate(
+      templateFiles: [
+      {{#files}}
+        TemplateFile(
             relativeOutputPath: k{{name}}{{templateType}}Template{{fileName}}Path,
             content: k{{name}}{{templateType}}Template{{fileName}}Content,
-            fileType: FileType.{{fileType}}
-          ),
-        {{/files}}
-        ],
-        modificationFiles: [
-          {{#modificationFiles}}
-          ModificationFile(
-            relativeModificationPath: '{{{path}}}',
-            modificationIdentifier: '{{{identifier}}}',
-            modificationTemplate: \'''{{{template}}}\''',
-            modificationProblemError: '{{{error}}}',
-            modificationName: '{{{name}}}',
-          ),
-          {{/modificationFiles}}
-        ],
-      ),
-    {{/templates}}
+            fileType: FileType.{{fileType}}),
+      {{/files}}
+      ],
+      modificationFiles: [{{#modificationFiles}}
+        ModificationFile(
+          relativeModificationPath: '{{{path}}}',
+          modificationIdentifier: '{{{identifier}}}',
+          modificationTemplate: \'''{{{template}}}\''',
+          modificationProblemError: '{{{error}}}',
+          modificationName: '{{{name}}}',
+        ),
+        {{/modificationFiles}}],
+    ),
+  {{/templates}}
   },
-  
   {{/stackedTemplates}}
 };
 ''';
