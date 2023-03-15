@@ -5,8 +5,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:example/ui/views/home/home_view.dart' as _i2;
-import 'package:example/ui/views/startup/startup_view.dart' as _i3;
+import 'package:example/ui/dialogs/views/home/home_view.dart' as _i2;
+import 'package:example/ui/dialogs/views/startup/startup_view.dart' as _i3;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i4;
