@@ -278,7 +278,7 @@ const String kAppWebTemplateIndexHtmlStkContent = '''
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;700;800&display=swap" rel="stylesheet">
+  
 
   <title>My Stacked Application</title>
   <link rel="manifest" href="manifest.json">
@@ -467,6 +467,7 @@ import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -495,6 +496,16 @@ class MyApp extends StatelessWidget {
         ),
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
+      ).animate()
+      .moveY(end: 0, begin: 35)
+      .fadeIn(
+        duration: const Duration(milliseconds: 500),
+        delay: const Duration(milliseconds: 50),
+      )
+      .scale(
+        begin: const Offset(0.9, 0.9),
+        end: const Offset(1, 1),
+        curve: Curves.easeInOut,
       ),
     );
   }
@@ -1537,6 +1548,7 @@ dependencies:
   stacked_services: ^1.0.0
   url_strategy: ^0.2.0
   responsive_builder: ^0.6.0
+  flutter_animate: ^4.1.0
 
 dev_dependencies:
   flutter_test:

@@ -39,6 +39,7 @@ dependencies:
   stacked_services: ^1.0.0
   url_strategy: ^0.2.0
   responsive_builder: ^0.6.0
+  flutter_animate: ^4.1.0
 
 dev_dependencies:
   flutter_test:
