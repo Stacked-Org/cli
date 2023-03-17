@@ -347,7 +347,7 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
         ModificationFile(
           relativeModificationPath: 'lib/app/app.dart',
           modificationIdentifier: '// @stacked-route',
-          modificationTemplate: '''MaterialRoute(page: {{viewName}}),''',
+          modificationTemplate: '''CustomRoute(page: {{viewName}}),''',
           modificationProblemError:
               'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
           modificationName:
