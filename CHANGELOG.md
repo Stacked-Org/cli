@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Stacked-Org/cli/compare/v1.4.0...v1.5.0) (2023-03-17)
+
+
+### Features
+
+* Update web template routes and intro animation ([#5](https://github.com/Stacked-Org/cli/issues/5)) ([d2968cb](https://github.com/Stacked-Org/cli/commit/d2968cbb356f4d1d5f2690bc41d17a01bcf589f0))
+
 ## 1.4.1
 
 - Updates the app web template to use the new `RoutingService`
