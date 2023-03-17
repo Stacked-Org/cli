@@ -106,7 +106,6 @@ class TemplateService {
       fileContent: allTemplateItemsContent,
     );
 
-    // Creat the template map
     final templateMap = Template(kTemplateMapDataStructure);
     final templateMapData = {
       'stackedTemplates': stackedTemplates.map((e) => e.toJson()).toList(),
