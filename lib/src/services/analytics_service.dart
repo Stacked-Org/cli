@@ -34,7 +34,6 @@ class AnalyticsService {
     await _analytics.waitForLastPing(
       timeout: const Duration(milliseconds: 200),
     );
-    _analytics.close();
   }
 
   /// Sends create app command event

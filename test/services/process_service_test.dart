@@ -14,19 +14,19 @@ void main() {
     group('runFormat -', () {
       test('when called should run flutter format . and finish in exit code 0',
           () async {
-        var _clog = getAndRegisterColorizedLogService();
+        var clog = getAndRegisterColorizedLogService();
         var service = _getService();
         await service.runFormat();
-        verify(_clog.success(message: 'Command complete. ExitCode: 0'));
+        verify(clog.success(message: 'Command complete. ExitCode: 0'));
       });
 
       test(
           'when called should run flutter format . and ouput error if appName is not found',
           () async {
-        var _clog = getAndRegisterColorizedLogService();
+        var clog = getAndRegisterColorizedLogService();
         var service = _getService();
         await service.runFormat(appName: "xyz");
-        verify(_clog.error(message: anyNamed('message')));
+        verify(clog.error(message: anyNamed('message')));
       });
     });
   });

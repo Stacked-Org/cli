@@ -244,7 +244,7 @@ class ConfigService {
         path.split('/').where((element) => !element.contains('.'));
 
     for (var i = 0; i < pathSegments.length; i++) {
-      fileToImport = '../' + fileToImport;
+      fileToImport = '../$fileToImport';
     }
 
     return fileToImport;

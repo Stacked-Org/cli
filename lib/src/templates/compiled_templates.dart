@@ -497,16 +497,10 @@ class MyApp extends StatelessWidget {
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
       ).animate()
-      .moveY(end: 0, begin: 35)
       .fadeIn(
-        duration: const Duration(milliseconds: 500),
         delay: const Duration(milliseconds: 50),
+        duration: const Duration(milliseconds: 400),
       )
-      .scale(
-        begin: const Offset(0.9, 0.9),
-        end: const Offset(1, 1),
-        curve: Curves.easeInOut,
-      ),
     );
   }
 }
@@ -1435,8 +1429,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: StartupView, initial: true),
-    MaterialRoute(page: HomeView),
+    CustomRoute(page: StartupView, initial: true),
+    CustomRoute(page: HomeView),
     // @stacked-route
   ],
   dependencies: [
