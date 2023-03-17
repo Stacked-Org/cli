@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/Stacked-Org/cli/compare/v1.5.0...v1.5.1) (2023-03-17)
+
+
+### Bug Fixes
+
+* Adds generated code ([#6](https://github.com/Stacked-Org/cli/issues/6)) ([5c607b5](https://github.com/Stacked-Org/cli/commit/5c607b5d4f9a8cd5d3fccd248f0117ae2059443f))
+
 # [1.5.0](https://github.com/Stacked-Org/cli/compare/v1.4.0...v1.5.0) (2023-03-17)
 
 
