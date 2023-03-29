@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/Stacked-Org/cli/compare/v1.5.1...v1.5.2) (2023-03-29)
+
+
+### Bug Fixes
+
+* bad state error on no argument ([#7](https://github.com/Stacked-Org/cli/issues/7)) ([3766e7f](https://github.com/Stacked-Org/cli/commit/3766e7f87482b2c78669eb864eb26738b1e72e68))
+
 ## [1.5.1](https://github.com/Stacked-Org/cli/compare/v1.5.0...v1.5.1) (2023-03-17)
 
 
