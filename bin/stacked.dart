@@ -54,10 +54,7 @@ Future<void> main(List<String> arguments) async {
 
     if (_handleAnalytics(argResults)) exit(0);
 
-    // Ignore notify version for compile and update commands
-    if (arguments.first != 'compile' && arguments.first != 'update') {
-      await _notifyNewVersionAvailable();
-    }
+    await _notifyNewVersionAvailable(arguments: arguments);
 
     runner.run(arguments);
   } on InvalidStackedStructureException catch (e) {
@@ -119,7 +116,17 @@ Future<void> _handleFirstRun() async {
   analyticsService.enable(opt == 'y' || opt == 'yes');
 }
 
-Future<void> _notifyNewVersionAvailable() async {
+/// Notifies new version of Stacked CLI is available
+Future<void> _notifyNewVersionAvailable({
+  List<String> arguments = const [],
+  List<String> ignored = const ['compile', 'update'],
+}) async {
+  if (arguments.isEmpty) return;
+
+  for (var arg in ignored) {
+    if (arguments.first == arg) return;
+  }
+
   if (await locator<PubService>().hasLatestVersion()) return;
 
   stdout.writeln('''
