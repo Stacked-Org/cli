@@ -14,7 +14,7 @@ class PubService {
 
   /// Returns current `stacked_cli` version installed on the system.
   Future<String> getCurrentVersion() async {
-    late String version;
+    String version = 'Current Version Not Available';
 
     final packages = await _processService.runPubGlobalList();
     for (var package in packages) {
