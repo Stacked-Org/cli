@@ -2,6 +2,7 @@ import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart'
 import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/unknown/unknown_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
@@ -11,6 +12,9 @@ import 'package:stacked_services/stacked_services.dart';
     CustomRoute(page: StartupView, initial: true),
     CustomRoute(page: HomeView),
     // @stacked-route
+
+    CustomRoute(page: UnknownView, path: '/404'),
+
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
