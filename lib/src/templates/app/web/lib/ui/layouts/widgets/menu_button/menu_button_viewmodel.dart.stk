@@ -1,0 +1,12 @@
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:stacked/stacked.dart';
+
+class MenuButtonViewModel extends BaseViewModel {
+  Future<void> logout() async {
+    setBusy(true);
+    // execute any action here
+    await Future.delayed(2.seconds);
+    setBusy(false);
+  }
+}

@@ -1,19 +1,34 @@
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
 import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
+import 'package:{{packageName}}/ui/layouts/layout_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/unknown/unknown_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:{{packageName}}/{{{serviceImportPath}}}/layout_service.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
-    CustomRoute(page: StartupView, initial: true),
-    CustomRoute(page: HomeView),
-    // @stacked-route
+    CustomRoute(
+      page: LayoutView,
+      initial: true,
+      children: [
+        CustomRoute(
+          page: HomeView,
+          path: '',
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+        ),
+        // @stacked-route
 
-    CustomRoute(page: UnknownView, path: '/404'),
+        CustomRoute(
+          page: UnknownView,
+          path: '404',
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+        ),
+      ],
+    ),
 
     /// When none of the above routes match, redirect to UnknownView
     RedirectRoute(path: '*', redirectTo: '/404'),
@@ -22,6 +37,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
+    LazySingleton(classType: LayoutService),
     // @stacked-service
   ],
   bottomsheets: [
