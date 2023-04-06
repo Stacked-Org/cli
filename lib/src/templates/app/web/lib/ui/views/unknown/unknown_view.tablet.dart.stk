@@ -12,20 +12,18 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return Scaffold(
-      backgroundColor: kcBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               '404',
-              style: ktsHeading1.copyWith(color: kcWhite, letterSpacing: 20.0),
+              style: ktsHeading1.copyWith(letterSpacing: 20.0),
             ),
             verticalSpaceSmall,
             Text(
               'PAGE NOT FOUND',
               style: ktsBodyLarge.copyWith(
-                color: kcWhite,
                 letterSpacing: 20.0,
                 wordSpacing: 10.0,
               ),
