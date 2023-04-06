@@ -242,6 +242,29 @@ void _removeRegistrationIfExists<T extends Object>() {
 // --------------------------------------------------
 
 
+// -------- LayoutServiceTest Template Data ----------
+
+const String kAppWebTemplateLayoutServiceTestPath =
+    'test/services/layout_service_test.dart.stk';
+
+const String kAppWebTemplateLayoutServiceTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+
+import '../helpers/test_helpers.dart';
+
+void main() {
+  group('LayoutServiceTest -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- BuildYamlStk Template Data ----------
 
 const String kAppWebTemplateBuildYamlStkPath =
@@ -722,6 +745,251 @@ const Color kcLightGrey = Color.fromARGB(255, 187, 187, 187);
 const Color kcVeryLightGrey = Color(0xFFE3E3E3);
 const Color kcWhite = Color(0xFFFFFFFF);
 const Color kcBackgroundColor = kcDarkGreyColor;
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- LayoutViewmodel Template Data ----------
+
+const String kAppWebTemplateLayoutViewmodelPath =
+    'lib/ui/layouts/layout_viewmodel.dart.stk';
+
+const String kAppWebTemplateLayoutViewmodelContent = '''
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
+import 'package:{{packageName}}/services/layout_service.dart';
+import 'package:{{packageName}}/ui/common/app_constants.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+class LayoutViewModel extends ReactiveViewModel {
+  final layoutService = locator<LayoutService>();
+  final routerService = locator<RouterService>();
+
+  @override
+  List<ListenableServiceMixin> get listenableServices => [layoutService];
+
+  double? get contentWidth {
+    return layoutService.fullScreenMode ? null : kdDesktopMaxContentWidth;
+  }
+
+  Future<void> navigateToHome() async {
+    await routerService.clearStackAndShow(const HomeViewRoute());
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- LayoutView Template Data ----------
+
+const String kAppWebTemplateLayoutViewPath =
+    'lib/ui/layouts/layout_view.dart.stk';
+
+const String kAppWebTemplateLayoutViewContent = '''
+import 'package:{{packageName}}/extensions/hover_extensions.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:stacked/stacked.dart';
+
+import 'layout_viewmodel.dart';
+import 'widgets/menu_button/menu_button.dart';
+
+class LayoutView extends StackedView<LayoutViewModel> {
+  const LayoutView({super.key});
+
+  @override
+  Widget builder(
+    BuildContext context,
+    LayoutViewModel viewModel,
+    Widget? child,
+  ) {
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          height: 1400,
+          width: viewModel.contentWidth,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 90,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: viewModel.contentWidth == null ? 40 : 0,
+                        ),
+                        child: GestureDetector(
+                          onTap: viewModel.navigateToHome,
+                          child: Text(
+                            'HOME',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: getValueForScreenType(
+                                context: context,
+                                mobile: 17,
+                                tablet: 15,
+                                desktop: 15,
+                              ),
+                            ),
+                          ),
+                        ).showCursorOnHover,
+                      ),
+                      const MenuButton(),
+                    ]),
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints.tightFor(height: 900),
+                child: const NestedRouter(),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  LayoutViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      LayoutViewModel();
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- MenuButton Template Data ----------
+
+const String kAppWebTemplateMenuButtonPath =
+    'lib/ui/layouts/widgets/menu_button/menu_button.dart.stk';
+
+const String kAppWebTemplateMenuButtonContent = '''
+import 'package:{{packageName}}/extensions/hover_extensions.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'menu_button_viewmodel.dart';
+
+class MenuButton extends StatefulWidget {
+  const MenuButton({super.key});
+
+  @override
+  State<MenuButton> createState() => _MenuButtonState();
+}
+
+class _MenuButtonState extends State<MenuButton> {
+  final layerLink = LayerLink();
+  OverlayEntry? entry;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void showMenu() {
+    entry = OverlayEntry(
+      builder: (BuildContext context) {
+        return Positioned(
+          width: 200,
+          child: CompositedTransformFollower(
+            link: layerLink,
+            offset: const Offset(-150, 30),
+            child: ViewModelBuilder<MenuButtonViewModel>.reactive(
+              viewModelBuilder: () => MenuButtonViewModel(),
+              builder: (context, viewModel, _) => Material(
+                borderRadius: BorderRadius.circular(5),
+                elevation: 8,
+                color: kcMediumGrey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 60,
+                      alignment: Alignment.center,
+                      child: viewModel.isBusy
+                          ? const CircularProgressIndicator()
+                          : GestureDetector(
+                              onTap: () async {
+                                await viewModel.logout();
+                                removeMenu();
+                              },
+                              child: const Text(
+                                'Sign out',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                    ).showCursorOnHover,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    // Add the OverlayEntry to the Overlay.
+    Overlay.of(
+      context,
+    ).insert(entry!);
+  }
+
+  void removeMenu() {
+    entry?.remove();
+    entry = null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CompositedTransformTarget(
+      link: layerLink,
+      child: MaterialButton(
+          child: const Icon(Icons.menu, color: kcBlack),
+          onPressed: () async {
+            if (entry == null) {
+              WidgetsBinding.instance
+                  .addPostFrameCallback((timeStamp) => showMenu());
+            } else {
+              removeMenu();
+            }
+          }),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- MenuButtonViewmodel Template Data ----------
+
+const String kAppWebTemplateMenuButtonViewmodelPath =
+    'lib/ui/layouts/widgets/menu_button/menu_button_viewmodel.dart.stk';
+
+const String kAppWebTemplateMenuButtonViewmodelContent = '''
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:stacked/stacked.dart';
+
+class MenuButtonViewModel extends BaseViewModel {
+  Future<void> logout() async {
+    setBusy(true);
+    // execute any action here
+    await Future.delayed(2.seconds);
+    setBusy(false);
+  }
+}
 
 ''';
 
@@ -1362,20 +1630,18 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return Scaffold(
-      backgroundColor: kcBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               '404',
-              style: ktsHeading1.copyWith(color: kcWhite, letterSpacing: 20.0),
+              style: ktsHeading1.copyWith(letterSpacing: 20.0),
             ),
             verticalSpaceSmall,
             Text(
               'PAGE NOT FOUND',
               style: ktsBodyLarge.copyWith(
-                color: kcWhite,
                 letterSpacing: 20.0,
                 wordSpacing: 10.0,
               ),
@@ -1412,20 +1678,18 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return Scaffold(
-      backgroundColor: kcBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               '404',
-              style: ktsHeading1.copyWith(color: kcWhite, letterSpacing: 20.0),
+              style: ktsHeading1.copyWith(letterSpacing: 20.0),
             ),
             verticalSpaceSmall,
             Text(
               'PAGE NOT FOUND',
               style: ktsBodyLarge.copyWith(
-                color: kcWhite,
                 letterSpacing: 20.0,
                 wordSpacing: 10.0,
               ),
@@ -1477,20 +1741,18 @@ class UnknownViewMobile extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return Scaffold(
-      backgroundColor: kcBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               '404',
-              style: ktsHeading1.copyWith(color: kcWhite, letterSpacing: 20.0),
+              style: ktsHeading1.copyWith(letterSpacing: 20.0),
             ),
             verticalSpaceSmall,
             Text(
               'PAGE NOT FOUND',
               style: ktsBodyLarge.copyWith(
-                color: kcWhite,
                 letterSpacing: 20.0,
                 wordSpacing: 10.0,
               ),
@@ -1725,20 +1987,35 @@ const String kAppWebTemplateAppPath =
 const String kAppWebTemplateAppContent = '''
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
 import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
+import 'package:{{packageName}}/ui/layouts/layout_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/unknown/unknown_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:{{packageName}}/{{{serviceImportPath}}}/layout_service.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
-    CustomRoute(page: StartupView, initial: true),
-    CustomRoute(page: HomeView),
-    // @stacked-route
+    CustomRoute(
+      page: LayoutView,
+      initial: true,
+      children: [
+        CustomRoute(
+          page: HomeView,
+          path: '',
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+        ),
+        // @stacked-route
 
-    CustomRoute(page: UnknownView, path: '/404'),
+        CustomRoute(
+          page: UnknownView,
+          path: '404',
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+        ),
+      ],
+    ),
 
     /// When none of the above routes match, redirect to UnknownView
     RedirectRoute(path: '*', redirectTo: '/404'),
@@ -1747,6 +2024,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: RouterService),
+    LazySingleton(classType: LayoutService),
     // @stacked-service
   ],
   bottomsheets: [
@@ -1800,6 +2078,35 @@ extension HoverExtensions on Widget {
       child: this,
       scale: scale,
     );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- LayoutService Template Data ----------
+
+const String kAppWebTemplateLayoutServicePath =
+    'lib/services/layout_service.dart.stk';
+
+const String kAppWebTemplateLayoutServiceContent = '''
+import 'package:stacked/stacked.dart';
+
+class LayoutService with ListenableServiceMixin {
+  bool _fullScreenMode = false;
+
+  bool get fullScreenMode => _fullScreenMode;
+
+  void enterFullScreen() {
+    _fullScreenMode = true;
+    notifyListeners();
+  }
+
+  void exitFullScreen() {
+    _fullScreenMode = false;
+    notifyListeners();
   }
 }
 

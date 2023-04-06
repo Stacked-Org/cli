@@ -35,7 +35,7 @@ class LayoutView extends StackedView<LayoutViewModel> {
                         child: GestureDetector(
                           onTap: viewModel.navigateToHome,
                           child: Text(
-                            'Stacked',
+                            'HOME',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               fontSize: getValueForScreenType(

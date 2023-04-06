@@ -32,6 +32,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateTestHelpersContent,
             fileType: FileType.text),
         TemplateFile(
+            relativeOutputPath: kAppWebTemplateLayoutServiceTestPath,
+            content: kAppWebTemplateLayoutServiceTestContent,
+            fileType: FileType.text),
+        TemplateFile(
             relativeOutputPath: kAppWebTemplateBuildYamlStkPath,
             content: kAppWebTemplateBuildYamlStkContent,
             fileType: FileType.text),
@@ -74,6 +78,22 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
         TemplateFile(
             relativeOutputPath: kAppWebTemplateAppColorsPath,
             content: kAppWebTemplateAppColorsContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateLayoutViewmodelPath,
+            content: kAppWebTemplateLayoutViewmodelContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateLayoutViewPath,
+            content: kAppWebTemplateLayoutViewContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateMenuButtonPath,
+            content: kAppWebTemplateMenuButtonContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateMenuButtonViewmodelPath,
+            content: kAppWebTemplateMenuButtonViewmodelContent,
             fileType: FileType.text),
         TemplateFile(
             relativeOutputPath: kAppWebTemplateNoticeSheetModelPath,
@@ -154,6 +174,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
         TemplateFile(
             relativeOutputPath: kAppWebTemplateHoverExtensionsPath,
             content: kAppWebTemplateHoverExtensionsContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateLayoutServicePath,
+            content: kAppWebTemplateLayoutServiceContent,
             fileType: FileType.text),
         TemplateFile(
             relativeOutputPath: kAppWebTemplatePubspecYamlStkPath,
