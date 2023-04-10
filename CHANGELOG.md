@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/Stacked-Org/cli/compare/v1.6.0...v1.6.1) (2023-04-10)
+
+
+### Bug Fixes
+
+* update HoverExtensions ([#9](https://github.com/Stacked-Org/cli/issues/9)) ([20955c9](https://github.com/Stacked-Org/cli/commit/20955c9a76fc0f580f5857b9148a1e006bbf574e))
+
 # [1.6.0](https://github.com/Stacked-Org/cli/compare/v1.5.2...v1.6.0) (2023-04-10)
 
 
