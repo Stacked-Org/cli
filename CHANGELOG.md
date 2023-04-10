@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Stacked-Org/cli/compare/v1.5.2...v1.6.0) (2023-04-10)
+
+
+### Features
+
+* add Unknown view to Web template ([#8](https://github.com/Stacked-Org/cli/issues/8)) ([d54c8e9](https://github.com/Stacked-Org/cli/commit/d54c8e95479021a02091612119769e75c8276b74))
+
 ## [1.5.2](https://github.com/Stacked-Org/cli/compare/v1.5.1...v1.5.2) (2023-03-29)
 
 
