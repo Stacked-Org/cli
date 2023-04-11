@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/Stacked-Org/cli/compare/v1.6.1...v1.6.2) (2023-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pub_updater to ^0.3.0 ([#11](https://github.com/Stacked-Org/cli/issues/11)) ([71fb5b8](https://github.com/Stacked-Org/cli/commit/71fb5b8e46c7ee13e93d7969c50c35f60d783d66))
+
 ## [1.6.1](https://github.com/Stacked-Org/cli/compare/v1.6.0...v1.6.1) (2023-04-10)
 
 
