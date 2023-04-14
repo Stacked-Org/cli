@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/Stacked-Org/cli/compare/v1.6.2...v1.6.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* updates stacked_generator version to latest ([6f720c0](https://github.com/Stacked-Org/cli/commit/6f720c077bdfd0214999c5b2da97c10ca13c2722))
+
 ## [1.6.2](https://github.com/Stacked-Org/cli/compare/v1.6.1...v1.6.2) (2023-04-11)
 
 
