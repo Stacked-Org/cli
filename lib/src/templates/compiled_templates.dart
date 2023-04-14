@@ -1831,7 +1831,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: 1.0.0
+  stacked_generator: ^1.3.0
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
@@ -1876,6 +1876,21 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+''';
+
+// --------------------------------------------------
+
+// -------- SettingsJsonStk Template Data ----------
+
+const String kAppWebTemplateSettingsJsonStkPath = '.vscode/settings.json.stk';
+
+const String kAppWebTemplateSettingsJsonStkContent = '''
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.dart": "\${capture}.mobile.dart, \${capture}.tablet.dart, \${capture}.desktop.dart, \${capture}.form.dart"
+    },
+}
 ''';
 
 // --------------------------------------------------

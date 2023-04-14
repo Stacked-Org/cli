@@ -159,6 +159,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             relativeOutputPath: kAppWebTemplatePubspecYamlStkPath,
             content: kAppWebTemplatePubspecYamlStkContent,
             fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppWebTemplateSettingsJsonStkPath,
+            content: kAppWebTemplateSettingsJsonStkContent,
+            fileType: FileType.text),
       ],
       modificationFiles: [],
     ),
