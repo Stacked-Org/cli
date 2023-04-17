@@ -657,39 +657,6 @@ double getResponsiveFontSize(BuildContext context,
 // --------------------------------------------------
 
 
-// -------- AppStyles Template Data ----------
-
-const String kAppWebTemplateAppStylesPath =
-    'lib/ui/common/app_styles.dart.stk';
-
-const String kAppWebTemplateAppStylesContent = '''
-import 'package:flutter/material.dart';
-
-TextStyle get ktsHeading1 => const TextStyle(
-      fontSize: 80,
-      height: 0.95,
-      fontWeight: FontWeight.w800,
-    );
-
-TextStyle get ktsHeading2 => const TextStyle(
-      fontSize: 40,
-      height: 0.95,
-      fontWeight: FontWeight.w800,
-    );
-
-TextStyle get ktsBodyRegular => const TextStyle(
-      fontSize: 15,
-    );
-
-TextStyle get ktsBodyLarge => const TextStyle(
-      fontSize: 20,
-    );
-
-''';
-
-// --------------------------------------------------
-
-
 // -------- AppStrings Template Data ----------
 
 const String kAppWebTemplateAppStringsPath =

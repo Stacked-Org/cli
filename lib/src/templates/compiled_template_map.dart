@@ -64,10 +64,6 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateUiHelpersContent,
             fileType: FileType.text),
         TemplateFile(
-            relativeOutputPath: kAppWebTemplateAppStylesPath,
-            content: kAppWebTemplateAppStylesContent,
-            fileType: FileType.text),
-        TemplateFile(
             relativeOutputPath: kAppWebTemplateAppStringsPath,
             content: kAppWebTemplateAppStringsContent,
             fileType: FileType.text),
