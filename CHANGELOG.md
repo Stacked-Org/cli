@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/Stacked-Org/cli/compare/v1.6.4...v1.6.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* stacked.json format on template ([#13](https://github.com/Stacked-Org/cli/issues/13)) ([465789f](https://github.com/Stacked-Org/cli/commit/465789f40405053ba5a66862663b76b1ec9a61d8))
+
 ## [1.6.4](https://github.com/Stacked-Org/cli/compare/v1.6.3...v1.6.4) (2023-04-18)
 
 
