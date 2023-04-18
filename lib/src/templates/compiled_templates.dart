@@ -25,8 +25,9 @@ const String kAppWebTemplateStackedJsonStkContent = '''
     "register_mocks_function": "registerServices",
     "v1": false,
     "line_length": 80,
-    "prefer_web": true,
+    "prefer_web": true
 }
+
 ''';
 
 // --------------------------------------------------
