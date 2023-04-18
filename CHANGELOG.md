@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/Stacked-Org/cli/compare/v1.6.3...v1.6.4) (2023-04-18)
+
+
+### Bug Fixes
+
+* Web app template ([#12](https://github.com/Stacked-Org/cli/issues/12)) ([0e96bbe](https://github.com/Stacked-Org/cli/commit/0e96bbec8ab845cee994b98959139d6bfde44e06))
+
 ## [1.6.3](https://github.com/Stacked-Org/cli/compare/v1.6.2...v1.6.3) (2023-04-14)
 
 
