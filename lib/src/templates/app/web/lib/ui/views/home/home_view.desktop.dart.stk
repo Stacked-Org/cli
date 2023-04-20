@@ -1,4 +1,4 @@
-import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/colors.dart';
 import 'package:{{packageName}}/ui/common/app_constants.dart';
 import 'package:{{packageName}}/ui/common/helpers.dart';
 import 'package:flutter/material.dart';

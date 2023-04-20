@@ -4,7 +4,7 @@ import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/colors.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
