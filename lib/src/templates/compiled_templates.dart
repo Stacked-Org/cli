@@ -1916,6 +1916,24 @@ flutter:
 // --------------------------------------------------
 
 
+// -------- SettingsJsonStk Template Data ----------
+
+const String kAppWebTemplateSettingsJsonStkPath =
+    '.vscode/settings.json.stk';
+
+const String kAppWebTemplateSettingsJsonStkContent = '''
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.dart": "\$\{capture}.mobile.dart, \$\{capture}.tablet.dart, \$\{capture}.desktop.dart, \$\{capture}.form.dart, \$\{capture}.g.dart, \$\{capture}.freezed.dart, \$\{capture}.logger.dart, \$\{capture}.locator.dart, \$\{capture}.router.dart, \$\{capture}.dialogs.dart, \$\{capture}.bottomsheets.dart"
+    }
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- StackedJsonStk Template Data ----------
 
 const String kAppMobileTemplateStackedJsonStkPath =
@@ -3105,6 +3123,24 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- SettingsJsonStk Template Data ----------
+
+const String kAppMobileTemplateSettingsJsonStkPath =
+    '.vscode/settings.json.stk';
+
+const String kAppMobileTemplateSettingsJsonStkContent = '''
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.dart": "\$\{capture}.mobile.dart, \$\{capture}.tablet.dart, \$\{capture}.desktop.dart, \$\{capture}.form.dart, \$\{capture}.g.dart, \$\{capture}.freezed.dart, \$\{capture}.logger.dart, \$\{capture}.locator.dart, \$\{capture}.router.dart, \$\{capture}.dialogs.dart, \$\{capture}.bottomsheets.dart"
+    }
+}
 
 ''';
 
