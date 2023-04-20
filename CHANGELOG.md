@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/Stacked-Org/cli/compare/v1.7.0...v1.7.1) (2023-04-20)
+
+
+### Bug Fixes
+
+* **cli:** update deprecated property on view templates ([#15](https://github.com/Stacked-Org/cli/issues/15)) ([48f3356](https://github.com/Stacked-Org/cli/commit/48f33560701f9c159f03fb2356c3633edf36356c))
+
 # [1.7.0](https://github.com/Stacked-Org/cli/compare/v1.6.5...v1.7.0) (2023-04-20)
 
 
