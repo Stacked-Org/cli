@@ -31,3 +31,6 @@ Thumbs.db
 *.iml
 .vscode/
 .vs/
+
+# Avoid ignore .vscode folder under templates
+!**/templates/**/.vscode
