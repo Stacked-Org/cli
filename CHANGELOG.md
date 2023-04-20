@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/Stacked-Org/cli/compare/v1.6.5...v1.7.0) (2023-04-20)
+
+
+### Features
+
+* **cli:** add VSCode settings to app templates ([#14](https://github.com/Stacked-Org/cli/issues/14)) ([bf296fb](https://github.com/Stacked-Org/cli/commit/bf296fb27941010892f7610645a76fc68c707a95))
+
 ## [1.6.5](https://github.com/Stacked-Org/cli/compare/v1.6.4...v1.6.5) (2023-04-18)
 
 
