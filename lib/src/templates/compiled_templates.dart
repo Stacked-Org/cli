@@ -3475,7 +3475,7 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
       ),
@@ -3511,7 +3511,7 @@ class {{viewName}} extends StatelessWidget {
     return ViewModelBuilder<{{viewModelName}}>.reactive(
       viewModelBuilder: () => {{viewModelName}}(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Container(
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         ),
