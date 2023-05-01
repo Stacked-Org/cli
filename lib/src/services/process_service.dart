@@ -27,10 +27,18 @@ class ProcessService {
   ///
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
-  Future<void> runCreateApp({required String appName}) async {
+  Future<void> runCreateApp(
+      {required String appName,
+      String? organization,
+      String? platforms}) async {
     await _runProcess(
       programName: ksFlutter,
-      arguments: [ksCreate, appName],
+      arguments: [
+        ksFlutter,
+        appName,
+        if (organization != null) organization,
+        if (platforms != null) platforms,
+      ],
     );
   }
 

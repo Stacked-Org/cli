@@ -4,6 +4,8 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/mixins/args_validator_mixin.dart';
+import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
@@ -11,7 +13,7 @@ import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 
-class CreateAppCommand extends Command {
+class CreateAppCommand extends Command with ArgsValidator {
   final _cLog = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
@@ -50,6 +52,18 @@ class CreateAppCommand extends Command {
       defaultsTo: 'mobile',
       help: kCommandHelpCreateAppTemplate,
     );
+
+    argParser.addOption(
+      ksOrganization,
+      abbr: "o",
+      help: kCommandOrganizationHelp,
+    );
+
+    argParser.addOption(
+      ksPlatform,
+      abbr: "p",
+      help: kCommandPlatformHelp,
+    );
   }
 
   @override
@@ -58,10 +72,19 @@ class CreateAppCommand extends Command {
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
     final templateType = argResults![ksTemplateType];
+    final organization = argResults![ksOrganization];
+    final platforms = argResults![ksPlatform];
+
+    validateOrganization(organization: organization);
+    validateAppName(appName: appName);
 
     unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];
-    await _processService.runCreateApp(appName: appName);
+    await _processService.runCreateApp(
+      appName: appName,
+      organization: organization,
+      platforms: platforms,
+    );
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
