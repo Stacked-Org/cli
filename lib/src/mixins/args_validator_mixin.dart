@@ -1,11 +1,7 @@
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/invalid_arg_exception.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/colorized_log_service.dart';
 
 mixin ArgsValidator {
-  final _cLog = locator<ColorizedLogService>();
-
   final organizationPattern = RegExp(r'^[a-z0-9]+(\.[a-z0-9]+)+$');
 
   bool _isOrganizationValid(String orgName) {
