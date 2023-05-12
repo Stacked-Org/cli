@@ -58,13 +58,13 @@ class ProcessService {
     );
   }
 
-  /// Runs the flutter format . command on the app's source code.
+  /// Runs the dart format . command on the app's source code.
   ///
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runFormat({String? appName, String? filePath}) async {
     await _runProcess(
-      programName: ksFlutter,
+      programName: ksDart,
       arguments: [
         ksFormat,
         filePath ?? ksCurrentDirectory,
