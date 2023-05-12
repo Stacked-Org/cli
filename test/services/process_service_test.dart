@@ -12,7 +12,7 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
     group('runFormat -', () {
-      test('when called should run flutter format . and finish in exit code 0',
+      test('when called should run dart format . and finish in exit code 0',
           () async {
         var clog = getAndRegisterColorizedLogService();
         var service = _getService();
@@ -21,7 +21,7 @@ void main() {
       });
 
       test(
-          'when called should run flutter format . and ouput error if appName is not found',
+          'when called should run dart format . and ouput error if appName is not found',
           () async {
         var clog = getAndRegisterColorizedLogService();
         var service = _getService();
