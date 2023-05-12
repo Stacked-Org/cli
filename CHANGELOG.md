@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/Stacked-Org/cli/compare/v1.7.1...v1.7.2) (2023-05-12)
+
+
+### Bug Fixes
+
+* flutter format depreciation in favor of dart format ([#19](https://github.com/Stacked-Org/cli/issues/19)) ([e830c59](https://github.com/Stacked-Org/cli/commit/e830c59b003e14508d4feea2a4cbd9861e219e1c))
+
 ## [1.7.1](https://github.com/Stacked-Org/cli/compare/v1.7.0...v1.7.1) (2023-04-20)
 
 
