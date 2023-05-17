@@ -56,6 +56,9 @@ const String kCommandHelpCreateBottomSheetTemplate =
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 
+const String kCommandHelpWatch =
+    'Generates the code for the Stacked application, watching the file system for updates and rebuilding as appropriate.';
+
 const String kConfigFileNotFound =
     'No stacked.json file found. Default stacked values will be used.';
 

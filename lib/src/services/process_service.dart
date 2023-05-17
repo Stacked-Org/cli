@@ -38,10 +38,16 @@ class ProcessService {
   ///
   /// Args:
   ///   appName (String): The name of the app.
-  Future<void> runBuildRunner({String? appName}) async {
+  Future<void> runBuildRunner({
+    String? appName,
+    bool shouldWatch = false,
+  }) async {
     await _runProcess(
       programName: ksFlutter,
-      arguments: buildRunnerArguments,
+      arguments: [
+        ...buildRunnerArguments,
+        if (shouldWatch) ksWatch,
+      ],
       workingDirectory: appName,
     );
   }
