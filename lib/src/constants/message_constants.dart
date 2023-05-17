@@ -59,6 +59,9 @@ const String kCommandHelpExcludeDependency =
 const String kCommandHelpWatch =
     'Generates the code for the Stacked application, watching the file system for updates and rebuilding as appropriate.';
 
+const String kCommandHelpDeleteConflictingOutputs =
+    'Assume conflicting outputs in the users package are from previous builds, and skip the user prompt that would usually be provided.';
+
 const String kConfigFileNotFound =
     'No stacked.json file found. Default stacked values will be used.';
 

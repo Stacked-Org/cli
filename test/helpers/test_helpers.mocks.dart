@@ -1084,6 +1084,7 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
   _i6.Future<void> runBuildRunner({
     String? appName,
     bool? shouldWatch = false,
+    bool? shouldDeleteConflictingOutputs = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1092,6 +1093,7 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
           {
             #appName: appName,
             #shouldWatch: shouldWatch,
+            #shouldDeleteConflictingOutputs: shouldDeleteConflictingOutputs,
           },
         ),
         returnValue: _i6.Future<void>.value(),

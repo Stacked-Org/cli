@@ -41,12 +41,14 @@ class ProcessService {
   Future<void> runBuildRunner({
     String? appName,
     bool shouldWatch = false,
+    bool shouldDeleteConflictingOutputs = true,
   }) async {
     await _runProcess(
-      programName: ksFlutter,
+      programName: ksDart,
       arguments: [
         ...buildRunnerArguments,
-        if (shouldWatch) ksWatch,
+        shouldWatch ? ksWatch : ksBuild,
+        if (shouldDeleteConflictingOutputs) ksDeleteConflictingOutputs,
       ],
       workingDirectory: appName,
     );

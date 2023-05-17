@@ -21,6 +21,14 @@ class GenerateCommand extends Command {
 
   GenerateCommand() {
     argParser.addFlag(
+      ksDeleteConflictOutputs,
+      abbr: 'd',
+      defaultsTo: true,
+      negatable: true,
+      help: kCommandHelpDeleteConflictingOutputs,
+    );
+
+    argParser.addFlag(
       ksWatch,
       abbr: 'w',
       defaultsTo: false,
@@ -31,6 +39,9 @@ class GenerateCommand extends Command {
   @override
   Future<void> run() async {
     unawaited(_analyticsService.generateCodeEvent());
-    await _processService.runBuildRunner(shouldWatch: argResults?[ksWatch]);
+    await _processService.runBuildRunner(
+      shouldDeleteConflictingOutputs: argResults?[ksDeleteConflictOutputs],
+      shouldWatch: argResults?[ksWatch],
+    );
   }
 }
