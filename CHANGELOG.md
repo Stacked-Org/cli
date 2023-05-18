@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/Stacked-Org/cli/compare/v1.7.2...v1.7.3) (2023-05-18)
+
+
+### Bug Fixes
+
+* Bump environment constraints to <4 ([286a76a](https://github.com/Stacked-Org/cli/commit/286a76abcfee1eb5059a6ebff2c92d22f9ac6e71))
+
 ## [1.7.2](https://github.com/Stacked-Org/cli/compare/v1.7.1...v1.7.2) (2023-05-12)
 
 
