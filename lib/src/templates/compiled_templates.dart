@@ -1831,7 +1831,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -1848,10 +1848,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.2.0
-  stacked_services: ^1.0.0
+  stacked: ^3.2.7
+  stacked_services: ^1.0.2
   url_strategy: ^0.2.0
-  responsive_builder: ^0.6.0
+  responsive_builder: ^0.7.0
   flutter_animate: ^4.1.0
 
 dev_dependencies:
@@ -3047,7 +3047,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -3064,7 +3064,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.2.0
+  stacked: ^3.2.7
   stacked_services: ^1.0.0
 
 dev_dependencies:
