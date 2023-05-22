@@ -1,6 +1,7 @@
 import 'package:mockito/mockito.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
+import 'package:stacked_cli/src/exceptions/config_file_not_found_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:test/test.dart';
@@ -14,8 +15,14 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
+    const customConfigFilePath = '/Users/filledstacks/Desktop/stacked.json';
+    const xdgConfigFilePath =
+        '/Users/filledstacks/.config/stacked/stacked.json';
     const stackedAppFilePath = 'src/app/core.dart';
     const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
+
+    const correctConfigPath =
+        'No configuration file found. Please, correct the config path passed as argument.';
 
     const String customConfig = '''
       {
@@ -34,131 +41,86 @@ void main() {
 
     group('resolveConfigFile -', () {
       test(
-          'when called with output path and config file is present on output path should call fileExists on fileService 1 times',
+          'when called with config filepath and file is present on path should call fileExists on custom config filepath',
           () async {
         final fileService = getAndRegisterFileService();
         final service = _getService();
-        await service.resolveConfigFile(path: 'output');
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(1);
+        await service.resolveConfigFile(path: customConfigFilePath);
+        verify(fileService.fileExists(filePath: customConfigFilePath));
       });
 
       test(
-          'when called without output path and config file is present on current path should call fileExists on fileService 1 times',
+          'when called with config filepath and file is present on path should return customConfigFilePath',
+          () async {
+        getAndRegisterFileService();
+        final service = _getService();
+        final path = await service.resolveConfigFile(
+          path: customConfigFilePath,
+        );
+        expect(path, customConfigFilePath);
+      });
+
+      test(
+          'when called with config filepath and file is NOT present on path should throw ConfigFileNotFoundException',
+          () async {
+        getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        expect(
+          () => service.resolveConfigFile(path: customConfigFilePath),
+          throwsA(predicate(
+            (e) =>
+                e is ConfigFileNotFoundException &&
+                e.message == correctConfigPath &&
+                e.shouldHaltCommand == true,
+          )),
+        );
+      });
+
+      test(
+          'when called without config filepath should call fileExists on XDG_CONFIG_HOME',
           () async {
         final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.resolveConfigFile();
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(1);
+        verify(fileService.fileExists(filePath: xdgConfigFilePath));
       });
 
       test(
-          'when called without output path and config file is present on XDG_CONFIG_HOME path should call fileExists on fileService 2 times',
+          'when called without config filepath and file is present on XDG_CONFIG_HOME should return xdgConfigFilePath',
           () async {
-        final fileService = getAndRegisterFileService(retryUntilFileExists: 1);
+        getAndRegisterFileService();
         final service = _getService();
-        await service.resolveConfigFile();
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(2);
+        final path = await service.resolveConfigFile();
+        expect(path, xdgConfigFilePath);
       });
 
       test(
-          'when called without output path and config file is present on current path with deprecated filename should call fileExists on fileService 3 times',
+          'when called without config filepath and file is NOT present on XDG_CONFIG_HOME should return null',
           () async {
-        final fileService = getAndRegisterFileService(retryUntilFileExists: 2);
+        getAndRegisterFileService(fileExistsResult: false);
         final service = _getService();
-        await service.resolveConfigFile();
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(3);
-      });
-
-      test(
-          'when called with output path and without config file should call fileExists on fileService 4 times',
-          () async {
-        final fileService = getAndRegisterFileService(fileExistsResult: false);
-        final service = _getService();
-        await service.resolveConfigFile(path: 'output');
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(4);
-      });
-
-      test(
-          'when called with output path and without config file should call fileExists on fileService in priority order',
-          () async {
-        final fileService = getAndRegisterFileService(fileExistsResult: false);
-        final service = _getService();
-        await service.resolveConfigFile(path: 'output');
-        verifyInOrder([
-          fileService.fileExists(filePath: 'output/stacked.json'),
-          fileService.fileExists(filePath: 'stacked.json'),
-          fileService.fileExists(
-            filePath: '/Users/filledstacks/.config/stacked/stacked.json',
-          ),
-          fileService.fileExists(filePath: 'stacked.config.json'),
-        ]);
-      });
-
-      test(
-          'when called with output path and without config file should call fileExists on fileService 3 times',
-          () async {
-        final fileService = getAndRegisterFileService(fileExistsResult: false);
-        final service = _getService();
-        await service.resolveConfigFile();
-        verify(
-          fileService.fileExists(filePath: anyNamed('filePath')),
-        ).called(3);
-      });
-
-      test(
-          'when called without output path and without config file should call fileExists on fileService in priority order',
-          () async {
-        final fileService = getAndRegisterFileService(fileExistsResult: false);
-        final service = _getService();
-        await service.resolveConfigFile();
-        verifyInOrder([
-          fileService.fileExists(filePath: 'stacked.json'),
-          fileService.fileExists(
-            filePath: '/Users/filledstacks/.config/stacked/stacked.json',
-          ),
-          fileService.fileExists(filePath: 'stacked.config.json'),
-        ]);
-      });
-
-      test(
-          'when called without output path, without config file and HOME environment variable is not set'
-          'should NOT call fileExists on fileService for XDG_CONFIG_HOME directory',
-          () async {
-        getAndRegisterPathService(throwStateError: true);
-        final fileService = getAndRegisterFileService(fileExistsResult: false);
-        final service = _getService();
-        await service.resolveConfigFile();
-        verifyNever(fileService.fileExists(
-          filePath: '/Users/filledstacks/.config/stacked/stacked.json',
-        ));
+        final path = await service.resolveConfigFile();
+        expect(path, isNull);
       });
     });
 
     group('loadConfig -', () {
-      test('when called, should call fileExists on FileService', () async {
-        getAndRegisterFileService(readFileResult: '{}');
+      test(
+          'when called, should call fileExists on FileService for XDG_CONFIG_HOME',
+          () async {
+        final fileService = getAndRegisterFileService(readFileResult: '{}');
         final service = _getService();
         await service.loadConfig();
-        verify(service.resolveConfigFile());
+        verify(fileService.fileExists(filePath: xdgConfigFilePath));
       });
 
       test(
-          'when called with path, should call fileExists on FileService with path',
+          'when called with filepath, should call fileExists on FileService with filepath',
           () async {
-        getAndRegisterFileService(readFileResult: '{}');
+        final fileService = getAndRegisterFileService(readFileResult: '{}');
         final service = _getService();
-        await service.loadConfig(path: 'example');
-        verify(service.resolveConfigFile(path: 'example'));
+        await service.loadConfig(path: customConfigFilePath);
+        verify(fileService.fileExists(filePath: customConfigFilePath));
       });
 
       test(

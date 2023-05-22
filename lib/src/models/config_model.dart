@@ -17,17 +17,17 @@ class Config with _$Config {
     /// Path where bottom sheets will be genereated.
     @JsonKey(name: 'bottom_sheets_path')
     @Default('ui/bottom_sheets')
-        String bottomSheetsPath,
+    String bottomSheetsPath,
 
     /// File path where BottomSheetType enum values are located.
     @JsonKey(name: 'bottom_sheet_type_file_path')
     @Default('enums/bottom_sheet_type.dart')
-        String bottomSheetTypeFilePath,
+    String bottomSheetTypeFilePath,
 
     /// File path where BottomSheet builders are located.
     @JsonKey(name: 'bottom_sheet_builder_file_path')
     @Default('ui/setup/setup_bottom_sheet_ui.dart')
-        String bottomSheetBuilderFilePath,
+    String bottomSheetBuilderFilePath,
 
     /// Path where dialogs will be genereated.
     @JsonKey(name: 'dialogs_path') @Default('ui/dialogs') String dialogsPath,
@@ -35,33 +35,33 @@ class Config with _$Config {
     /// File path where DialogType enum values are located.
     @JsonKey(name: 'dialog_type_file_path')
     @Default('enums/dialog_type.dart')
-        String dialogTypeFilePath,
+    String dialogTypeFilePath,
 
     /// File path where Dialog builders are located.
     @JsonKey(name: 'dialog_builder_file_path')
     @Default('ui/setup/setup_dialog_ui.dart')
-        String dialogBuilderFilePath,
+    String dialogBuilderFilePath,
 
     /// File path where StackedApp is setup.
     @JsonKey(name: 'stacked_app_file_path')
     @Default('app/app.dart')
-        String stackedAppFilePath,
+    String stackedAppFilePath,
 
     /// File path where register functions for unit test setup and mock
     /// declarations are located.
     @JsonKey(name: 'test_helpers_file_path')
     @Default('helpers/test_helpers.dart')
-        String testHelpersFilePath,
+    String testHelpersFilePath,
 
     /// Paths where services unit tests will be genereated.
     @JsonKey(name: 'test_services_path')
     @Default('services')
-        String testServicesPath,
+    String testServicesPath,
 
     /// Path where viewmodels unit tests will be genereated.
     @JsonKey(name: 'test_views_path')
     @Default('viewmodels')
-        String testViewsPath,
+    String testViewsPath,
 
     /// The name of the locator to use when registering test mocks
     @JsonKey(name: 'locator_name') @Default('locator') String locatorName,
@@ -71,7 +71,7 @@ class Config with _$Config {
     /// This is used when creating a test file during the `create service` command
     @JsonKey(name: 'register_mocks_function')
     @Default('registerServices')
-        String registerMocksFunction,
+    String registerMocksFunction,
 
     /// Boolean value to determine view builder style
     ///

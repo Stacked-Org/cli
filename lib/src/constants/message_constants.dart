@@ -44,6 +44,9 @@ const String kCommandHelpLineLength =
 const String kCommandHelpCreateAppTemplate =
     'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first';
 
+const String kCommandHelpCreateAppConfigFile =
+    'Sets the file path for the custom config';
+
 const String kCommandHelpCreateViewTemplate =
     'Selects the type of view to create instead of the default empty view';
 
@@ -57,10 +60,13 @@ const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 
 const String kConfigFileNotFound =
-    'No stacked.json file found. Default stacked values will be used.';
+    'No configuration file found. Default Stacked values will be used.';
+
+const String kConfigFileNotFoundRetry =
+    'No configuration file found. Please, correct the config path passed as argument.';
 
 const String kConfigFileMalformed =
-    'Your stacked.json is malformed. Double check to make sure you have properly formatted json.';
+    'Your configuration file is malformed. Double check to make sure you have properly formatted json.';
 
 const String kDeprecatedConfigFileName = '''
 Stacked config file should be renamed from "stacked.config.json" to "stacked.json". Stacked cli will not read "stacked.config.json" files after the next minor release.

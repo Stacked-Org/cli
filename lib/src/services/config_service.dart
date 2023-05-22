@@ -134,7 +134,7 @@ class ConfigService {
     return null;
   }
 
-  /// Reads configuration file and set data to [_customConfig] map.
+  /// Reads configuration file and sets data to [_customConfig] map.
   Future<void> loadConfig({String? path}) async {
     try {
       final configPath = await resolveConfigFile(path: path);
@@ -243,5 +243,10 @@ class ConfigService {
     }
 
     return fileToImport;
+  }
+
+  /// Exports custom config as a formatted Json String.
+  String exportConfig() {
+    return JsonEncoder.withIndent("    ").convert(_customConfig.toJson());
   }
 }
