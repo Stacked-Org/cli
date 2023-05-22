@@ -1,6 +1,7 @@
 class ConfigFileNotFoundException implements Exception {
   final String message;
-  ConfigFileNotFoundException(this.message);
+  final bool shouldHaltCommand;
+  ConfigFileNotFoundException(this.message, {this.shouldHaltCommand = false});
 
   @override
   String toString() {

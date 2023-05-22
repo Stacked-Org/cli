@@ -106,36 +106,29 @@ class ConfigService {
   /// returned. Otherwise, null is returned.
   ///
   /// Locations sorted by priority.
-  ///   - $path/stacked.json
-  ///   - stacked.json
+  ///   - $path
   ///   - $XDG_CONFIG_HOME/stacked/stacked.json
-  ///   - stacked.config.json (deprecated config filename, only for backwards compatibility)
   @visibleForTesting
   Future<String?> resolveConfigFile({String? path}) async {
     if (path != null) {
-      if (await _fileService.fileExists(filePath: '$path/$kConfigFileName')) {
-        return '$path/$kConfigFileName';
+      if (await _fileService.fileExists(filePath: path)) {
+        return path;
       }
-    }
 
-    if (await _fileService.fileExists(filePath: kConfigFileName)) {
-      return kConfigFileName;
+      throw ConfigFileNotFoundException(
+        kConfigFileNotFoundRetry,
+        shouldHaltCommand: true,
+      );
     }
 
     try {
       if (await _fileService.fileExists(
-        filePath: '${_pathService.configHome.path}/stacked/stacked.json',
+        filePath: '${_pathService.configHome.path}/stacked/$kConfigFileName',
       )) {
-        return '${_pathService.configHome.path}/stacked/stacked.json';
+        return '${_pathService.configHome.path}/stacked/$kConfigFileName';
       }
     } on StateError catch (_) {
       // This error is Thrown when HOME environment variable is not set.
-    }
-
-    // This is only for backwards compatibility, will be removed on next release
-    if (await _fileService.fileExists(filePath: 'stacked.config.json')) {
-      _log.warn(message: kDeprecatedConfigFileName);
-      return 'stacked.config.json';
     }
 
     return null;
@@ -154,6 +147,8 @@ class ConfigService {
       _hasCustomConfig = true;
       _sanitizeCustomConfig();
     } on ConfigFileNotFoundException catch (e, s) {
+      if (e.shouldHaltCommand) rethrow;
+
       _log.warn(message: e.message);
       _analyticsService.logExceptionEvent(
         level: Level.warning,
