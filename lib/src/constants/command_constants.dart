@@ -27,6 +27,7 @@ const String ksActivate = 'activate';
 const String ksStackedCli = 'stacked_cli';
 const String ksAnalyze = 'analyze';
 const String ksModel = 'model';
+const String ksConfigPath = 'config-path';
 const String ksWatch = 'watch';
 
 /// A list of strings that are used to run the run build_runner

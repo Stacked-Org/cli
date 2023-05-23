@@ -161,6 +161,10 @@ MockConfigService getAndRegisterConfigService({
     (invocation) => customPath ?? invocation.positionalArguments[0],
   );
 
+  when(service.resolveConfigFile(path: anyNamed('path'))).thenAnswer(
+    (invocation) => customPath ?? invocation.namedArguments[0],
+  );
+
   locator.registerSingleton<ConfigService>(service);
   return service;
 }

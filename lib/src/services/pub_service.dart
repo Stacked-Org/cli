@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:pub_updater/pub_updater.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
+import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 
 import 'process_service.dart';
@@ -14,7 +15,7 @@ class PubService {
 
   /// Returns current `stacked_cli` version installed on the system.
   Future<String> getCurrentVersion() async {
-    String version = 'Current Version Not Available';
+    String version = currentVersionNotAvailable;
 
     final packages = await _processService.runPubGlobalList();
     for (var package in packages) {
@@ -36,6 +37,10 @@ class PubService {
   /// installed on the system.
   Future<bool> hasLatestVersion() async {
     final currentVersion = await getCurrentVersion();
+    if (currentVersion == currentVersionNotAvailable) {
+      await update();
+      return true;
+    }
 
     return await _pubUpdater.isUpToDate(
       packageName: ksStackedCli,
