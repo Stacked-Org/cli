@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/Stacked-Org/cli/compare/v1.8.1...v1.8.2) (2023-05-23)
+
+
+### Bug Fixes
+
+* unnecessary escape in string literal ([#22](https://github.com/Stacked-Org/cli/issues/22)) ([58e465e](https://github.com/Stacked-Org/cli/commit/58e465efad42db34d631b6c9461d2681d8096221))
+
 ## [1.8.1](https://github.com/Stacked-Org/cli/compare/v1.8.0...v1.8.1) (2023-05-23)
 
 
