@@ -9,6 +9,7 @@ const String ksGet = 'get';
 const String ksFormat = 'format';
 const String ksBuild = 'build';
 const String ksBuildRunner = 'build_runner';
+const String ksDeleteConflictOutputs = 'delete-conflicting-outputs';
 const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
 const String ksVersion = 'version';
 const String ksEnableAnalytics = 'enable-analytics';
@@ -27,14 +28,13 @@ const String ksStackedCli = 'stacked_cli';
 const String ksAnalyze = 'analyze';
 const String ksModel = 'model';
 const String ksConfigPath = 'config-path';
+const String ksWatch = 'watch';
 
-/// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
+/// A list of strings that are used to run the run build_runner
+/// [build or watch] --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [
-  ksPub,
   ksRun,
   ksBuildRunner,
-  ksBuild,
-  ksDeleteConflictingOutputs,
 ];
 
 /// A list of strings that are used to run the pub get command.

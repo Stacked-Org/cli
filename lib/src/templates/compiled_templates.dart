@@ -1875,7 +1875,7 @@ const String kAppWebTemplateSettingsJsonStkContent = '''
 {
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-        "*.dart": "\$\{capture}.mobile.dart, \$\{capture}.tablet.dart, \$\{capture}.desktop.dart, \$\{capture}.form.dart, \$\{capture}.g.dart, \$\{capture}.freezed.dart, \$\{capture}.logger.dart, \$\{capture}.locator.dart, \$\{capture}.router.dart, \$\{capture}.dialogs.dart, \$\{capture}.bottomsheets.dart"
+        "*.dart": "\${capture}.mobile.dart, \${capture}.tablet.dart, \${capture}.desktop.dart, \${capture}.form.dart, \${capture}.g.dart, \${capture}.freezed.dart, \${capture}.logger.dart, \${capture}.locator.dart, \${capture}.router.dart, \${capture}.dialogs.dart, \${capture}.bottomsheets.dart"
     }
 }
 
@@ -3060,7 +3060,7 @@ const String kAppMobileTemplateSettingsJsonStkContent = '''
 {
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-        "*.dart": "\$\{capture}.mobile.dart, \$\{capture}.tablet.dart, \$\{capture}.desktop.dart, \$\{capture}.form.dart, \$\{capture}.g.dart, \$\{capture}.freezed.dart, \$\{capture}.logger.dart, \$\{capture}.locator.dart, \$\{capture}.router.dart, \$\{capture}.dialogs.dart, \$\{capture}.bottomsheets.dart"
+        "*.dart": "\${capture}.mobile.dart, \${capture}.tablet.dart, \${capture}.desktop.dart, \${capture}.form.dart, \${capture}.g.dart, \${capture}.freezed.dart, \${capture}.logger.dart, \${capture}.locator.dart, \${capture}.router.dart, \${capture}.dialogs.dart, \${capture}.bottomsheets.dart"
     }
 }
 

@@ -1090,11 +1090,20 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> runBuildRunner({String? appName}) => (super.noSuchMethod(
+  _i6.Future<void> runBuildRunner({
+    String? appName,
+    bool? shouldWatch = false,
+    bool? shouldDeleteConflictingOutputs = true,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #runBuildRunner,
           [],
-          {#appName: appName},
+          {
+            #appName: appName,
+            #shouldWatch: shouldWatch,
+            #shouldDeleteConflictingOutputs: shouldDeleteConflictingOutputs,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
