@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/Stacked-Org/cli/compare/v1.8.0...v1.8.1) (2023-05-23)
+
+
+### Bug Fixes
+
+* custom config not copied to target created project ([#21](https://github.com/Stacked-Org/cli/issues/21)) ([71a40a6](https://github.com/Stacked-Org/cli/commit/71a40a6cbc1100e691856acc9de52fbdde7ef50e))
+
 # [1.8.0](https://github.com/Stacked-Org/cli/compare/v1.7.3...v1.8.0) (2023-05-23)
 
 

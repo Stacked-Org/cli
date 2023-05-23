@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
+import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
@@ -10,6 +12,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
   final _cLog = locator<ColorizedLogService>();
@@ -24,7 +27,7 @@ class CreateAppCommand extends Command {
       'Creates a stacked application with all the basics setup';
 
   @override
-  String get name => 'app';
+  String get name => kTemplateNameApp;
 
   CreateAppCommand() {
     argParser.addFlag(
@@ -50,34 +53,46 @@ class CreateAppCommand extends Command {
       defaultsTo: 'mobile',
       help: kCommandHelpCreateAppTemplate,
     );
+
+    argParser.addOption(
+      ksConfigPath,
+      abbr: 'c',
+      help: kCommandHelpCreateAppConfigFile,
+    );
   }
 
   @override
   Future<void> run() async {
-    await _configService.loadConfig();
-    final appName = argResults!.rest.first;
-    final appNameWithoutPath = appName.split('/').last;
-    final templateType = argResults![ksTemplateType];
+    try {
+      await _configService.loadConfig(path: argResults![ksConfigPath]);
 
-    unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
-    _processService.formattingLineLength = argResults![ksLineLength];
-    await _processService.runCreateApp(appName: appName);
+      final appName = argResults!.rest.first;
+      final appNameWithoutPath = appName.split('/').last;
+      final templateType = argResults![ksTemplateType];
 
-    _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
+      unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
+      _processService.formattingLineLength = argResults![ksLineLength];
+      await _processService.runCreateApp(appName: appName);
 
-    await _templateService.renderTemplate(
-      templateName: name,
-      name: appNameWithoutPath,
-      verbose: true,
-      outputPath: appName,
-      useBuilder: argResults![ksV1] ?? _configService.v1,
-      templateType: templateType,
-    );
+      _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
-    await _processService.runPubGet(appName: appName);
-    await _processService.runBuildRunner(appName: appName);
-    await _processService.runFormat(appName: appName);
-    await _clean(appName: appName);
+      await _templateService.renderTemplate(
+        templateName: name,
+        name: appNameWithoutPath,
+        verbose: true,
+        outputPath: appName,
+        useBuilder: argResults![ksV1] ?? _configService.v1,
+        templateType: templateType,
+      );
+
+      _replaceConfigFile(appName: appName);
+      await _processService.runPubGet(appName: appName);
+      await _processService.runBuildRunner(appName: appName);
+      await _processService.runFormat(appName: appName);
+      await _clean(appName: appName);
+    } catch (e) {
+      _cLog.warn(message: e.toString());
+    }
   }
 
   /// Cleans the project.
@@ -108,5 +123,16 @@ class CreateAppCommand extends Command {
     }
 
     _cLog.stackedOutput(message: 'Project cleaned.');
+  }
+
+  /// Replaces configuration file in the project created.
+  ///
+  /// If has NO custom config, does nothing.
+  void _replaceConfigFile({required String appName}) {
+    if (!_configService.hasCustomConfig) return;
+
+    File('$appName/$kConfigFileName').writeAsStringSync(
+      _configService.exportConfig(),
+    );
   }
 }

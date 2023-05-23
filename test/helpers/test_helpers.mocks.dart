@@ -1055,6 +1055,15 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+  @override
+  String exportConfig() => (super.noSuchMethod(
+        Invocation.method(
+          #exportConfig,
+          [],
+        ),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
 }
 
 /// A class which mocks [ProcessService].
