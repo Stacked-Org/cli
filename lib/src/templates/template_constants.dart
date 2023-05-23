@@ -4,6 +4,7 @@ const String kTemplateNameService = 'service';
 const String kTemplateNameApp = 'app';
 const String kTemplateNameBottomSheet = 'bottom_sheet';
 const String kTemplateNameDialog = 'dialog';
+const String kTemplateNameGenerate = 'generate';
 
 // ------- Template Types --------
 const String kTemplateTypeEmpty = 'empty';

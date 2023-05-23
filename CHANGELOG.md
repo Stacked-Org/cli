@@ -1,3 +1,17 @@
+# [1.8.0](https://github.com/Stacked-Org/cli/compare/v1.7.3...v1.8.0) (2023-05-23)
+
+
+### Features
+
+* add watch argument to generate command ([#20](https://github.com/Stacked-Org/cli/issues/20)) ([ccbd585](https://github.com/Stacked-Org/cli/commit/ccbd5854fd835430649ade4e09b76b8bfb8555ff))
+
+## [1.7.3](https://github.com/Stacked-Org/cli/compare/v1.7.2...v1.7.3) (2023-05-18)
+
+
+### Bug Fixes
+
+* Bump environment constraints to <4 ([286a76a](https://github.com/Stacked-Org/cli/commit/286a76abcfee1eb5059a6ebff2c92d22f9ac6e71))
+
 ## [1.7.2](https://github.com/Stacked-Org/cli/compare/v1.7.1...v1.7.2) (2023-05-12)
 
 
