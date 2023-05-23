@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/Stacked-Org/cli/compare/v1.7.3...v1.8.0) (2023-05-23)
+
+
+### Features
+
+* add watch argument to generate command ([#20](https://github.com/Stacked-Org/cli/issues/20)) ([ccbd585](https://github.com/Stacked-Org/cli/commit/ccbd5854fd835430649ade4e09b76b8bfb8555ff))
+
 ## [1.7.3](https://github.com/Stacked-Org/cli/compare/v1.7.2...v1.7.3) (2023-05-18)
 
 
