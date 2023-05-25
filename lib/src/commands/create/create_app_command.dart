@@ -105,10 +105,14 @@ class CreateAppCommand extends Command {
     _log.stackedOutput(message: 'Cleaning project...');
 
     // Removes `widget_test` file to avoid failing unit tests on created app
-    await _fileService.deleteFile(
+    if (await _fileService.fileExists(
       filePath: '$appName/test/widget_test.dart',
-      verbose: false,
-    );
+    )) {
+      await _fileService.deleteFile(
+        filePath: '$appName/test/widget_test.dart',
+        verbose: false,
+      );
+    }
 
     // Analyze the project and return output lines
     final issues = await _processService.runAnalyze(appName: appName);
