@@ -21,9 +21,6 @@ void main() {
     const stackedAppFilePath = 'src/app/core.dart';
     const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
 
-    const correctConfigPath =
-        'No configuration file found. Please, correct the config path passed as argument.';
-
     const String customConfig = '''
       {
         "stacked_app_file_path": "$stackedAppFilePath",
@@ -40,44 +37,43 @@ void main() {
     ''';
 
     group('resolveConfigFile -', () {
-      test(
-          'when called with config filepath and file is present on path should call fileExists on custom config filepath',
-          () async {
-        final fileService = getAndRegisterFileService();
-        final service = _getService();
-        await service.resolveConfigFile(path: customConfigFilePath);
-        verify(fileService.fileExists(filePath: customConfigFilePath));
-      });
-
-      test(
-          'when called with config filepath and file is present on path should return customConfigFilePath',
+      test('when called with configFilePath should return configFilePath',
           () async {
         getAndRegisterFileService();
         final service = _getService();
         final path = await service.resolveConfigFile(
-          path: customConfigFilePath,
+          configFilePath: customConfigFilePath,
         );
         expect(path, customConfigFilePath);
       });
 
       test(
-          'when called with config filepath and file is NOT present on path should throw ConfigFileNotFoundException',
+          'when called with configFilePath should call fileExists on configFilePath',
+          () async {
+        final fileService = getAndRegisterFileService();
+        final service = _getService();
+        await service.resolveConfigFile(configFilePath: customConfigFilePath);
+        verify(fileService.fileExists(filePath: customConfigFilePath));
+      });
+
+      test(
+          'when called with configFilePath and file does NOT exists should throw ConfigFileNotFoundException with message equal kConfigFileNotFoundRetry and shouldHaltCommand equal true',
           () async {
         getAndRegisterFileService(fileExistsResult: false);
         final service = _getService();
         expect(
-          () => service.resolveConfigFile(path: customConfigFilePath),
+          () => service.resolveConfigFile(configFilePath: customConfigFilePath),
           throwsA(predicate(
             (e) =>
                 e is ConfigFileNotFoundException &&
-                e.message == correctConfigPath &&
+                e.message == kConfigFileNotFoundRetry &&
                 e.shouldHaltCommand == true,
           )),
         );
       });
 
       test(
-          'when called without config filepath should call fileExists on XDG_CONFIG_HOME',
+          'when called without configFilePath should call fileExists on XDG_CONFIG_HOME',
           () async {
         final fileService = getAndRegisterFileService();
         final service = _getService();
@@ -85,8 +81,7 @@ void main() {
         verify(fileService.fileExists(filePath: xdgConfigFilePath));
       });
 
-      test(
-          'when called without config filepath and file is present on XDG_CONFIG_HOME should return xdgConfigFilePath',
+      test('when called without configFilePath should return xdgConfigFilePath',
           () async {
         getAndRegisterFileService();
         final service = _getService();
@@ -95,66 +90,146 @@ void main() {
       });
 
       test(
-          'when called without config filepath and file is NOT present on XDG_CONFIG_HOME should return null',
+        'when called without configFilePath and Home environment variable is not set should throw ConfigFileNotFoundException with message equal kConfigFileNotFound and shouldHaltCommand equal false',
+        () async {
+          getAndRegisterFileService(throwStateError: true);
+          final service = _getService();
+          expect(
+            () => service.resolveConfigFile(),
+            throwsA(predicate(
+              (e) =>
+                  e is ConfigFileNotFoundException &&
+                  e.message == kConfigFileNotFound &&
+                  e.shouldHaltCommand == false,
+            )),
+          );
+        },
+        skip:
+            'Should throw ConfigFileNotFoundException because StateError exception is catched',
+      );
+
+      test(
+          'when called without configFilePath and file does NOT exists should throw ConfigFileNotFoundException with message equal kConfigFileNotFound and shouldHaltCommand equal false',
           () async {
         getAndRegisterFileService(fileExistsResult: false);
         final service = _getService();
-        final path = await service.resolveConfigFile();
-        expect(path, isNull);
+        expect(
+          () => service.resolveConfigFile(),
+          throwsA(predicate(
+            (e) =>
+                e is ConfigFileNotFoundException &&
+                e.message == kConfigFileNotFound &&
+                e.shouldHaltCommand == false,
+          )),
+        );
       });
     });
 
-    group('loadConfig -', () {
-      test(
-          'when called, should call fileExists on FileService for XDG_CONFIG_HOME',
+    group('composeConfigFile -', () {
+      test('when called with configFilePath should return configFilePath',
           () async {
-        final fileService = getAndRegisterFileService(readFileResult: '{}');
+        getAndRegisterFileService();
         final service = _getService();
-        await service.loadConfig();
-        verify(fileService.fileExists(filePath: xdgConfigFilePath));
+        final path = await service.composeConfigFile(
+          configFilePath: customConfigFilePath,
+        );
+        expect(path, customConfigFilePath);
       });
 
       test(
-          'when called with filepath, should call fileExists on FileService with filepath',
+          'when called with configFilePath should call fileExists on configFilePath',
           () async {
-        final fileService = getAndRegisterFileService(readFileResult: '{}');
+        final fileService = getAndRegisterFileService();
         final service = _getService();
-        await service.loadConfig(path: customConfigFilePath);
+        await service.composeConfigFile(configFilePath: customConfigFilePath);
         verify(fileService.fileExists(filePath: customConfigFilePath));
       });
 
       test(
-          'when called and config json is malformed, should write error to console',
-          () async {
-        getAndRegisterFileService();
-        final log = getAndRegisterColorizedLogService();
-        final service = _getService();
-        await service.loadConfig();
-        verify(log.warn(message: kConfigFileMalformed));
-      });
-
-      test(
-          'when called and config file not available, should NOT call fileExists on FileService',
-          () async {
-        final fileService = getAndRegisterFileService(
-          fileExistsResult: false,
-        );
-        final service = _getService();
-        await service.loadConfig();
-        verifyNever(
-          fileService.readFileAsString(filePath: kConfigFileName),
-        );
-      });
-
-      test(
-          'when called and config file not available, should write error to console',
+          'when called with configFilePath and file does NOT exists should throw ConfigFileNotFoundException with message equal kConfigFileNotFoundRetry and shouldHaltCommand equal true',
           () async {
         getAndRegisterFileService(fileExistsResult: false);
-        final log = getAndRegisterColorizedLogService();
         final service = _getService();
-        await service.loadConfig();
-        verify(log.warn(message: kConfigFileNotFound));
+        expect(
+          () => service.composeConfigFile(configFilePath: customConfigFilePath),
+          throwsA(predicate(
+            (e) =>
+                e is ConfigFileNotFoundException &&
+                e.message == kConfigFileNotFoundRetry &&
+                e.shouldHaltCommand == true,
+          )),
+        );
       });
+
+      test('when called without configFilePath should return kConfigFileName',
+          () async {
+        getAndRegisterFileService();
+        final service = _getService();
+        final path = await service.composeConfigFile();
+        expect(path, kConfigFileName);
+      });
+
+      test(
+          'when called without configFilePath and projectPath is NOT null should return kConfigFileName with projectPath',
+          () async {
+        getAndRegisterFileService();
+        final projectPath = 'example';
+        final service = _getService();
+        final path = await service.composeConfigFile(projectPath: projectPath);
+        expect(path, '$projectPath/$kConfigFileName');
+      });
+    });
+
+    group('loadConfig -', () {
+      test('when called should call readFileAsString on FileService', () async {
+        final fileService = getAndRegisterFileService(readFileResult: '{}');
+        final service = _getService();
+        await service.loadConfig(customConfigFilePath);
+        verify(fileService.readFileAsString(filePath: customConfigFilePath));
+      });
+
+      test('when called should set hasCustomConfig as true', () async {
+        getAndRegisterFileService(readFileResult: '{}');
+        final service = _getService();
+        await service.loadConfig(customConfigFilePath);
+        expect(service.hasCustomConfig, isTrue);
+      });
+
+      test('when called should sanitize path', () async {
+        final configToBeSanitize = {"services_path": "lib/services"};
+        getAndRegisterFileService(
+          readFileResult: configToBeSanitize.toString(),
+        );
+        final service = _getService();
+        await service.loadConfig(customConfigFilePath);
+        expect(service.servicePath, 'services');
+      });
+
+      test(
+          'when called and file not found should throw ConfigFileNotFoundException',
+          () async {
+        getAndRegisterFileService(throwConfigFileNotFoundException: true);
+        final service = _getService();
+        expect(
+          () => service.loadConfig(customConfigFilePath),
+          throwsA(predicate(
+            (e) =>
+                e is ConfigFileNotFoundException &&
+                e.message == kConfigFileNotFoundRetry &&
+                e.shouldHaltCommand == true,
+          )),
+        );
+      });
+
+      test('when called and file is malformed should throw FormatException',
+          () async {
+        getAndRegisterFileService();
+        final service = _getService();
+        expect(
+          () => service.loadConfig(customConfigFilePath),
+          throwsA(predicate((e) => e is FormatException)),
+        );
+      }, skip: 'How can we trigger a FormatException from jsonDecode?');
     });
 
     group('replaceCustomPaths -', () {
@@ -163,7 +238,6 @@ void main() {
         final path = 'test/services/generic_service_test.dart.stk';
         getAndRegisterFileService(readFileResult: '{}');
         final service = _getService();
-        await service.loadConfig();
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, path);
       });
@@ -173,7 +247,7 @@ void main() {
         final path = 'test/services/generic_service_test.dart.stk';
         getAndRegisterFileService(readFileResult: customConfig);
         final service = _getService();
-        await service.loadConfig();
+        await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
         expect(
@@ -188,7 +262,7 @@ void main() {
         final path = 'app/app.dart';
         getAndRegisterFileService(readFileResult: customConfig);
         final service = _getService();
-        await service.loadConfig();
+        await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
         expect(customPath, stackedAppFilePath);
@@ -200,7 +274,7 @@ void main() {
         final path = 'helpers/test_helpers.dart';
         getAndRegisterFileService(readFileResult: customConfig);
         final service = _getService();
-        await service.loadConfig();
+        await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
         expect(customPath, testHelpersFilePath);

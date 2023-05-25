@@ -1002,21 +1002,66 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  _i6.Future<String?> resolveConfigFile({String? path}) => (super.noSuchMethod(
+  _i6.Future<void> findAndLoadConfigFile({String? configFilePath}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #findAndLoadConfigFile,
+          [],
+          {#configFilePath: configFilePath},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> composeAndLoadConfigFile({
+    String? configFilePath,
+    String? projectPath,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #composeAndLoadConfigFile,
+          [],
+          {
+            #configFilePath: configFilePath,
+            #projectPath: projectPath,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<String> resolveConfigFile({String? configFilePath}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #resolveConfigFile,
           [],
-          {#path: path},
+          {#configFilePath: configFilePath},
         ),
-        returnValue: _i6.Future<String?>.value(),
-        returnValueForMissingStub: _i6.Future<String?>.value(),
-      ) as _i6.Future<String?>);
+        returnValue: _i6.Future<String>.value(''),
+        returnValueForMissingStub: _i6.Future<String>.value(''),
+      ) as _i6.Future<String>);
   @override
-  _i6.Future<void> loadConfig({String? path}) => (super.noSuchMethod(
+  _i6.Future<String> composeConfigFile({
+    String? configFilePath,
+    String? projectPath,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #composeConfigFile,
+          [],
+          {
+            #configFilePath: configFilePath,
+            #projectPath: projectPath,
+          },
+        ),
+        returnValue: _i6.Future<String>.value(''),
+        returnValueForMissingStub: _i6.Future<String>.value(''),
+      ) as _i6.Future<String>);
+  @override
+  _i6.Future<void> loadConfig(String? configFilePath) => (super.noSuchMethod(
         Invocation.method(
           #loadConfig,
-          [],
-          {#path: path},
+          [configFilePath],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),

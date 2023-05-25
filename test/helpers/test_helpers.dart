@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:stacked_cli/src/constants/message_constants.dart';
+import 'package:stacked_cli/src/exceptions/config_file_not_found_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
@@ -37,6 +39,8 @@ MockFileService getAndRegisterFileService({
   int retryUntilFileExists = 0,
   String readFileResult = 'file_content',
   List<FileSystemEntity> getFilesInDirectoryResult = const [],
+  bool throwStateError = false,
+  bool throwConfigFileNotFoundException = false,
 }) {
   _removeRegistrationIfExists<FileService>();
   final service = MockFileService();
@@ -49,11 +53,25 @@ MockFileService getAndRegisterFileService({
       return Future.value(false);
     }
 
+    if (throwStateError) {
+      throw StateError;
+    }
+
     return Future.value(fileExistsResult);
   });
 
-  when(service.readFileAsString(filePath: anyNamed('filePath')))
-      .thenAnswer((realInvocation) => Future.value(readFileResult));
+  when(service.readFileAsString(filePath: anyNamed('filePath'))).thenAnswer((
+    realInvocation,
+  ) {
+    if (throwConfigFileNotFoundException) {
+      throw ConfigFileNotFoundException(
+        kConfigFileNotFoundRetry,
+        shouldHaltCommand: true,
+      );
+    }
+
+    return Future.value(readFileResult);
+  });
 
   when(service.getFilesInDirectory(directoryPath: anyNamed('directoryPath')))
       .thenAnswer((realInvocation) => Future.value(getFilesInDirectoryResult));
@@ -161,7 +179,9 @@ MockConfigService getAndRegisterConfigService({
     (invocation) => customPath ?? invocation.positionalArguments[0],
   );
 
-  when(service.resolveConfigFile(path: anyNamed('path'))).thenAnswer(
+  when(service.resolveConfigFile(
+    configFilePath: anyNamed('configFilePath'),
+  )).thenAnswer(
     (invocation) => customPath ?? invocation.namedArguments[0],
   );
 

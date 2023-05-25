@@ -15,7 +15,7 @@ import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
-  final _cLog = locator<ColorizedLogService>();
+  final _log = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
   final _processService = locator<ProcessService>();
@@ -57,14 +57,16 @@ class CreateAppCommand extends Command {
     argParser.addOption(
       ksConfigPath,
       abbr: 'c',
-      help: kCommandHelpCreateAppConfigFile,
+      help: kCommandHelpConfigFilePath,
     );
   }
 
   @override
   Future<void> run() async {
     try {
-      await _configService.loadConfig(path: argResults![ksConfigPath]);
+      await _configService.findAndLoadConfigFile(
+        configFilePath: argResults![ksConfigPath],
+      );
 
       final appName = argResults!.rest.first;
       final appNameWithoutPath = appName.split('/').last;
@@ -74,7 +76,7 @@ class CreateAppCommand extends Command {
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(appName: appName);
 
-      _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
+      _log.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
       await _templateService.renderTemplate(
         templateName: name,
@@ -91,7 +93,7 @@ class CreateAppCommand extends Command {
       await _processService.runFormat(appName: appName);
       await _clean(appName: appName);
     } catch (e) {
-      _cLog.warn(message: e.toString());
+      _log.warn(message: e.toString());
     }
   }
 
@@ -100,13 +102,17 @@ class CreateAppCommand extends Command {
   ///   - Deletes widget_test.dart file
   ///   - Removes unused imports
   Future<void> _clean({required String appName}) async {
-    _cLog.stackedOutput(message: 'Cleaning project...');
+    _log.stackedOutput(message: 'Cleaning project...');
 
     // Removes `widget_test` file to avoid failing unit tests on created app
-    await _fileService.deleteFile(
+    if (await _fileService.fileExists(
       filePath: '$appName/test/widget_test.dart',
-      verbose: false,
-    );
+    )) {
+      await _fileService.deleteFile(
+        filePath: '$appName/test/widget_test.dart',
+        verbose: false,
+      );
+    }
 
     // Analyze the project and return output lines
     final issues = await _processService.runAnalyze(appName: appName);
@@ -122,7 +128,7 @@ class CreateAppCommand extends Command {
       );
     }
 
-    _cLog.stackedOutput(message: 'Project cleaned.');
+    _log.stackedOutput(message: 'Project cleaned.');
   }
 
   /// Replaces configuration file in the project created.
