@@ -44,7 +44,7 @@ const String kCommandHelpLineLength =
 const String kCommandHelpCreateAppTemplate =
     'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first';
 
-const String kCommandHelpCreateAppConfigFile =
+const String kCommandHelpConfigFilePath =
     'Sets the file path for the custom config';
 
 const String kCommandHelpCreateViewTemplate =
@@ -69,7 +69,7 @@ const String kConfigFileNotFound =
     'No configuration file found. Default Stacked values will be used.';
 
 const String kConfigFileNotFoundRetry =
-    'No configuration file found. Please, correct the config path passed as argument.';
+    'No configuration file found. Please, verify the config path passed as argument.';
 
 const String kConfigFileMalformed =
     'Your configuration file is malformed. Double check to make sure you have properly formatted json.';

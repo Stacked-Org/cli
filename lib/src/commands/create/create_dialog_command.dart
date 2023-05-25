@@ -6,6 +6,7 @@ import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
+import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
@@ -13,6 +14,7 @@ import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateDialogCommand extends Command with ProjectStructureValidator {
+  final _log = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
   final _processService = locator<ProcessService>();
   final _pubspecService = locator<PubspecService>();
@@ -53,29 +55,43 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       defaultsTo: 'empty',
       help: kCommandHelpCreateDialogTemplate,
     );
+
+    argParser.addOption(
+      ksConfigPath,
+      abbr: 'c',
+      help: kCommandHelpConfigFilePath,
+    );
   }
 
   @override
   Future<void> run() async {
-    final dialogName = argResults!.rest.first;
-    final templateType = argResults![ksTemplateType];
-    unawaited(_analyticsService.createDialogEvent(name: dialogName));
-    final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-    await _configService.loadConfig(path: outputPath);
-    _processService.formattingLineLength = argResults![ksLineLength];
-    await _pubspecService.initialise(workingDirectory: outputPath);
-    await validateStructure(outputPath: outputPath);
+    try {
+      final dialogName = argResults!.rest.first;
+      final templateType = argResults![ksTemplateType];
+      unawaited(_analyticsService.createDialogEvent(name: dialogName));
+      final outputPath =
+          argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+      await _configService.composeAndLoadConfigFile(
+        configFilePath: argResults![ksConfigPath],
+        projectPath: outputPath,
+      );
+      _processService.formattingLineLength = argResults![ksLineLength];
+      await _pubspecService.initialise(workingDirectory: outputPath);
+      await validateStructure(outputPath: outputPath);
 
-    await _templateService.renderTemplate(
-      templateName: name,
-      name: dialogName,
-      outputPath: outputPath,
-      verbose: true,
-      excludeRoute: argResults![ksExcludeRoute],
-      hasModel: argResults![ksModel],
-      templateType: templateType,
-    );
+      await _templateService.renderTemplate(
+        templateName: name,
+        name: dialogName,
+        outputPath: outputPath,
+        verbose: true,
+        excludeRoute: argResults![ksExcludeRoute],
+        hasModel: argResults![ksModel],
+        templateType: templateType,
+      );
 
-    await _processService.runBuildRunner(appName: outputPath);
+      await _processService.runBuildRunner(appName: outputPath);
+    } catch (e) {
+      _log.warn(message: e.toString());
+    }
   }
 }

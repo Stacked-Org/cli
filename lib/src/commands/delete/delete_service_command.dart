@@ -41,6 +41,12 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       help: 'The length of the line that is used for formatting',
       valueHelp: '80',
     );
+
+    argParser.addOption(
+      ksConfigPath,
+      abbr: 'c',
+      help: kCommandHelpConfigFilePath,
+    );
   }
 
   @override
@@ -49,7 +55,10 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       name: argResults!.rest.first,
     ));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-    await _configService.loadConfig(path: outputPath);
+    await _configService.composeAndLoadConfigFile(
+      configFilePath: argResults![ksConfigPath],
+      projectPath: outputPath,
+    );
     _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
@@ -105,8 +114,9 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
-        filePath: filePath,
-        removedContent: argResults!.rest.first,
-        type: kTemplateNameService);
+      filePath: filePath,
+      removedContent: argResults!.rest.first,
+      type: kTemplateNameService,
+    );
   }
 }

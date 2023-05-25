@@ -1002,18 +1002,12 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  _i6.Future<void> findAndLoadConfigFile({
-    String? configFilePath,
-    String? projectPath,
-  }) =>
+  _i6.Future<void> findAndLoadConfigFile({String? configFilePath}) =>
       (super.noSuchMethod(
         Invocation.method(
           #findAndLoadConfigFile,
           [],
-          {
-            #configFilePath: configFilePath,
-            #projectPath: projectPath,
-          },
+          {#configFilePath: configFilePath},
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -1036,18 +1030,12 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<String> resolveConfigFile({
-    String? configFilePath,
-    String? projectPath,
-  }) =>
+  _i6.Future<String> resolveConfigFile({String? configFilePath}) =>
       (super.noSuchMethod(
         Invocation.method(
           #resolveConfigFile,
           [],
-          {
-            #configFilePath: configFilePath,
-            #projectPath: projectPath,
-          },
+          {#configFilePath: configFilePath},
         ),
         returnValue: _i6.Future<String>.value(''),
         returnValueForMissingStub: _i6.Future<String>.value(''),
