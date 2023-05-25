@@ -99,6 +99,73 @@ class ConfigService {
   /// Returns boolean to indicate if the project prefers web templates
   bool get preferWeb => _customConfig.preferWeb;
 
+  /// Finds configuration file and loads it into memory.
+  ///
+  /// Generally used when creating an app to determine the configuration to
+  /// export to the project.
+  Future<void> findAndLoadConfigFile({
+    String? configFilePath,
+  }) async {
+    try {
+      final configPath = await resolveConfigFile(
+        configFilePath: configFilePath,
+      );
+
+      await loadConfig(configPath);
+    } on ConfigFileNotFoundException catch (e, s) {
+      if (e.shouldHaltCommand) rethrow;
+
+      _log.warn(message: e.message);
+      _analyticsService.logExceptionEvent(
+        level: Level.warning,
+        runtimeType: e.runtimeType.toString(),
+        message: e.message,
+        stackTrace: s.toString(),
+      );
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      _analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      );
+    }
+  }
+
+  /// Composes configuration file and loads it into memory.
+  ///
+  /// Generally used to load the configuration file at root of the project.
+  Future<void> composeAndLoadConfigFile({
+    String? configFilePath,
+    String? projectPath,
+  }) async {
+    try {
+      final configPath = await composeConfigFile(
+        configFilePath: configFilePath,
+        projectPath: projectPath,
+      );
+
+      await loadConfig(configPath);
+    } on ConfigFileNotFoundException catch (e, s) {
+      if (e.shouldHaltCommand) rethrow;
+
+      _log.warn(message: e.message);
+      _analyticsService.logExceptionEvent(
+        level: Level.warning,
+        runtimeType: e.runtimeType.toString(),
+        message: e.message,
+        stackTrace: s.toString(),
+      );
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      _analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      );
+    }
+  }
+
   /// Resolves configuration file path.
   ///
   /// Looks for the configuration file in different locations depending their
@@ -109,16 +176,16 @@ class ConfigService {
   ///   - $path
   ///   - $XDG_CONFIG_HOME/stacked/stacked.json
   @visibleForTesting
-  Future<String?> resolveConfigFile({String? path}) async {
-    if (path != null) {
-      if (await _fileService.fileExists(filePath: path)) {
-        return path;
+  Future<String> resolveConfigFile({String? configFilePath}) async {
+    if (configFilePath != null) {
+      if (!await _fileService.fileExists(filePath: configFilePath)) {
+        throw ConfigFileNotFoundException(
+          kConfigFileNotFoundRetry,
+          shouldHaltCommand: true,
+        );
       }
 
-      throw ConfigFileNotFoundException(
-        kConfigFileNotFoundRetry,
-        shouldHaltCommand: true,
-      );
+      return configFilePath;
     }
 
     try {
@@ -131,18 +198,46 @@ class ConfigService {
       // This error is Thrown when HOME environment variable is not set.
     }
 
-    return null;
+    throw ConfigFileNotFoundException(kConfigFileNotFound);
+  }
+
+  /// Returns configuration file path.
+  ///
+  /// When configFilePath is NOT null should returns configFilePath unless the
+  /// file does NOT exists where should throw a ConfigFileNotFoundException.
+  ///
+  /// When configFilePath is null should returns [kConfigFileName] or with the
+  /// []projectPath] included if it was passed through arguments.
+  @visibleForTesting
+  Future<String> composeConfigFile({
+    String? configFilePath,
+    String? projectPath,
+  }) async {
+    if (configFilePath != null) {
+      if (await _fileService.fileExists(filePath: configFilePath)) {
+        return configFilePath;
+      }
+
+      throw ConfigFileNotFoundException(
+        kConfigFileNotFoundRetry,
+        shouldHaltCommand: true,
+      );
+    }
+
+    if (projectPath != null) {
+      return '$projectPath/$kConfigFileName';
+    }
+
+    return kConfigFileName;
   }
 
   /// Reads configuration file and sets data to [_customConfig] map.
-  Future<void> loadConfig({String? path}) async {
+  @visibleForTesting
+  Future<void> loadConfig(String configFilePath) async {
     try {
-      final configPath = await resolveConfigFile(path: path);
-      if (configPath == null) {
-        throw ConfigFileNotFoundException(kConfigFileNotFound);
-      }
-
-      final data = await _fileService.readFileAsString(filePath: configPath);
+      final data = await _fileService.readFileAsString(
+        filePath: configFilePath,
+      );
       _customConfig = Config.fromJson(jsonDecode(data));
       _hasCustomConfig = true;
       _sanitizeCustomConfig();
