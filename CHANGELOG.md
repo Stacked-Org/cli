@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/Stacked-Org/cli/compare/v1.8.2...v1.8.3) (2023-05-25)
+
+
+### Bug Fixes
+
+* stacked config not used on commands ([#23](https://github.com/Stacked-Org/cli/issues/23)) ([083aa0b](https://github.com/Stacked-Org/cli/commit/083aa0b67924ff68c5490d208a9036d1cef2545e))
+
 ## [1.8.2](https://github.com/Stacked-Org/cli/compare/v1.8.1...v1.8.2) (2023-05-23)
 
 
