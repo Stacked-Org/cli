@@ -5,6 +5,8 @@ const String kTemplateNameApp = 'app';
 const String kTemplateNameBottomSheet = 'bottom_sheet';
 const String kTemplateNameDialog = 'dialog';
 const String kTemplateNameGenerate = 'generate';
+const String kTemplateNameUpdate = 'update';
+const String kTemplateNameWidget = 'widget';
 
 // ------- Template Types --------
 const String kTemplateTypeEmpty = 'empty';
@@ -113,6 +115,19 @@ const String kTemplatePropertyDialogsPath = 'dialogsPath';
 const String kTemplatePropertyDialogTypeFilePath = 'dialogTypeFilePath';
 
 const String kTemplatePropertyDialogBuilderFilePath = 'dialogBuilderFilePath';
+
+const String kTemplatePropertyWidgetName = 'widgetName';
+
+const String kTemplatePropertyWidgetFileName = 'widgetFileName';
+
+const String kTemplatePropertyWidgetModelName = 'widgetModelName';
+
+const String kTemplatePropertyWidgetModelFileName = 'widgetModelFileName';
+
+const String kTemplatePropertyWidgetFolderName = 'widgetFolderName';
+
+const String kTemplatePropertyWidgetTestHelpersImport =
+    'widgetTestHelpersImport';
 
 // -------- Compiled Template Structure ---------
 

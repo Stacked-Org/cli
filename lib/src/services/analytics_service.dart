@@ -96,6 +96,18 @@ class AnalyticsService {
     await _waitLastPingOrCloseAtTimeout();
   }
 
+  /// Sends create widget command event
+  Future<void> createWidgetEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
+    await _analytics.sendEvent(
+      'command',
+      'create',
+      label: 'widget',
+      parameters: {kcdVersion: version, kcdName: name},
+    );
+    await _waitLastPingOrCloseAtTimeout();
+  }
+
   /// Sends delete service command event
   Future<void> deleteServiceEvent({required String name}) async {
     final version = await locator<PubService>().getCurrentVersion();

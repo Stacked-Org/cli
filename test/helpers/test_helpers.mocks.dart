@@ -984,6 +984,18 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
+  String get widgetPath => (super.noSuchMethod(
+        Invocation.getter(#widgetPath),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  String get widgetTestHelpersImport => (super.noSuchMethod(
+        Invocation.getter(#widgetTestHelpersImport),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
   bool get v1 => (super.noSuchMethod(
         Invocation.getter(#v1),
         returnValue: false,
@@ -1136,7 +1148,7 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
       ) as _i6.Future<void>);
   @override
   _i6.Future<void> runBuildRunner({
-    String? appName,
+    String? workingDirectory,
     bool? shouldWatch = false,
     bool? shouldDeleteConflictingOutputs = true,
   }) =>
@@ -1145,7 +1157,7 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
           #runBuildRunner,
           [],
           {
-            #appName: appName,
+            #workingDirectory: workingDirectory,
             #shouldWatch: shouldWatch,
             #shouldDeleteConflictingOutputs: shouldDeleteConflictingOutputs,
           },
@@ -1291,6 +1303,17 @@ class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
       (super.noSuchMethod(
         Invocation.method(
           #createViewEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createWidgetEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createWidgetEvent,
           [],
           {#name: name},
         ),

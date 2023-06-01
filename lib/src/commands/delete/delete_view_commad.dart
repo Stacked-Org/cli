@@ -52,17 +52,18 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   @override
   Future<void> run() async {
     unawaited(_analyticsService.deleteViewEvent(name: argResults!.rest.first));
-    final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+    final workingDirectory =
+        argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.composeAndLoadConfigFile(
       configFilePath: argResults![ksConfigPath],
-      projectPath: outputPath,
+      projectPath: workingDirectory,
     );
     _processService.formattingLineLength = argResults?[ksLineLength];
-    await _pubspecService.initialise(workingDirectory: outputPath);
-    await validateStructure(outputPath: outputPath);
-    await deleteViewAndTestFiles(outputPath: outputPath);
-    await removeViewFromRoute(outputPath: outputPath);
-    await _processService.runBuildRunner(appName: outputPath);
+    await _pubspecService.initialise(workingDirectory: workingDirectory);
+    await validateStructure(outputPath: workingDirectory);
+    await deleteViewAndTestFiles(outputPath: workingDirectory);
+    await removeViewFromRoute(outputPath: workingDirectory);
+    await _processService.runBuildRunner(workingDirectory: workingDirectory);
   }
 
   /// It deletes the view and test files

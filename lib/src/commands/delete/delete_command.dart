@@ -14,7 +14,7 @@ class DeleteCommand extends Command {
   String get name => 'delete';
 
   DeleteCommand() {
-    addSubcommand(DeleteViewCommand());
     addSubcommand(DeleteServiceCommand());
+    addSubcommand(DeleteViewCommand());
   }
 }

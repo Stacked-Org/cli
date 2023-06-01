@@ -13,7 +13,7 @@ import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
-class CreateViewCommand extends Command with ProjectStructureValidator {
+class CreateWidgetCommand extends Command with ProjectStructureValidator {
   final _log = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
   final _processService = locator<ProcessService>();
@@ -22,80 +22,67 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
   final _analyticsService = locator<AnalyticsService>();
 
   @override
-  String get description =>
-      'Creates a view with all associated files and makes necessary code changes for adding a view.';
+  String get description => 'Creates a widget with their model file.';
 
   @override
-  String get name => kTemplateNameView;
+  String get name => kTemplateNameWidget;
 
-  CreateViewCommand() {
-    argParser.addFlag(
-      ksExcludeRoute,
-      defaultsTo: false,
-      help: kCommandHelpExcludeRoute,
-    );
-
-    argParser.addFlag(
-      ksV1,
-      aliases: [ksUseBuilder],
-      defaultsTo: null,
-      help: kCommandHelpV1,
-    );
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['empty', 'web'],
-      help: kCommandHelpCreateViewTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+  CreateWidgetCommand() {
+    argParser
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        // TODO (Create Widget Templates): Generate a constant with these values
+        // when running the compile command
+        allowed: ['empty'],
+        defaultsTo: 'empty',
+        help: kCommandHelpCreateWidgetTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addFlag(
+        ksModel,
+        defaultsTo: true,
+        help: kCommandHelpModel,
+      );
   }
 
   @override
   Future<void> run() async {
     try {
-      final viewName = argResults!.rest.first;
-      var templateType = argResults![ksTemplateType] as String?;
-      unawaited(_analyticsService.createViewEvent(name: viewName));
+      final widgetName = argResults!.rest.first;
+      final templateType = argResults![ksTemplateType];
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
       );
+
       _processService.formattingLineLength = argResults![ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
 
-      // Determine which template to use with the following rules:
-      // 1. If the template is supplied we use that template
-      // 2. If the template is null use config web to decide
-      print('templateType:$templateType preferWeb:${_configService.preferWeb}');
-      templateType ??= _configService.preferWeb ? 'web' : 'empty';
-
       await _templateService.renderTemplate(
         templateName: name,
-        name: viewName,
+        name: widgetName,
         outputPath: workingDirectory,
         verbose: true,
-        excludeRoute: argResults![ksExcludeRoute],
-        useBuilder: argResults![ksV1] ?? _configService.v1,
+        hasModel: argResults![ksModel],
         templateType: templateType,
       );
-      await _processService.runBuildRunner(workingDirectory: workingDirectory);
+
+      unawaited(_analyticsService.createWidgetEvent(name: widgetName));
     } catch (e) {
       _log.warn(message: e.toString());
     }

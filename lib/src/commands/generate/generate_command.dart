@@ -14,7 +14,7 @@ class GenerateCommand extends Command {
 
   @override
   String get description =>
-      '''Generates the code for the stacked application if any changes were made''';
+      '''Generates the code for the stacked application if any changes were made.''';
 
   @override
   String get name => kTemplateNameGenerate;

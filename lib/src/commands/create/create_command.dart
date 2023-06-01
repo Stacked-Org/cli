@@ -5,6 +5,7 @@ import 'create_bottom_sheet_command.dart';
 import 'create_dialog_command.dart';
 import 'create_service_command.dart';
 import 'create_view_command.dart';
+import 'create_widget_command.dart';
 
 /// A command with subcommands that allows you to create / scaffold
 /// different parts of the stacked application
@@ -17,10 +18,11 @@ class CreateCommand extends Command {
   String get name => 'create';
 
   CreateCommand() {
-    addSubcommand(CreateViewCommand());
-    addSubcommand(CreateServiceCommand());
     addSubcommand(CreateAppCommand());
     addSubcommand(CreateBottomSheetCommand());
     addSubcommand(CreateDialogCommand());
+    addSubcommand(CreateServiceCommand());
+    addSubcommand(CreateViewCommand());
+    addSubcommand(CreateWidgetCommand());
   }
 }
