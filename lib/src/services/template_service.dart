@@ -125,6 +125,8 @@ class TemplateService {
 
     /// The name to use for the views when generating the view template
     required String name,
+
+    /// When value is true, should log on stdout what is happening during command execution.
     bool verbose = false,
 
     /// When set to true the newly generated view will not be added to the app.dart file
@@ -206,17 +208,19 @@ class TemplateService {
         }
       }
 
-      if (templateName == 'bottom_sheet' || templateName == 'dialog') {
+      const templatesAllowed = ['bottom_sheet', 'dialog', 'widget'];
+      if (templatesAllowed.any((template) => template == templateName)) {
         if (!hasModel && templateFile.relativeOutputPath.contains('model')) {
           continue;
         }
 
         if (templateFile.relativeOutputPath.contains('_use_model.dart.stk')) {
           template.templateFiles[i + 2] = TemplateFile(
-              relativeOutputPath:
-                  template.templateFiles[i + 2].relativeOutputPath,
-              content: templateFile.content,
-              fileType: FileType.text);
+            relativeOutputPath:
+                template.templateFiles[i + 2].relativeOutputPath,
+            content: templateFile.content,
+            fileType: FileType.text,
+          );
 
           continue;
         }
@@ -347,6 +351,8 @@ class TemplateService {
       kTemplatePropertyDialogBuilderFilePath:
           _configService.dialogBuilderFilePath,
       kTemplatePropertyDialogTypeFilePath: _configService.dialogTypeFilePath,
+      kTemplatePropertyWidgetTestHelpersImport:
+          _configService.widgetTestHelpersImport,
     };
   }
 

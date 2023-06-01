@@ -42,19 +42,22 @@ const String kCommandHelpLineLength =
     'When a number is provided, it will be used as the line length for formatting code.';
 
 const String kCommandHelpCreateAppTemplate =
-    'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first';
+    'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first.';
 
 const String kCommandHelpConfigFilePath =
-    'Sets the file path for the custom config';
+    'Sets the file path for the custom config.';
 
 const String kCommandHelpCreateViewTemplate =
-    'Selects the type of view to create instead of the default empty view';
+    'Selects the type of view to create instead of the default empty view.';
+
+const String kCommandHelpCreateWidgetTemplate =
+    'Selects the type of widget to create instead of the default empty widget.';
 
 const String kCommandHelpCreateDialogTemplate =
-    'Selects the type of dialog to create instead of the default empty dialog';
+    'Selects the type of dialog to create instead of the default empty dialog.';
 
 const String kCommandHelpCreateBottomSheetTemplate =
-    'Selects the type of bottom sheet to create instead of the default empty bottom sheet';
+    'Selects the type of bottom sheet to create instead of the default empty bottom sheet.';
 
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';

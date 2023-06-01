@@ -14,6 +14,11 @@ class Config with _$Config {
     /// Path where services will be genereated.
     @JsonKey(name: 'services_path') @Default('services') String servicesPath,
 
+    /// Path where widgets will be genereated.
+    @JsonKey(name: 'widgets_path')
+    @Default('ui/widgets/common')
+    String widgetsPath,
+
     /// Path where bottom sheets will be genereated.
     @JsonKey(name: 'bottom_sheets_path')
     @Default('ui/bottom_sheets')
@@ -62,6 +67,11 @@ class Config with _$Config {
     @JsonKey(name: 'test_views_path')
     @Default('viewmodels')
     String testViewsPath,
+
+    /// Path where widget models unit tests will be genereated.
+    @JsonKey(name: 'test_widgets_path')
+    @Default('widget_models')
+    String testWidgetsPath,
 
     /// The name of the locator to use when registering test mocks
     @JsonKey(name: 'locator_name') @Default('locator') String locatorName,

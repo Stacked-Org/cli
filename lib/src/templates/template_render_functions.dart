@@ -64,6 +64,16 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
+  kTemplateNameWidget: (ReCase value) {
+    return {
+      kTemplatePropertyWidgetName: value.pascalCase,
+      kTemplatePropertyWidgetFileName: '${value.snakeCase}.dart',
+      kTemplatePropertyWidgetModelName: '${value.pascalCase}Model',
+      kTemplatePropertyWidgetModelFileName: '${value.snakeCase}_model.dart',
+      kTemplatePropertyWidgetFolderName: value.snakeCase,
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
+    };
+  },
 };
 
 /// Returns file path of the [builder]

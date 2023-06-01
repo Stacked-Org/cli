@@ -19,8 +19,8 @@ const Widget verticalSpaceMedium = SizedBox(height: _mediumSize);
 const Widget verticalSpaceLarge = SizedBox(height: _largeSize);
 const Widget verticalSpaceMassive = SizedBox(height: _massiveSize);
 
-Widget spacedDivider = Column(
-  children: const <Widget>[
+Widget spacedDivider = const Column(
+  children: <Widget>[
     verticalSpaceMedium,
     Divider(color: Colors.blueGrey, height: 5.0),
     verticalSpaceMedium,

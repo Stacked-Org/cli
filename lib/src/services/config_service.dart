@@ -87,6 +87,14 @@ class ConfigService {
         _customConfig.testViewsPath,
       );
 
+  /// Relative path where widgets will be genereated.
+  String get widgetPath => _customConfig.widgetsPath;
+
+  /// Relative import path related to widget models of test helpers and mock services.
+  String get widgetTestHelpersImport => getFilePathToHelpersAndMocks(
+        _customConfig.testWidgetsPath,
+      );
+
   /// Returns boolean value to determine view builder style.
   ///
   /// False: StackedView

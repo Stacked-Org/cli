@@ -116,6 +116,19 @@ const String kTemplatePropertyDialogTypeFilePath = 'dialogTypeFilePath';
 
 const String kTemplatePropertyDialogBuilderFilePath = 'dialogBuilderFilePath';
 
+const String kTemplatePropertyWidgetName = 'widgetName';
+
+const String kTemplatePropertyWidgetFileName = 'widgetFileName';
+
+const String kTemplatePropertyWidgetModelName = 'widgetModelName';
+
+const String kTemplatePropertyWidgetModelFileName = 'widgetModelFileName';
+
+const String kTemplatePropertyWidgetFolderName = 'widgetFolderName';
+
+const String kTemplatePropertyWidgetTestHelpersImport =
+    'widgetTestHelpersImport';
+
 // -------- Compiled Template Structure ---------
 
 const String kTemplateDataStructure = '''

@@ -9,6 +9,7 @@ part of 'config_model.dart';
 _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       viewsPath: json['views_path'] as String? ?? 'ui/views',
       servicesPath: json['services_path'] as String? ?? 'services',
+      widgetsPath: json['widgets_path'] as String? ?? 'ui/widgets/common',
       bottomSheetsPath:
           json['bottom_sheets_path'] as String? ?? 'ui/bottom_sheets',
       bottomSheetTypeFilePath: json['bottom_sheet_type_file_path'] as String? ??
@@ -27,6 +28,7 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
           'helpers/test_helpers.dart',
       testServicesPath: json['test_services_path'] as String? ?? 'services',
       testViewsPath: json['test_views_path'] as String? ?? 'viewmodels',
+      testWidgetsPath: json['test_widgets_path'] as String? ?? 'widget_models',
       locatorName: json['locator_name'] as String? ?? 'locator',
       registerMocksFunction:
           json['register_mocks_function'] as String? ?? 'registerServices',
@@ -38,6 +40,7 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
 Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'views_path': instance.viewsPath,
       'services_path': instance.servicesPath,
+      'widgets_path': instance.widgetsPath,
       'bottom_sheets_path': instance.bottomSheetsPath,
       'bottom_sheet_type_file_path': instance.bottomSheetTypeFilePath,
       'bottom_sheet_builder_file_path': instance.bottomSheetBuilderFilePath,
@@ -48,6 +51,7 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'test_helpers_file_path': instance.testHelpersFilePath,
       'test_services_path': instance.testServicesPath,
       'test_views_path': instance.testViewsPath,
+      'test_widgets_path': instance.testWidgetsPath,
       'locator_name': instance.locatorName,
       'register_mocks_function': instance.registerMocksFunction,
       'v1': instance.v1,

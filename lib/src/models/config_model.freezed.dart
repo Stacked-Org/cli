@@ -28,6 +28,10 @@ mixin _$Config {
   @JsonKey(name: 'services_path')
   String get servicesPath => throw _privateConstructorUsedError;
 
+  /// Path where widgets will be genereated.
+  @JsonKey(name: 'widgets_path')
+  String get widgetsPath => throw _privateConstructorUsedError;
+
   /// Path where bottom sheets will be genereated.
   @JsonKey(name: 'bottom_sheets_path')
   String get bottomSheetsPath => throw _privateConstructorUsedError;
@@ -69,6 +73,10 @@ mixin _$Config {
   @JsonKey(name: 'test_views_path')
   String get testViewsPath => throw _privateConstructorUsedError;
 
+  /// Path where widget models unit tests will be genereated.
+  @JsonKey(name: 'test_widgets_path')
+  String get testWidgetsPath => throw _privateConstructorUsedError;
+
   /// The name of the locator to use when registering test mocks
   @JsonKey(name: 'locator_name')
   String get locatorName => throw _privateConstructorUsedError;
@@ -106,6 +114,7 @@ abstract class $ConfigCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'widgets_path') String widgetsPath,
       @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
       String bottomSheetTypeFilePath,
@@ -118,6 +127,7 @@ abstract class $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
       @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') String testWidgetsPath,
       @JsonKey(name: 'locator_name') String locatorName,
       @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
       @JsonKey(name: 'v1') bool v1,
@@ -140,6 +150,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
   $Res call({
     Object? viewsPath = null,
     Object? servicesPath = null,
+    Object? widgetsPath = null,
     Object? bottomSheetsPath = null,
     Object? bottomSheetTypeFilePath = null,
     Object? bottomSheetBuilderFilePath = null,
@@ -150,6 +161,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
     Object? testViewsPath = null,
+    Object? testWidgetsPath = null,
     Object? locatorName = null,
     Object? registerMocksFunction = null,
     Object? v1 = null,
@@ -164,6 +176,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
       servicesPath: null == servicesPath
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      widgetsPath: null == widgetsPath
+          ? _value.widgetsPath
+          : widgetsPath // ignore: cast_nullable_to_non_nullable
               as String,
       bottomSheetsPath: null == bottomSheetsPath
           ? _value.bottomSheetsPath
@@ -204,6 +220,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
       testViewsPath: null == testViewsPath
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      testWidgetsPath: null == testWidgetsPath
+          ? _value.testWidgetsPath
+          : testWidgetsPath // ignore: cast_nullable_to_non_nullable
               as String,
       locatorName: null == locatorName
           ? _value.locatorName
@@ -238,6 +258,7 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'widgets_path') String widgetsPath,
       @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
       String bottomSheetTypeFilePath,
@@ -250,6 +271,7 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
       @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') String testWidgetsPath,
       @JsonKey(name: 'locator_name') String locatorName,
       @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
       @JsonKey(name: 'v1') bool v1,
@@ -269,6 +291,7 @@ class __$$_ConfigCopyWithImpl<$Res>
   $Res call({
     Object? viewsPath = null,
     Object? servicesPath = null,
+    Object? widgetsPath = null,
     Object? bottomSheetsPath = null,
     Object? bottomSheetTypeFilePath = null,
     Object? bottomSheetBuilderFilePath = null,
@@ -279,6 +302,7 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
     Object? testViewsPath = null,
+    Object? testWidgetsPath = null,
     Object? locatorName = null,
     Object? registerMocksFunction = null,
     Object? v1 = null,
@@ -293,6 +317,10 @@ class __$$_ConfigCopyWithImpl<$Res>
       servicesPath: null == servicesPath
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      widgetsPath: null == widgetsPath
+          ? _value.widgetsPath
+          : widgetsPath // ignore: cast_nullable_to_non_nullable
               as String,
       bottomSheetsPath: null == bottomSheetsPath
           ? _value.bottomSheetsPath
@@ -334,6 +362,10 @@ class __$$_ConfigCopyWithImpl<$Res>
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
+      testWidgetsPath: null == testWidgetsPath
+          ? _value.testWidgetsPath
+          : testWidgetsPath // ignore: cast_nullable_to_non_nullable
+              as String,
       locatorName: null == locatorName
           ? _value.locatorName
           : locatorName // ignore: cast_nullable_to_non_nullable
@@ -364,6 +396,7 @@ class _$_Config implements _Config {
   _$_Config(
       {@JsonKey(name: 'views_path') this.viewsPath = 'ui/views',
       @JsonKey(name: 'services_path') this.servicesPath = 'services',
+      @JsonKey(name: 'widgets_path') this.widgetsPath = 'ui/widgets/common',
       @JsonKey(name: 'bottom_sheets_path')
       this.bottomSheetsPath = 'ui/bottom_sheets',
       @JsonKey(name: 'bottom_sheet_type_file_path')
@@ -381,6 +414,8 @@ class _$_Config implements _Config {
       this.testHelpersFilePath = 'helpers/test_helpers.dart',
       @JsonKey(name: 'test_services_path') this.testServicesPath = 'services',
       @JsonKey(name: 'test_views_path') this.testViewsPath = 'viewmodels',
+      @JsonKey(name: 'test_widgets_path')
+      this.testWidgetsPath = 'widget_models',
       @JsonKey(name: 'locator_name') this.locatorName = 'locator',
       @JsonKey(name: 'register_mocks_function')
       this.registerMocksFunction = 'registerServices',
@@ -400,6 +435,11 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'services_path')
   final String servicesPath;
+
+  /// Path where widgets will be genereated.
+  @override
+  @JsonKey(name: 'widgets_path')
+  final String widgetsPath;
 
   /// Path where bottom sheets will be genereated.
   @override
@@ -452,6 +492,11 @@ class _$_Config implements _Config {
   @JsonKey(name: 'test_views_path')
   final String testViewsPath;
 
+  /// Path where widget models unit tests will be genereated.
+  @override
+  @JsonKey(name: 'test_widgets_path')
+  final String testWidgetsPath;
+
   /// The name of the locator to use when registering test mocks
   @override
   @JsonKey(name: 'locator_name')
@@ -483,7 +528,7 @@ class _$_Config implements _Config {
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, dialogsPath: $dialogsPath, dialogTypeFilePath: $dialogTypeFilePath, dialogBuilderFilePath: $dialogBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength, preferWeb: $preferWeb)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, widgetsPath: $widgetsPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, dialogsPath: $dialogsPath, dialogTypeFilePath: $dialogTypeFilePath, dialogBuilderFilePath: $dialogBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, testWidgetsPath: $testWidgetsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength, preferWeb: $preferWeb)';
   }
 
   @override
@@ -495,6 +540,8 @@ class _$_Config implements _Config {
                 other.viewsPath == viewsPath) &&
             (identical(other.servicesPath, servicesPath) ||
                 other.servicesPath == servicesPath) &&
+            (identical(other.widgetsPath, widgetsPath) ||
+                other.widgetsPath == widgetsPath) &&
             (identical(other.bottomSheetsPath, bottomSheetsPath) ||
                 other.bottomSheetsPath == bottomSheetsPath) &&
             (identical(
@@ -518,6 +565,8 @@ class _$_Config implements _Config {
                 other.testServicesPath == testServicesPath) &&
             (identical(other.testViewsPath, testViewsPath) ||
                 other.testViewsPath == testViewsPath) &&
+            (identical(other.testWidgetsPath, testWidgetsPath) ||
+                other.testWidgetsPath == testWidgetsPath) &&
             (identical(other.locatorName, locatorName) ||
                 other.locatorName == locatorName) &&
             (identical(other.registerMocksFunction, registerMocksFunction) ||
@@ -531,25 +580,28 @@ class _$_Config implements _Config {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      viewsPath,
-      servicesPath,
-      bottomSheetsPath,
-      bottomSheetTypeFilePath,
-      bottomSheetBuilderFilePath,
-      dialogsPath,
-      dialogTypeFilePath,
-      dialogBuilderFilePath,
-      stackedAppFilePath,
-      testHelpersFilePath,
-      testServicesPath,
-      testViewsPath,
-      locatorName,
-      registerMocksFunction,
-      v1,
-      lineLength,
-      preferWeb);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        viewsPath,
+        servicesPath,
+        widgetsPath,
+        bottomSheetsPath,
+        bottomSheetTypeFilePath,
+        bottomSheetBuilderFilePath,
+        dialogsPath,
+        dialogTypeFilePath,
+        dialogBuilderFilePath,
+        stackedAppFilePath,
+        testHelpersFilePath,
+        testServicesPath,
+        testViewsPath,
+        testWidgetsPath,
+        locatorName,
+        registerMocksFunction,
+        v1,
+        lineLength,
+        preferWeb
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -569,6 +621,7 @@ abstract class _Config implements Config {
   factory _Config(
       {@JsonKey(name: 'views_path') final String viewsPath,
       @JsonKey(name: 'services_path') final String servicesPath,
+      @JsonKey(name: 'widgets_path') final String widgetsPath,
       @JsonKey(name: 'bottom_sheets_path') final String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
       final String bottomSheetTypeFilePath,
@@ -582,6 +635,7 @@ abstract class _Config implements Config {
       @JsonKey(name: 'test_helpers_file_path') final String testHelpersFilePath,
       @JsonKey(name: 'test_services_path') final String testServicesPath,
       @JsonKey(name: 'test_views_path') final String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') final String testWidgetsPath,
       @JsonKey(name: 'locator_name') final String locatorName,
       @JsonKey(name: 'register_mocks_function')
       final String registerMocksFunction,
@@ -601,6 +655,11 @@ abstract class _Config implements Config {
   /// Path where services will be genereated.
   @JsonKey(name: 'services_path')
   String get servicesPath;
+  @override
+
+  /// Path where widgets will be genereated.
+  @JsonKey(name: 'widgets_path')
+  String get widgetsPath;
   @override
 
   /// Path where bottom sheets will be genereated.
@@ -652,6 +711,11 @@ abstract class _Config implements Config {
   /// Path where viewmodels unit tests will be genereated.
   @JsonKey(name: 'test_views_path')
   String get testViewsPath;
+  @override
+
+  /// Path where widget models unit tests will be genereated.
+  @JsonKey(name: 'test_widgets_path')
+  String get testWidgetsPath;
   @override
 
   /// The name of the locator to use when registering test mocks
