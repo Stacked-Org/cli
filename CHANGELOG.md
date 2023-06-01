@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/Stacked-Org/cli/compare/v1.8.3...v1.9.0) (2023-06-01)
+
+
+### Features
+
+* Create Widget command ([#24](https://github.com/Stacked-Org/cli/issues/24)) ([b922402](https://github.com/Stacked-Org/cli/commit/b92240215dcf016f44eef086afadee39ddd313bc))
+
 ## [1.8.3](https://github.com/Stacked-Org/cli/compare/v1.8.2...v1.8.3) (2023-05-25)
 
 
