@@ -9,104 +9,90 @@ part 'config_model.g.dart';
 class Config with _$Config {
   factory Config({
     /// Path where views and viewmodels will be genereated.
-    @JsonKey(name: 'views_path')
-    @Default('ui/views')
-        String viewsPath,
+    @JsonKey(name: 'views_path') @Default('ui/views') String viewsPath,
 
     /// Path where services will be genereated.
-    @JsonKey(name: 'services_path')
-    @Default('services')
-        String servicesPath,
+    @JsonKey(name: 'services_path') @Default('services') String servicesPath,
 
     /// Path where widgets will be genereated.
     @JsonKey(name: 'widgets_path')
     @Default('ui/widgets/common')
-        String widgetsPath,
+    String widgetsPath,
 
     /// Path where bottom sheets will be genereated.
     @JsonKey(name: 'bottom_sheets_path')
     @Default('ui/bottom_sheets')
-        String bottomSheetsPath,
+    String bottomSheetsPath,
 
     /// File path where BottomSheetType enum values are located.
     @JsonKey(name: 'bottom_sheet_type_file_path')
     @Default('enums/bottom_sheet_type.dart')
-        String bottomSheetTypeFilePath,
+    String bottomSheetTypeFilePath,
 
     /// File path where BottomSheet builders are located.
     @JsonKey(name: 'bottom_sheet_builder_file_path')
     @Default('ui/setup/setup_bottom_sheet_ui.dart')
-        String bottomSheetBuilderFilePath,
+    String bottomSheetBuilderFilePath,
 
     /// Path where dialogs will be genereated.
-    @JsonKey(name: 'dialogs_path')
-    @Default('ui/dialogs')
-        String dialogsPath,
+    @JsonKey(name: 'dialogs_path') @Default('ui/dialogs') String dialogsPath,
 
     /// File path where DialogType enum values are located.
     @JsonKey(name: 'dialog_type_file_path')
     @Default('enums/dialog_type.dart')
-        String dialogTypeFilePath,
+    String dialogTypeFilePath,
 
     /// File path where Dialog builders are located.
     @JsonKey(name: 'dialog_builder_file_path')
     @Default('ui/setup/setup_dialog_ui.dart')
-        String dialogBuilderFilePath,
+    String dialogBuilderFilePath,
 
     /// File path where StackedApp is setup.
     @JsonKey(name: 'stacked_app_file_path')
     @Default('app/app.dart')
-        String stackedAppFilePath,
+    String stackedAppFilePath,
 
     /// File path where register functions for unit test setup and mock
     /// declarations are located.
     @JsonKey(name: 'test_helpers_file_path')
     @Default('helpers/test_helpers.dart')
-        String testHelpersFilePath,
+    String testHelpersFilePath,
 
     /// Paths where services unit tests will be genereated.
     @JsonKey(name: 'test_services_path')
     @Default('services')
-        String testServicesPath,
+    String testServicesPath,
 
     /// Path where viewmodels unit tests will be genereated.
     @JsonKey(name: 'test_views_path')
     @Default('viewmodels')
-        String testViewsPath,
+    String testViewsPath,
 
     /// Path where widget models unit tests will be genereated.
     @JsonKey(name: 'test_widgets_path')
     @Default('widget_models')
-        String testWidgetsPath,
+    String testWidgetsPath,
 
     /// The name of the locator to use when registering test mocks
-    @JsonKey(name: 'locator_name')
-    @Default('locator')
-        String locatorName,
+    @JsonKey(name: 'locator_name') @Default('locator') String locatorName,
 
     /// The name of the function that registers the mock services for tests.
     ///
     /// This is used when creating a test file during the `create service` command
     @JsonKey(name: 'register_mocks_function')
     @Default('registerServices')
-        String registerMocksFunction,
+    String registerMocksFunction,
 
     /// Boolean value to determine view builder style
     ///
     /// This is used when creating a view file during `create view` command. By
     /// default, StackedView is used.
-    @JsonKey(name: 'v1')
-    @Default(false)
-        bool v1,
+    @JsonKey(name: 'v1') @Default(false) bool v1,
 
     /// Defines the integer value to determine the line length when formatting
     /// the code.
-    @JsonKey(name: 'line_length')
-    @Default(80)
-        int lineLength,
-    @JsonKey(name: 'prefer_web')
-    @Default(false)
-        bool preferWeb,
+    @JsonKey(name: 'line_length') @Default(80) int lineLength,
+    @JsonKey(name: 'prefer_web') @Default(false) bool preferWeb,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);
