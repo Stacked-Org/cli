@@ -24,7 +24,7 @@ class CreateAppCommand extends Command {
 
   @override
   String get description =>
-      'Creates a stacked application with all the basics setup';
+      'Creates a Stacked application with all the basics setup.';
 
   @override
   String get name => kTemplateNameApp;
@@ -68,30 +68,30 @@ class CreateAppCommand extends Command {
         configFilePath: argResults![ksConfigPath],
       );
 
-      final appName = argResults!.rest.first;
-      final appNameWithoutPath = appName.split('/').last;
+      final workingDirectory = argResults!.rest.first;
+      final appName = workingDirectory.split('/').last;
       final templateType = argResults![ksTemplateType];
 
-      unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
+      unawaited(_analyticsService.createAppEvent(name: appName));
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _processService.runCreateApp(appName: appName);
+      await _processService.runCreateApp(appName: workingDirectory);
 
       _log.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
       await _templateService.renderTemplate(
         templateName: name,
-        name: appNameWithoutPath,
+        name: appName,
         verbose: true,
-        outputPath: appName,
+        outputPath: workingDirectory,
         useBuilder: argResults![ksV1] ?? _configService.v1,
         templateType: templateType,
       );
 
-      _replaceConfigFile(appName: appName);
-      await _processService.runPubGet(appName: appName);
-      await _processService.runBuildRunner(appName: appName);
-      await _processService.runFormat(appName: appName);
-      await _clean(appName: appName);
+      _replaceConfigFile(appName: workingDirectory);
+      await _processService.runPubGet(appName: workingDirectory);
+      await _processService.runBuildRunner(workingDirectory: workingDirectory);
+      await _processService.runFormat(appName: workingDirectory);
+      await _clean(workingDirectory: workingDirectory);
     } catch (e) {
       _log.warn(message: e.toString());
     }
@@ -101,21 +101,21 @@ class CreateAppCommand extends Command {
   ///
   ///   - Deletes widget_test.dart file
   ///   - Removes unused imports
-  Future<void> _clean({required String appName}) async {
+  Future<void> _clean({required String workingDirectory}) async {
     _log.stackedOutput(message: 'Cleaning project...');
 
     // Removes `widget_test` file to avoid failing unit tests on created app
     if (await _fileService.fileExists(
-      filePath: '$appName/test/widget_test.dart',
+      filePath: '$workingDirectory/test/widget_test.dart',
     )) {
       await _fileService.deleteFile(
-        filePath: '$appName/test/widget_test.dart',
+        filePath: '$workingDirectory/test/widget_test.dart',
         verbose: false,
       );
     }
 
     // Analyze the project and return output lines
-    final issues = await _processService.runAnalyze(appName: appName);
+    final issues = await _processService.runAnalyze(appName: workingDirectory);
 
     for (var i in issues) {
       if (!i.endsWith('unused_import')) continue;
@@ -123,7 +123,7 @@ class CreateAppCommand extends Command {
       final log = i.split(' • ')[2].split(':');
 
       await _fileService.removeLinesOnFile(
-        filePath: '$appName/${log[0]}',
+        filePath: '$workingDirectory/${log[0]}',
         linesNumber: [int.parse(log[1])],
       );
     }

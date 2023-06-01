@@ -39,7 +39,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runBuildRunner({
-    String? appName,
+    String? workingDirectory,
     bool shouldWatch = false,
     bool shouldDeleteConflictingOutputs = true,
   }) async {
@@ -50,7 +50,7 @@ class ProcessService {
         shouldWatch ? ksWatch : ksBuild,
         if (shouldDeleteConflictingOutputs) ksDeleteConflictingOutputs,
       ],
-      workingDirectory: appName,
+      workingDirectory: workingDirectory,
     );
   }
 

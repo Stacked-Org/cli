@@ -34,6 +34,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+
     argParser.addFlag(
       ksV1,
       aliases: [ksUseBuilder],
@@ -69,15 +70,15 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       final viewName = argResults!.rest.first;
       var templateType = argResults![ksTemplateType] as String?;
       unawaited(_analyticsService.createViewEvent(name: viewName));
-      final outputPath =
+      final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: outputPath,
+        projectPath: workingDirectory,
       );
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: outputPath);
-      await validateStructure(outputPath: outputPath);
+      await _pubspecService.initialise(workingDirectory: workingDirectory);
+      await validateStructure(outputPath: workingDirectory);
 
       // Determine which template to use with the following rules:
       // 1. If the template is supplied we use that template
@@ -88,13 +89,13 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       await _templateService.renderTemplate(
         templateName: name,
         name: viewName,
-        outputPath: outputPath,
+        outputPath: workingDirectory,
         verbose: true,
         excludeRoute: argResults![ksExcludeRoute],
         useBuilder: argResults![ksV1] ?? _configService.v1,
         templateType: templateType,
       );
-      await _processService.runBuildRunner(appName: outputPath);
+      await _processService.runBuildRunner(workingDirectory: workingDirectory);
     } catch (e) {
       _log.warn(message: e.toString());
     }

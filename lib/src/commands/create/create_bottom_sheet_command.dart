@@ -70,27 +70,27 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       final templateType = argResults![ksTemplateType];
       unawaited(
           _analyticsService.createBottomSheetEvent(name: bottomSheetName));
-      final outputPath =
+      final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: outputPath,
+        projectPath: workingDirectory,
       );
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: outputPath);
-      await validateStructure(outputPath: outputPath);
+      await _pubspecService.initialise(workingDirectory: workingDirectory);
+      await validateStructure(outputPath: workingDirectory);
 
       await _templateService.renderTemplate(
         templateName: name,
         name: bottomSheetName,
-        outputPath: outputPath,
+        outputPath: workingDirectory,
         verbose: true,
         excludeRoute: argResults![ksExcludeRoute],
         hasModel: argResults![ksModel],
         templateType: templateType,
       );
 
-      await _processService.runBuildRunner(appName: outputPath);
+      await _processService.runBuildRunner(workingDirectory: workingDirectory);
     } catch (e) {
       _log.warn(message: e.toString());
     }

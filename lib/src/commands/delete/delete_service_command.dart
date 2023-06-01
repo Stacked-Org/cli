@@ -54,18 +54,19 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     unawaited(_analyticsService.deleteServiceEvent(
       name: argResults!.rest.first,
     ));
-    final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+    final workingDirectory =
+        argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.composeAndLoadConfigFile(
       configFilePath: argResults![ksConfigPath],
-      projectPath: outputPath,
+      projectPath: workingDirectory,
     );
     _processService.formattingLineLength = argResults?[ksLineLength];
-    await _pubspecService.initialise(workingDirectory: outputPath);
-    await validateStructure(outputPath: outputPath);
-    await deleteServiceAndTestFiles(outputPath: outputPath);
-    await removeServiceFromTestHelper(outputPath: outputPath);
-    await removeServiceFromDependency(outputPath: outputPath);
-    await _processService.runBuildRunner(appName: outputPath);
+    await _pubspecService.initialise(workingDirectory: workingDirectory);
+    await validateStructure(outputPath: workingDirectory);
+    await deleteServiceAndTestFiles(outputPath: workingDirectory);
+    await removeServiceFromTestHelper(outputPath: workingDirectory);
+    await removeServiceFromDependency(outputPath: workingDirectory);
+    await _processService.runBuildRunner(workingDirectory: workingDirectory);
   }
 
   /// It deletes the service and test files
