@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:mockito/mockito.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/config_file_not_found_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/models/config_model.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:test/test.dart';
 
@@ -15,26 +18,32 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    const customConfigFilePath = '/Users/filledstacks/Desktop/stacked.json';
-    const xdgConfigFilePath =
+    const String customConfigFilePath =
+        '/Users/filledstacks/Desktop/stacked.json';
+    const String xdgConfigFilePath =
         '/Users/filledstacks/.config/stacked/stacked.json';
-    const stackedAppFilePath = 'src/app/core.dart';
-    const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
 
-    const String customConfig = '''
-      {
-        "stacked_app_file_path": "$stackedAppFilePath",
-        "services_path": "my/personal/path/to/services",
-        "views_path": "my/personal/path/to/views",
-        "test_helpers_file_path": "$testHelpersFilePath",
-        "test_services_path": "my/personal/path/to/tests/service",
-        "test_views_path": "my/personal/path/to/tests/viewmodel",
-        "locator_name": "locator",
-        "register_mocks_function": "registerServices",
-        "v1": false,
-        "line_length": 80
-      }
-    ''';
+    final Config customConfig = Config.fromJson({
+      "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
+      "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
+      "bottom_sheets_path": "ui/bottom_sheets",
+      "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
+      "dialog_type_file_path": "enums/dialog_type.dart",
+      "dialogs_path": "ui/dialogs",
+      "line_length": 80,
+      "locator_name": "locator",
+      "prefer_web": true,
+      "register_mocks_function": "registerServices",
+      "services_path": "my/personal/path/to/services",
+      "stacked_app_file_path": "src/app/core.dart",
+      "test_helpers_file_path": "lib/src/test/helpers/core_test.helpers.dart",
+      "test_services_path": "my/personal/path/to/tests/service",
+      "test_views_path": "my/personal/path/to/tests/viewmodel",
+      "test_widgets_path": "my/personal/path/to/tests/widget_models",
+      "v1": false,
+      "views_path": "my/personal/path/to/views",
+      "widgets_path": "ui/widgets/common"
+    });
 
     group('resolveConfigFile -', () {
       test('when called with configFilePath should return configFilePath',
@@ -92,7 +101,7 @@ void main() {
       test(
         'when called without configFilePath and Home environment variable is not set should throw ConfigFileNotFoundException with message equal kConfigFileNotFound and shouldHaltCommand equal false',
         () async {
-          getAndRegisterFileService(throwStateError: true);
+          getAndRegisterPathService(throwStateError: true);
           final service = _getService();
           expect(
             () => service.resolveConfigFile(),
@@ -104,8 +113,6 @@ void main() {
             )),
           );
         },
-        skip:
-            'Should throw ConfigFileNotFoundException because StateError exception is catched',
       );
 
       test(
@@ -245,7 +252,9 @@ void main() {
       test('when called with custom config should return custom path',
           () async {
         final path = 'test/services/generic_service_test.dart.stk';
-        getAndRegisterFileService(readFileResult: customConfig);
+        getAndRegisterFileService(
+          readFileResult: jsonEncode(customConfig.toJson()),
+        );
         final service = _getService();
         await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
@@ -260,24 +269,28 @@ void main() {
           'when called with custom stacked app file path should return full stacked_app file path from config',
           () async {
         final path = 'app/app.dart';
-        getAndRegisterFileService(readFileResult: customConfig);
+        getAndRegisterFileService(
+          readFileResult: jsonEncode(customConfig.toJson()),
+        );
         final service = _getService();
         await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
-        expect(customPath, stackedAppFilePath);
+        expect(customPath, 'src/app/core.dart');
       });
 
       test(
           'when called with custom test_helpers file path should return full test_helpers file path from config',
           () async {
         final path = 'helpers/test_helpers.dart';
-        getAndRegisterFileService(readFileResult: customConfig);
+        getAndRegisterFileService(
+          readFileResult: jsonEncode(customConfig.toJson()),
+        );
         final service = _getService();
         await service.loadConfig(customConfigFilePath);
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
-        expect(customPath, testHelpersFilePath);
+        expect(customPath, 'lib/src/test/helpers/core_test.helpers.dart');
       });
     });
 

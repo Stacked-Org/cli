@@ -39,7 +39,6 @@ MockFileService getAndRegisterFileService({
   int retryUntilFileExists = 0,
   String readFileResult = 'file_content',
   List<FileSystemEntity> getFilesInDirectoryResult = const [],
-  bool throwStateError = false,
   bool throwConfigFileNotFoundException = false,
 }) {
   _removeRegistrationIfExists<FileService>();
@@ -51,10 +50,6 @@ MockFileService getAndRegisterFileService({
     if (retryUntilFileExists > 0) {
       retryUntilFileExists--;
       return Future.value(false);
-    }
-
-    if (throwStateError) {
-      throw StateError;
     }
 
     return Future.value(fileExistsResult);
