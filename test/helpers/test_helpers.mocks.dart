@@ -1121,6 +1121,14 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+  @override
+  void setWidgetsPath(String? path) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetsPath,
+          [path],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [ProcessService].

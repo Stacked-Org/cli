@@ -29,6 +29,7 @@ const String ksAnalyze = 'analyze';
 const String ksModel = 'model';
 const String ksConfigPath = 'config-path';
 const String ksWatch = 'watch';
+const String ksPath = 'path';
 
 /// A list of strings that are used to run the run build_runner
 /// [build or watch] --delete-conflicting-outputs command.
