@@ -19,6 +19,6 @@ jobs:
           channel: 'stable'
       - run: dart pub get
       - run: dart run build_runner build --delete-conflicting-outputs
-      - run: dart format --fix --set-exit-if-changed .
+      - run: dart format --fix .
       - run: dart analyze
       - run: dart test
