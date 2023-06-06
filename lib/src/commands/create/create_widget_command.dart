@@ -49,6 +49,11 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
         abbr: 'c',
         help: kCommandHelpConfigFilePath,
       )
+      ..addOption(
+        ksPath,
+        abbr: 'p',
+        help: kCommandHelpPath,
+      )
       ..addFlag(
         ksModel,
         defaultsTo: true,
@@ -64,10 +69,13 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
 
+      // load configuration
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
       );
+      // override [widgets_path] value on configuration
+      _configService.setWidgetsPath(argResults![ksPath]);
 
       _processService.formattingLineLength = argResults![ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
