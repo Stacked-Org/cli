@@ -47,6 +47,8 @@ const String kCommandHelpCreateAppTemplate =
 const String kCommandHelpConfigFilePath =
     'Sets the file path for the custom config.';
 
+const String kCommandHelpPath = 'Sets the relative path for the component.';
+
 const String kCommandHelpCreateViewTemplate =
     'Selects the type of view to create instead of the default empty view.';
 

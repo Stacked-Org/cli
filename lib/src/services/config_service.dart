@@ -352,4 +352,11 @@ class ConfigService {
   String exportConfig() {
     return JsonEncoder.withIndent("    ").convert(_customConfig.toJson());
   }
+
+  /// Overrides [widgets_path] value on configuration.
+  void setWidgetsPath(String? path) {
+    _customConfig = _customConfig.copyWith(
+      widgetsPath: path ?? _customConfig.widgetsPath,
+    );
+  }
 }
