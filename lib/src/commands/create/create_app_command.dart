@@ -15,12 +15,12 @@ import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
-  final _log = locator<ColorizedLogService>();
+  final _analyticsService = locator<AnalyticsService>();
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
+  final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
   final _templateService = locator<TemplateService>();
-  final _analyticsService = locator<AnalyticsService>();
 
   @override
   String get description =>
@@ -30,35 +30,54 @@ class CreateAppCommand extends Command {
   String get name => kTemplateNameApp;
 
   CreateAppCommand() {
-    argParser.addFlag(
-      ksV1,
-      aliases: [ksUseBuilder],
-      defaultsTo: null,
-      help: kCommandHelpV1,
-    );
-
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['mobile', 'web'],
-      defaultsTo: 'mobile',
-      help: kCommandHelpCreateAppTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+    argParser
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      )
+      ..addOption(
+        ksAppDescription,
+        help: kCommandHelpAppDescription,
+      )
+      ..addOption(
+        ksAppOrganization,
+        defaultsTo: 'com.example',
+        help: kCommandHelpAppOrganization,
+      )
+      ..addMultiOption(
+        ksAppPlatforms,
+        allowed: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
+        defaultsTo: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
+        help: kCommandHelpAppPlatforms,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        // TODO (Create App Templates): Generate a constant with these values when
+        // running the compile command
+        allowed: ['mobile', 'web'],
+        defaultsTo: 'mobile',
+        help: kCommandHelpCreateAppTemplate,
+      )
+      ..addFlag(
+        ksAppMinimalTemplate,
+        abbr: 'e',
+        defaultsTo: true,
+        help: kCommandHelpAppMinimalTemplate,
+      )
+      ..addFlag(
+        ksV1,
+        aliases: [ksUseBuilder],
+        defaultsTo: null,
+        help: kCommandHelpV1,
+      );
   }
 
   @override
@@ -74,7 +93,13 @@ class CreateAppCommand extends Command {
 
       unawaited(_analyticsService.createAppEvent(name: appName));
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _processService.runCreateApp(appName: workingDirectory);
+      await _processService.runCreateApp(
+        appName: workingDirectory,
+        shouldUseMinimalTemplate: argResults![ksAppMinimalTemplate],
+        description: argResults![ksAppDescription],
+        organization: argResults![ksAppOrganization],
+        platforms: argResults![ksAppPlatforms],
+      );
 
       _log.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 

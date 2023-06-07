@@ -1146,12 +1146,24 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
         returnValueForMissingStub: null,
       );
   @override
-  _i6.Future<void> runCreateApp({required String? appName}) =>
+  _i6.Future<void> runCreateApp({
+    required String? appName,
+    bool? shouldUseMinimalTemplate = true,
+    String? description,
+    String? organization,
+    List<String>? platforms,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #runCreateApp,
           [],
-          {#appName: appName},
+          {
+            #appName: appName,
+            #shouldUseMinimalTemplate: shouldUseMinimalTemplate,
+            #description: description,
+            #organization: organization,
+            #platforms: platforms,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),

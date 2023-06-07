@@ -1,11 +1,11 @@
 // ------- Template names --------
-const String kTemplateNameView = 'view';
-const String kTemplateNameService = 'service';
 const String kTemplateNameApp = 'app';
 const String kTemplateNameBottomSheet = 'bottom_sheet';
 const String kTemplateNameDialog = 'dialog';
 const String kTemplateNameGenerate = 'generate';
+const String kTemplateNameService = 'service';
 const String kTemplateNameUpdate = 'update';
+const String kTemplateNameView = 'view';
 const String kTemplateNameWidget = 'widget';
 
 // ------- Template Types --------
