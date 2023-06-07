@@ -184,3 +184,19 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
   {{/stackedTemplates}}
 };
 ''';
+
+const String kTemplateTypesMap = '''
+/// NOTE: This is generated code from the compileTemplates command. Do not 
+///       modify by hand.
+///       This file should be checked into source control.
+
+Map<String, List<String>> kCompiledTemplateTypes = {
+  {{#stackedTemplates}}
+  '{{name}}': [
+    {{#templates}}
+    '{{type}}',
+    {{/templates}}
+  ],
+  {{/stackedTemplates}}
+};
+''';
