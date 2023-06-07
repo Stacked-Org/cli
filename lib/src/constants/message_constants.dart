@@ -35,6 +35,18 @@ const String kCommandHelpExcludeRoute =
 const String kCommandHelpV1 =
     'When v1 or use-builder is provided, ViewModelBuilder will be used instead of StackedView.';
 
+const String kCommandHelpAppMinimalTemplate =
+    'Specifies creating using an application template with a main.dart that is minimal, including no comments.';
+
+const String kCommandHelpAppDescription =
+    'The description to use for your new Flutter project. This string ends up in the pubspec.yaml file.';
+
+const String kCommandHelpAppOrganization =
+    'The organization responsible for your new Flutter project, in reverse domain name notation.';
+
+const String kCommandHelpAppPlatforms =
+    'The platforms supported by this project. Platform folders (e.g. android/) will be generated in the target project.';
+
 const String kCommandHelpModel =
     'When model is provided, StackedView will be used instead of StatelessWidget and a Model will be created.';
 
