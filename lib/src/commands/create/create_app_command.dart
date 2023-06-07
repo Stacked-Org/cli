@@ -12,6 +12,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
@@ -31,41 +32,6 @@ class CreateAppCommand extends Command {
 
   CreateAppCommand() {
     argParser
-      ..addOption(
-        ksConfigPath,
-        abbr: 'c',
-        help: kCommandHelpConfigFilePath,
-      )
-      ..addOption(
-        ksLineLength,
-        abbr: 'l',
-        help: kCommandHelpLineLength,
-        valueHelp: '80',
-      )
-      ..addOption(
-        ksAppDescription,
-        help: kCommandHelpAppDescription,
-      )
-      ..addOption(
-        ksAppOrganization,
-        defaultsTo: 'com.example',
-        help: kCommandHelpAppOrganization,
-      )
-      ..addMultiOption(
-        ksAppPlatforms,
-        allowed: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
-        defaultsTo: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
-        help: kCommandHelpAppPlatforms,
-      )
-      ..addOption(
-        ksTemplateType,
-        abbr: 't',
-        // TODO (Create App Templates): Generate a constant with these values when
-        // running the compile command
-        allowed: ['mobile', 'web'],
-        defaultsTo: 'mobile',
-        help: kCommandHelpCreateAppTemplate,
-      )
       ..addFlag(
         ksAppMinimalTemplate,
         abbr: 'e',
@@ -77,6 +43,39 @@ class CreateAppCommand extends Command {
         aliases: [ksUseBuilder],
         defaultsTo: null,
         help: kCommandHelpV1,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        allowed: kCompiledTemplateTypes[kTemplateNameApp],
+        defaultsTo: 'mobile',
+        help: kCommandHelpCreateAppTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksAppDescription,
+        help: kCommandHelpAppDescription,
+      )
+      ..addOption(
+        ksAppOrganization,
+        // defaultsTo: 'com.example',
+        help: kCommandHelpAppOrganization,
+      )
+      ..addMultiOption(
+        ksAppPlatforms,
+        allowed: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
+        // defaultsTo: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
+        help: kCommandHelpAppPlatforms,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
       );
   }
 

@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateWidgetCommand extends Command with ProjectStructureValidator {
@@ -29,18 +30,15 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
 
   CreateWidgetCommand() {
     argParser
-      ..addOption(
-        ksLineLength,
-        abbr: 'l',
-        help: kCommandHelpLineLength,
-        valueHelp: '80',
+      ..addFlag(
+        ksModel,
+        defaultsTo: true,
+        help: kCommandHelpModel,
       )
       ..addOption(
         ksTemplateType,
         abbr: 't',
-        // TODO (Create Widget Templates): Generate a constant with these values
-        // when running the compile command
-        allowed: ['empty'],
+        allowed: kCompiledTemplateTypes[kTemplateNameWidget],
         defaultsTo: 'empty',
         help: kCommandHelpCreateWidgetTemplate,
       )
@@ -54,10 +52,11 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
         abbr: 'p',
         help: kCommandHelpPath,
       )
-      ..addFlag(
-        ksModel,
-        defaultsTo: true,
-        help: kCommandHelpModel,
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
       );
   }
 

@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
@@ -29,38 +30,35 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
   String get name => kTemplateNameBottomSheet;
 
   CreateBottomSheetCommand() {
-    argParser.addFlag(
-      ksExcludeRoute,
-      defaultsTo: false,
-      help: kCommandHelpExcludeRoute,
-    );
-    argParser.addFlag(
-      ksModel,
-      defaultsTo: true,
-      help: kCommandHelpModel,
-    );
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['empty'],
-      defaultsTo: 'empty',
-      help: kCommandHelpCreateBottomSheetTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+    argParser
+      ..addFlag(
+        ksExcludeRoute,
+        defaultsTo: false,
+        help: kCommandHelpExcludeRoute,
+      )
+      ..addFlag(
+        ksModel,
+        defaultsTo: true,
+        help: kCommandHelpModel,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        allowed: kCompiledTemplateTypes[kTemplateNameBottomSheet],
+        defaultsTo: 'empty',
+        help: kCommandHelpCreateBottomSheetTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      );
   }
 
   @override

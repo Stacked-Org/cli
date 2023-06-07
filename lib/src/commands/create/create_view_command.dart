@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateViewCommand extends Command with ProjectStructureValidator {
@@ -29,39 +30,36 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
   String get name => kTemplateNameView;
 
   CreateViewCommand() {
-    argParser.addFlag(
-      ksExcludeRoute,
-      defaultsTo: false,
-      help: kCommandHelpExcludeRoute,
-    );
-
-    argParser.addFlag(
-      ksV1,
-      aliases: [ksUseBuilder],
-      defaultsTo: null,
-      help: kCommandHelpV1,
-    );
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['empty', 'web'],
-      help: kCommandHelpCreateViewTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+    argParser
+      ..addFlag(
+        ksExcludeRoute,
+        defaultsTo: false,
+        help: kCommandHelpExcludeRoute,
+      )
+      ..addFlag(
+        ksV1,
+        aliases: [ksUseBuilder],
+        defaultsTo: null,
+        help: kCommandHelpV1,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        allowed: kCompiledTemplateTypes[kTemplateNameView],
+        defaultsTo: 'empty',
+        help: kCommandHelpCreateViewTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      );
   }
 
   @override
