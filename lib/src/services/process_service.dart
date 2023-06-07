@@ -36,7 +36,7 @@ class ProcessService {
     bool shouldUseMinimalTemplate = true,
     String? description,
     String? organization,
-    List<String>? platforms,
+    List<String> platforms = const [],
   }) async {
     await _runProcess(
       programName: ksFlutter,
@@ -46,7 +46,7 @@ class ProcessService {
         shouldUseMinimalTemplate ? '-e' : '--no-empty',
         if (description != null) '--description="$description"',
         if (organization != null) '--org="$organization"',
-        if (platforms != null) '--platforms=${platforms.join(",")}',
+        if (platforms.isNotEmpty) '--platforms=${platforms.join(",")}',
       ],
     );
   }

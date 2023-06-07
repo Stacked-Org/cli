@@ -62,13 +62,11 @@ class CreateAppCommand extends Command {
       )
       ..addOption(
         ksAppOrganization,
-        // defaultsTo: 'com.example',
         help: kCommandHelpAppOrganization,
       )
       ..addMultiOption(
         ksAppPlatforms,
         allowed: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
-        // defaultsTo: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
         help: kCommandHelpAppPlatforms,
       )
       ..addOption(
