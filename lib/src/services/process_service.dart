@@ -23,14 +23,31 @@ class ProcessService {
     _formattingLineLength = length ?? _configService.lineLength.toString();
   }
 
-  /// It creates a new flutter app.
+  /// Creates a new flutter app.
   ///
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
-  Future<void> runCreateApp({required String appName}) async {
+  ///   shouldUseMinimalTempalte (bool): Uses minimal app template.
+  ///   description (String): The description to use for your new Flutter project.
+  ///   organization (String): The organization responsible for your new Flutter project.
+  ///   platforms (List<String>): The platforms supported by this project.
+  Future<void> runCreateApp({
+    required String appName,
+    bool shouldUseMinimalTemplate = true,
+    String? description,
+    String? organization,
+    List<String>? platforms,
+  }) async {
     await _runProcess(
       programName: ksFlutter,
-      arguments: [ksCreate, appName],
+      arguments: [
+        ksCreate,
+        appName,
+        shouldUseMinimalTemplate ? '-e' : '--no-empty',
+        if (description != null) '--description="$description"',
+        if (organization != null) '--org="$organization"',
+        if (platforms != null) '--platforms=${platforms.join(",")}',
+      ],
     );
   }
 
