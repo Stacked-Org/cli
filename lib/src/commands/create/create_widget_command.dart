@@ -90,8 +90,13 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
       );
 
       unawaited(_analyticsService.createWidgetEvent(name: widgetName));
-    } catch (e) {
-      _log.warn(message: e.toString());
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

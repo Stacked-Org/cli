@@ -35,12 +35,6 @@ class CreateAppCommand extends Command {
   CreateAppCommand() {
     argParser
       ..addFlag(
-        ksAppMinimalTemplate,
-        abbr: 'e',
-        defaultsTo: true,
-        help: kCommandHelpAppMinimalTemplate,
-      )
-      ..addFlag(
         ksV1,
         aliases: [ksUseBuilder],
         defaultsTo: null,
@@ -90,10 +84,8 @@ class CreateAppCommand extends Command {
       final appName = workingDirectory.split('/').last;
       final templateType = argResults![ksTemplateType];
 
-      unawaited(_analyticsService.createAppEvent(name: appName));
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(
-        shouldUseMinimalTemplate: argResults![ksAppMinimalTemplate],
         name: workingDirectory,
         description: argResults![ksAppDescription],
         organization: argResults![ksAppOrganization],
@@ -105,6 +97,7 @@ class CreateAppCommand extends Command {
       if (argResults![ksAppDescription] != null) {
         _templateHelper.packageDescription = argResults![ksAppDescription];
       }
+
       await _templateService.renderTemplate(
         templateName: name,
         name: appName,
@@ -119,8 +112,14 @@ class CreateAppCommand extends Command {
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       await _processService.runFormat(appName: workingDirectory);
       await _clean(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createAppEvent(name: appName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 
