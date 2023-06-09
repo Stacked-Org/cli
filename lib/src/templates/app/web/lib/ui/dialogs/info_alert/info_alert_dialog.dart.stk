@@ -82,6 +82,10 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                 height: 50,
                 width: double.infinity,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Text(
                   'Got it',
                   style: TextStyle(
@@ -89,10 +93,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             )

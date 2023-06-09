@@ -1,11 +1,9 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
-
 // -------- StackedJsonStk Template Data ----------
 
-const String kAppWebTemplateStackedJsonStkPath =
-    'stacked.json.stk';
+const String kAppWebTemplateStackedJsonStkPath = 'stacked.json.stk';
 
 const String kAppWebTemplateStackedJsonStkContent = '''
 {
@@ -33,7 +31,6 @@ const String kAppWebTemplateStackedJsonStkContent = '''
 
 // --------------------------------------------------
 
-
 // -------- UnknownViewmodelTest Template Data ----------
 
 const String kAppWebTemplateUnknownViewmodelTestPath =
@@ -55,7 +52,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppWebTemplateHomeViewmodelTestPath =
@@ -72,7 +68,7 @@ import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 import '{{{viewTestHelpersImport}}}';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeViewModel getModel() => HomeViewModel();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -80,7 +76,7 @@ void main() {
 
     group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
+        final model = getModel();
         model.incrementCounter();
         expect(model.counterLabel, 'Counter is: 1');
       });
@@ -91,7 +87,7 @@ void main() {
           () {
         final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = _getModel();
+        final model = getModel();
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,
@@ -106,7 +102,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- NoticeSheetModelTest Template Data ----------
 
@@ -130,7 +125,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- InfoAlertDialogModelTest Template Data ----------
 
 const String kAppWebTemplateInfoAlertDialogModelTestPath =
@@ -152,7 +146,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- TestHelpers Template Data ----------
 
@@ -243,11 +236,9 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
-
 // -------- BuildYamlStk Template Data ----------
 
-const String kAppWebTemplateBuildYamlStkPath =
-    'build.yaml.stk';
+const String kAppWebTemplateBuildYamlStkPath = 'build.yaml.stk';
 
 const String kAppWebTemplateBuildYamlStkContent = '''
 targets:
@@ -260,11 +251,9 @@ targets:
 
 // --------------------------------------------------
 
-
 // -------- MainIconPngStk Template Data ----------
 
-const String kAppWebTemplateMainIconPngStkPath =
-    'web/main-icon.png.stk';
+const String kAppWebTemplateMainIconPngStkPath = 'web/main-icon.png.stk';
 
 const String kAppWebTemplateMainIconPngStkContent = '''
 iVBORw0KGgoAAAANSUhEUgAAALMAAACzCAYAAADCFC3zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAN5SURBVHgB7daLjVNBDEDRF0QjVEIrdMLSAS3RyZZAByGWdqUQ5Z/5eGbOkSw3cC152wAAAAAAAAAAAAAAAACAjHZbYfuDDW77tdvt3raCvmzQXvGQg5hprUrIQcy0VC3kIGZaqRpyEDMtVA85iJnamoQcxExNzUIOYqaWpiEHMVND85CDmCmtS8hBzJTULeQgZkrpGnIQMyV0DzmImVelCDmImVekCTmImWelCjmImWekCzmImUelDDmImUekDTmImXulDjmImXukDzmImVuGCDmImWuGCTmImUuGCjmImXOGCzmImVNDhhzEzLFhQw5i5tPQIQcxE4YPOYiZKUIOYl7bNCEHMa9rqpCDmNc0XchBzOuZMuQg5rVMG3IQ8zqmDjmIeQ3ThxzEPL8lQg5intsyIQcxz2upkIOY57RcyEHM81ky5CDmuSwbchDzPJYOOYh5DsuHHMQ8PiF/EPPYhHxEzOMS8gkxj0nIZ4h5PEK+QMxjEfIVYh6HkG8Q8xiEfAcx5yfkO4k5NyE/QMx5CflBYs5JyE8Qcz5CfpKYcxHyC8Sch5BfJOYchFyAmPsTciFi7kvIBYm5HyEXJuY+hFyBmNsTciVibkvIFYm5HSFXttsK2+/3bxunvh/mz8axv4fj/r0VVDxm/nc47p+H9bZx6v0Q87etIG9GRUJuS8yVCLk9MVcg5D7EXJiQ+xFzQULuS8yFCLk/MRcg5BzE/CIh5yHmFwg5FzE/Scj5iPkJQs5JzA8Scl5ifoCQcxPznYScn5jvIOQxiPkGIY9DzFcIeSxivkDI4xHzGUIek5hPCHlcYj4i5LGJ+YOQxyfmTcizWD5mIc9j6ZiFPJdlYxbyfJaMWchzWi5mIc9rqZiFPLdlYhby/JaIWchrmD5mIa9j6piFvJZpYxbyeqaMWchrmi5mIa9rqpiFvLZpYhYyU8QsZMLwMQuZT0PHLGSODRuzkDk1ZMxC5pzhYhYylwwVs5C5ZpiYhcwtQ8QsZO6RPmYhc6/UMQuZR6SNWcg8KmXMQuYZ6WIWMs9KFbOQeUWamIXMq1LELGRK6B6zkCmla8xCpqRuMQuZ0rrELGRqaB6zkKmlacxCpqZmMQuZ2prELGRaqB6zkGmlasxCpqVqMQuZ1qrELGR6+LoVdgj5x2HFvG9w2fsGAAAAAAAAAAAAAAAAACzhH8sFZqawpyetAAAAAElFTkSuQmCC
@@ -272,11 +261,9 @@ iVBORw0KGgoAAAANSUhEUgAAALMAAACzCAYAAADCFC3zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNS
 
 // --------------------------------------------------
 
-
 // -------- IndexHtmlStk Template Data ----------
 
-const String kAppWebTemplateIndexHtmlStkPath =
-    'web/index.html.stk';
+const String kAppWebTemplateIndexHtmlStkPath = 'web/index.html.stk';
 
 const String kAppWebTemplateIndexHtmlStkContent = '''
 <!DOCTYPE html>
@@ -300,7 +287,7 @@ const String kAppWebTemplateIndexHtmlStkContent = '''
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Learn Flutter Web the Right way">
+  <meta name="description" content="{{packageDescription}}">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -454,11 +441,9 @@ const String kAppWebTemplateIndexHtmlStkContent = '''
 
 // --------------------------------------------------
 
-
 // -------- FaviconPngStk Template Data ----------
 
-const String kAppWebTemplateFaviconPngStkPath =
-    'web/favicon.png.stk';
+const String kAppWebTemplateFaviconPngStkPath = 'web/favicon.png.stk';
 
 const String kAppWebTemplateFaviconPngStkContent = '''
 iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHaSURBVHgBpVTNasJAEN7dxLQl+FNEFBRR8VCQgo+gryCkh9499CnUg/gMvo3eFWw9eBLS4sWT2oOHRLOdWWLYxkRT+8GS3cnkm28mM0tIMOhpwzmn7plKdurawz9EdLtdNhqNWKvVekyn0ynLsghjTPg4jsNt26a6rnO09/v9r2Qy6UwmkwOlwoX7yZVqtWqA07v78uqKx+NmsVhsw179Jc4wDKVcLrejEvkXCHlBDlmdlkgkPm8lhKw+arWahipRKikUCspqtSqe2FOpFKnX6+QSZrMZ2W63Yr/b7Z6htshl45kOh8MnOWKj0eCXAD8vSKmOf54ho6qqnEREr9fDbjizZzIZikBCut/v6X/IENBeQikSck3TrnFdJJMghJ3V0L86nc5ZHbHOsk82m9WFUCTEzg8DkEVRhpOE6jhD57CUo5IR4tVQpMyCUg5KM0LKorH5crn8lqNhY4/HY9JsNkMVYWPLWK/XXutRmJQHGPQ5uXH0cGxLpdK9SNeVe8jlcgNyI2CWB6ZpHjwDjgxGyOfzb3+5JIBoXqlUXuG2uSOnHpQCUSi0slgs7qCNVAwCEHXZbDZYV+8sZpYxJxaLHaFc1nQ6PYLZCcsAy6BIT0U6eza83X2CBH4AHNJFlWlQookAAAAASUVORK5CYII=
@@ -466,39 +451,21 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNS
 
 // --------------------------------------------------
 
-
 // -------- READMEMdStk Template Data ----------
 
-const String kAppWebTemplateREADMEMdStkPath =
-    'README.md.stk';
+const String kAppWebTemplateREADMEMdStkPath = 'README.md.stk';
 
 const String kAppWebTemplateREADMEMdStkContent = '''
-# stacked_app
+# {{packageName}}
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+{{packageDescription}}
 ''';
 
 // --------------------------------------------------
 
-
 // -------- Main Template Data ----------
 
-const String kAppWebTemplateMainPath =
-    'lib/main.dart.stk';
+const String kAppWebTemplateMainPath = 'lib/main.dart.stk';
 
 const String kAppWebTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -507,50 +474,38 @@ import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  setupLocator(
-    stackedRouter: stackedRouter,
-  );
+  await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(builder: (_) => MaterialApp.router(
-        title: 'Stacked Application',
-        theme: Theme.of(context).copyWith(
-          primaryColor: kcBackgroundColor,
-          focusColor: kcPrimaryColor,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: Colors.black,
-              ),
-        ),
+    return ResponsiveApp(
+      builder: (_) => MaterialApp.router(
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
-      ).animate()
-      .fadeIn(
-        delay: const Duration(milliseconds: 50),
-        duration: const Duration(milliseconds: 400),
-      )
-    );
+      ),
+    ).animate().fadeIn(
+          delay: const Duration(milliseconds: 50),
+          duration: const Duration(milliseconds: 400),
+        );
   }
 }
 
 ''';
 
 // --------------------------------------------------
-
 
 // -------- AppConstants Template Data ----------
 
@@ -568,11 +523,9 @@ const double kdDesktopMaxContentHeight = 750;
 
 // --------------------------------------------------
 
-
 // -------- UiHelpers Template Data ----------
 
-const String kAppWebTemplateUiHelpersPath =
-    'lib/ui/common/ui_helpers.dart.stk';
+const String kAppWebTemplateUiHelpersPath = 'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppWebTemplateUiHelpersContent = '''
 import 'dart:math';
@@ -658,7 +611,6 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
-
 // -------- AppStrings Template Data ----------
 
 const String kAppWebTemplateAppStringsPath =
@@ -673,11 +625,9 @@ const String ksHomeBottomSheetDescription =
 
 // --------------------------------------------------
 
-
 // -------- AppColors Template Data ----------
 
-const String kAppWebTemplateAppColorsPath =
-    'lib/ui/common/app_colors.dart.stk';
+const String kAppWebTemplateAppColorsPath = 'lib/ui/common/app_colors.dart.stk';
 
 const String kAppWebTemplateAppColorsContent = '''
 import 'package:flutter/material.dart';
@@ -696,7 +646,6 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 
 // --------------------------------------------------
 
-
 // -------- NoticeSheetModel Template Data ----------
 
 const String kAppWebTemplateNoticeSheetModelPath =
@@ -710,7 +659,6 @@ class NoticeSheetModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- NoticeSheet Template Data ----------
 
@@ -743,6 +691,13 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -761,13 +716,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           verticalSpaceLarge,
         ],
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
     );
   }
 
@@ -779,7 +727,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- InfoAlertDialogModel Template Data ----------
 
@@ -794,7 +741,6 @@ class InfoAlertDialogModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -886,6 +832,10 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                 height: 50,
                 width: double.infinity,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Text(
                   'Got it',
                   style: TextStyle(
@@ -893,10 +843,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             )
@@ -914,7 +860,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewDesktop Template Data ----------
 
@@ -937,61 +882,61 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
       body: Center(
-            child: SizedBox(
-              width: kdDesktopMaxContentWidth,
-              height: kdDesktopMaxContentHeight,
-              child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, DESKTOP UI!',
+        child: SizedBox(
+          width: kdDesktopMaxContentWidth,
+          height: kdDesktopMaxContentHeight,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              verticalSpaceLarge,
+              Column(
+                children: [
+                  const Text(
+                    'Hello, DESKTOP UI!',
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  verticalSpaceMedium,
+                  MaterialButton(
+                    color: Colors.black,
+                    onPressed: viewModel.incrementCounter,
+                    child: Text(
+                      viewModel.counterLabel,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MaterialButton(
+                    color: kcDarkGreyColor,
+                    onPressed: viewModel.showDialog,
+                    child: const Text(
+                      'Show Dialog',
                       style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
                       ),
                     ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
+                  ),
+                  MaterialButton(
+                    color: kcDarkGreyColor,
+                    onPressed: viewModel.showBottomSheet,
+                    child: const Text(
+                      'Show Bottom Sheet',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -1001,7 +946,6 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewMobile Template Data ----------
 
@@ -1056,23 +1000,23 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -1088,7 +1032,6 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeView Template Data ----------
 
@@ -1131,7 +1074,6 @@ class HomeView extends StackedView<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewmodel Template Data ----------
 
@@ -1179,7 +1121,6 @@ class HomeViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewTablet Template Data ----------
 
@@ -1234,23 +1175,23 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -1266,7 +1207,6 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- UnknownView Template Data ----------
 
@@ -1309,7 +1249,6 @@ class UnknownView extends StackedView<UnknownViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- UnknownViewDesktop Template Data ----------
 
@@ -1366,7 +1305,6 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- UnknownViewTablet Template Data ----------
 
 const String kAppWebTemplateUnknownViewTabletPath =
@@ -1422,7 +1360,6 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- UnknownViewmodel Template Data ----------
 
 const String kAppWebTemplateUnknownViewmodelPath =
@@ -1436,7 +1373,6 @@ class UnknownViewModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- UnknownViewMobile Template Data ----------
 
@@ -1492,7 +1428,6 @@ class UnknownViewMobile extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppWebTemplateStartupViewmodelPath =
@@ -1519,7 +1454,6 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- StartupView Template Data ----------
 
@@ -1587,7 +1521,6 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- ScaleOnHover Template Data ----------
 
 const String kAppWebTemplateScaleOnHoverPath =
@@ -1603,7 +1536,7 @@ class ScaleOnHover extends StatefulWidget {
   const ScaleOnHover({super.key, required this.child, this.scale = 1.1});
 
   @override
-  _ScaleOnHoverState createState() => _ScaleOnHoverState();
+  State<ScaleOnHover> createState() => _ScaleOnHoverState();
 }
 
 class _ScaleOnHoverState extends State<ScaleOnHover> {
@@ -1620,8 +1553,8 @@ class _ScaleOnHoverState extends State<ScaleOnHover> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeOutCirc,
-        child: widget.child,
         transform: _hovering ? scaleTransform : noScaleTransform,
+        child: widget.child,
       ),
     );
   }
@@ -1632,11 +1565,9 @@ class _ScaleOnHoverState extends State<ScaleOnHover> {
     });
   }
 }
-
 ''';
 
 // --------------------------------------------------
-
 
 // -------- TranslateOnHover Template Data ----------
 
@@ -1659,7 +1590,7 @@ class TranslateOnHover extends StatefulWidget {
   });
 
   @override
-  _TranslateOnHoverState createState() => _TranslateOnHoverState();
+  State<TranslateOnHover> createState() => _TranslateOnHoverState();
 }
 
 class _TranslateOnHoverState extends State<TranslateOnHover> {
@@ -1678,8 +1609,8 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
       onExit: (e) => _mouseEnter(false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        child: widget.child,
         transform: _hovering ? hoverTransform : nonHoverTransform,
+        child: widget.child,
       ),
     );
   }
@@ -1694,11 +1625,9 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
 
 // --------------------------------------------------
 
-
 // -------- App Template Data ----------
 
-const String kAppWebTemplateAppPath =
-    'lib/app/app.dart.stk';
+const String kAppWebTemplateAppPath = 'lib/app/app.dart.stk';
 
 const String kAppWebTemplateAppContent = '''
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
@@ -1742,7 +1671,6 @@ class App {}
 
 // --------------------------------------------------
 
-
 // -------- HoverExtensions Template Data ----------
 
 const String kAppWebTemplateHoverExtensionsPath =
@@ -1757,8 +1685,8 @@ import 'package:flutter/material.dart';
 extension HoverExtensions on Widget {
   Widget get showCursorOnHover {
     return _returnUnalteredOnMobile(MouseRegion(
-      child: this,
       cursor: SystemMouseCursors.click,
+      child: this,
     ));
   }
 
@@ -1776,8 +1704,8 @@ extension HoverExtensions on Widget {
   /// Scales the widget by [scale] on hover
   Widget scaleOnHover({double scale = 1.1}) {
     return _returnUnalteredOnMobile(ScaleOnHover(
-      child: this,
       scale: scale,
+      child: this,
     ));
   }
 
@@ -1797,122 +1725,46 @@ extension HoverExtensions on Widget {
 
 // --------------------------------------------------
 
-
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppWebTemplatePubspecYamlStkPath =
-    'pubspec.yaml.stk';
+const String kAppWebTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
 
 const String kAppWebTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+description: {{packageDescription}}
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.2.7
-  stacked_services: ^1.0.2
+  stacked: ^3.4.0
+  stacked_services: ^1.1.0
   url_strategy: ^0.2.0
   responsive_builder: ^0.7.0
-  flutter_animate: ^4.1.0
+  flutter_animate: ^4.1.1+1
 
 dev_dependencies:
+  build_runner: ^2.4.5
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.1
+  stacked_generator: ^1.3.3
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^1.3.0
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
 
 ''';
 
 // --------------------------------------------------
 
-
 // -------- SettingsJsonStk Template Data ----------
 
-const String kAppWebTemplateSettingsJsonStkPath =
-    '.vscode/settings.json.stk';
+const String kAppWebTemplateSettingsJsonStkPath = '.vscode/settings.json.stk';
 
 const String kAppWebTemplateSettingsJsonStkContent = '''
 {
@@ -1926,11 +1778,9 @@ const String kAppWebTemplateSettingsJsonStkContent = '''
 
 // --------------------------------------------------
 
-
 // -------- StackedJsonStk Template Data ----------
 
-const String kAppMobileTemplateStackedJsonStkPath =
-    'stacked.json.stk';
+const String kAppMobileTemplateStackedJsonStkPath = 'stacked.json.stk';
 
 const String kAppMobileTemplateStackedJsonStkContent = '''
 {
@@ -1958,7 +1808,6 @@ const String kAppMobileTemplateStackedJsonStkContent = '''
 
 // --------------------------------------------------
 
-
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppMobileTemplateHomeViewmodelTestPath =
@@ -1975,7 +1824,7 @@ import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 import '{{{viewTestHelpersImport}}}';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeViewModel getModel() => HomeViewModel();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -1983,7 +1832,7 @@ void main() {
 
     group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
+        final model = getModel();
         model.incrementCounter();
         expect(model.counterLabel, 'Counter is: 1');
       });
@@ -1994,7 +1843,7 @@ void main() {
           () {
         final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = _getModel();
+        final model = getModel();
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,
@@ -2009,7 +1858,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- NoticeSheetModelTest Template Data ----------
 
@@ -2033,7 +1881,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- InfoAlertDialogModelTest Template Data ----------
 
 const String kAppMobileTemplateInfoAlertDialogModelTestPath =
@@ -2055,7 +1902,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- TestHelpers Template Data ----------
 
@@ -2146,39 +1992,21 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
-
 // -------- READMEMdStk Template Data ----------
 
-const String kAppMobileTemplateREADMEMdStkPath =
-    'README.md.stk';
+const String kAppMobileTemplateREADMEMdStkPath = 'README.md.stk';
 
 const String kAppMobileTemplateREADMEMdStkContent = '''
-# stacked_app
+# {{packageName}}
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+{{packageDescription}}
 ''';
 
 // --------------------------------------------------
 
-
 // -------- Main Template Data ----------
 
-const String kAppMobileTemplateMainPath =
-    'lib/main.dart.stk';
+const String kAppMobileTemplateMainPath = 'lib/main.dart.stk';
 
 const String kAppMobileTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -2186,31 +2014,22 @@ import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-void main() {
-  setupLocator();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-      ),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
@@ -2224,7 +2043,6 @@ class MyApp extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- UiHelpers Template Data ----------
 
@@ -2315,7 +2133,6 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
-
 // -------- AppStrings Template Data ----------
 
 const String kAppMobileTemplateAppStringsPath =
@@ -2329,7 +2146,6 @@ const String ksHomeBottomSheetDescription =
 ''';
 
 // --------------------------------------------------
-
 
 // -------- AppColors Template Data ----------
 
@@ -2351,7 +2167,6 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 
 // --------------------------------------------------
 
-
 // -------- NoticeSheetModel Template Data ----------
 
 const String kAppMobileTemplateNoticeSheetModelPath =
@@ -2365,7 +2180,6 @@ class NoticeSheetModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- NoticeSheet Template Data ----------
 
@@ -2398,6 +2212,13 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -2416,13 +2237,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           verticalSpaceLarge,
         ],
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
     );
   }
 
@@ -2434,7 +2248,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- InfoAlertDialogModel Template Data ----------
 
@@ -2449,7 +2262,6 @@ class InfoAlertDialogModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -2541,6 +2353,10 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                 height: 50,
                 width: double.infinity,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Text(
                   'Got it',
                   style: TextStyle(
@@ -2548,10 +2364,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             )
@@ -2569,7 +2381,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewV1 Template Data ----------
 
@@ -2659,7 +2470,6 @@ class HomeView extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- HomeView Template Data ----------
 
 const String kAppMobileTemplateHomeViewPath =
@@ -2717,23 +2527,23 @@ class HomeView extends StackedView<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -2754,7 +2564,6 @@ class HomeView extends StackedView<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- HomeViewmodel Template Data ----------
 
@@ -2803,7 +2612,6 @@ class HomeViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
-
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppMobileTemplateStartupViewmodelPath =
@@ -2832,7 +2640,6 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- StartupViewV1 Template Data ----------
 
@@ -2898,7 +2705,6 @@ class StartupView extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- StartupView Template Data ----------
 
@@ -2966,11 +2772,9 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- App Template Data ----------
 
-const String kAppMobileTemplateAppPath =
-    'lib/app/app.dart.stk';
+const String kAppMobileTemplateAppPath = 'lib/app/app.dart.stk';
 
 const String kAppMobileTemplateAppContent = '''
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
@@ -3008,114 +2812,39 @@ class App {}
 
 // --------------------------------------------------
 
-
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppMobileTemplatePubspecYamlStkPath =
-    'pubspec.yaml.stk';
+const String kAppMobileTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
 
 const String kAppMobileTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+description: {{packageDescription}}
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.2.7
-  stacked_services: ^1.0.0
+  stacked: ^3.4.0
+  stacked_services: ^1.1.0
 
 dev_dependencies:
+  build_runner: ^2.4.5
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.1
+  stacked_generator: ^1.3.3
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^1.0.0
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
 
 ''';
 
 // --------------------------------------------------
-
 
 // -------- SettingsJsonStk Template Data ----------
 
@@ -3133,7 +2862,6 @@ const String kAppMobileTemplateSettingsJsonStkContent = '''
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericModelTest Template Data ----------
 
@@ -3156,7 +2884,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericUseModel Template Data ----------
 
@@ -3190,7 +2917,6 @@ class {{widgetName}} extends StackedView<{{widgetModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- Generic Template Data ----------
 
 const String kWidgetEmptyTemplateGenericPath =
@@ -3212,7 +2938,6 @@ class {{widgetName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- GenericModel Template Data ----------
 
 const String kWidgetEmptyTemplateGenericModelPath =
@@ -3225,7 +2950,6 @@ class {{widgetModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericDialogModelTest Template Data ----------
 
@@ -3249,7 +2973,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- GenericDialogModel Template Data ----------
 
 const String kDialogEmptyTemplateGenericDialogModelPath =
@@ -3263,7 +2986,6 @@ class {{dialogModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericDialogUseModel Template Data ----------
 
@@ -3385,7 +3107,6 @@ class {{dialogName}} extends StackedView<{{dialogModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericDialog Template Data ----------
 
 const String kDialogEmptyTemplateGenericDialogPath =
@@ -3495,7 +3216,6 @@ class {{dialogName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewEmptyTemplateGenericViewmodelTestPath =
@@ -3518,7 +3238,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewEmptyTemplateGenericViewmodelPath =
@@ -3531,7 +3250,6 @@ class {{viewModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericView Template Data ----------
 
@@ -3570,7 +3288,6 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewV1 Template Data ----------
 
 const String kViewEmptyTemplateGenericViewV1Path =
@@ -3602,7 +3319,6 @@ class {{viewName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewWebTemplateGenericViewmodelTestPath =
@@ -3625,7 +3341,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewWebTemplateGenericViewmodelPath =
@@ -3639,7 +3354,6 @@ class {{viewModelName}} extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericViewMobile Template Data ----------
 
@@ -3675,7 +3389,6 @@ class {{viewName}}Mobile extends ViewModelWidget<{{viewModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewTablet Template Data ----------
 
 const String kViewWebTemplateGenericViewTabletPath =
@@ -3709,7 +3422,6 @@ class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericView Template Data ----------
 
@@ -3753,7 +3465,6 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewDesktop Template Data ----------
 
 const String kViewWebTemplateGenericViewDesktopPath =
@@ -3788,7 +3499,6 @@ class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceEmptyTemplateGenericServiceTestPath =
@@ -3811,7 +3521,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- GenericService Template Data ----------
 
 const String kServiceEmptyTemplateGenericServicePath =
@@ -3824,7 +3533,6 @@ class {{serviceName}} {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericSheetModelTest Template Data ----------
 
@@ -3848,7 +3556,6 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- GenericSheetModel Template Data ----------
 
 const String kBottomSheetEmptyTemplateGenericSheetModelPath =
@@ -3862,7 +3569,6 @@ class {{sheetModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericSheetUseModel Template Data ----------
 
@@ -3934,7 +3640,6 @@ class {{sheetName}} extends StackedView<{{sheetModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericSheet Template Data ----------
 
 const String kBottomSheetEmptyTemplateGenericSheetPath =
@@ -3993,4 +3698,3 @@ class {{sheetName}} extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
-

@@ -49,7 +49,6 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
         help: kCommandHelpLineLength,
         valueHelp: '80',
       );
-    ;
   }
 
   @override
