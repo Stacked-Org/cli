@@ -14,6 +14,7 @@ import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_cli/src/templates/template_helper.dart';
 
 class CreateAppCommand extends Command {
   final _analyticsService = locator<AnalyticsService>();
@@ -21,6 +22,7 @@ class CreateAppCommand extends Command {
   final _fileService = locator<FileService>();
   final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
+  final _templateHelper = locator<TemplateHelper>();
   final _templateService = locator<TemplateService>();
 
   @override
@@ -100,6 +102,9 @@ class CreateAppCommand extends Command {
 
       _log.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
+      if (argResults![ksAppDescription] != null) {
+        _templateHelper.packageDescription = argResults![ksAppDescription];
+      }
       await _templateService.renderTemplate(
         templateName: name,
         name: appName,
