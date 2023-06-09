@@ -91,8 +91,8 @@ class CreateAppCommand extends Command {
       unawaited(_analyticsService.createAppEvent(name: appName));
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(
-        appName: workingDirectory,
         shouldUseMinimalTemplate: argResults![ksAppMinimalTemplate],
+        name: workingDirectory,
         description: argResults![ksAppDescription],
         organization: argResults![ksAppOrganization],
         platforms: argResults![ksAppPlatforms],
