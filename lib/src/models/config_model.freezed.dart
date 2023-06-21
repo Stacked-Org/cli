@@ -112,44 +112,27 @@ abstract class $ConfigCopyWith<$Res> {
       _$ConfigCopyWithImpl<$Res, Config>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path')
-          String viewsPath,
-      @JsonKey(name: 'services_path')
-          String servicesPath,
-      @JsonKey(name: 'widgets_path')
-          String widgetsPath,
-      @JsonKey(name: 'bottom_sheets_path')
-          String bottomSheetsPath,
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'widgets_path') String widgetsPath,
+      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
-          String bottomSheetTypeFilePath,
+      String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
-          String bottomSheetBuilderFilePath,
-      @JsonKey(name: 'dialogs_path')
-          String dialogsPath,
-      @JsonKey(name: 'dialog_type_file_path')
-          String dialogTypeFilePath,
-      @JsonKey(name: 'dialog_builder_file_path')
-          String dialogBuilderFilePath,
-      @JsonKey(name: 'stacked_app_file_path')
-          String stackedAppFilePath,
-      @JsonKey(name: 'test_helpers_file_path')
-          String testHelpersFilePath,
-      @JsonKey(name: 'test_services_path')
-          String testServicesPath,
-      @JsonKey(name: 'test_views_path')
-          String testViewsPath,
-      @JsonKey(name: 'test_widgets_path')
-          String testWidgetsPath,
-      @JsonKey(name: 'locator_name')
-          String locatorName,
-      @JsonKey(name: 'register_mocks_function')
-          String registerMocksFunction,
-      @JsonKey(name: 'v1')
-          bool v1,
-      @JsonKey(name: 'line_length')
-          int lineLength,
-      @JsonKey(name: 'prefer_web')
-          bool preferWeb});
+      String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path') String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path') String dialogTypeFilePath,
+      @JsonKey(name: 'dialog_builder_file_path') String dialogBuilderFilePath,
+      @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
+      @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') String testWidgetsPath,
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
+      @JsonKey(name: 'v1') bool v1,
+      @JsonKey(name: 'line_length') int lineLength,
+      @JsonKey(name: 'prefer_web') bool preferWeb});
 }
 
 /// @nodoc
@@ -273,44 +256,27 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path')
-          String viewsPath,
-      @JsonKey(name: 'services_path')
-          String servicesPath,
-      @JsonKey(name: 'widgets_path')
-          String widgetsPath,
-      @JsonKey(name: 'bottom_sheets_path')
-          String bottomSheetsPath,
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'widgets_path') String widgetsPath,
+      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
-          String bottomSheetTypeFilePath,
+      String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
-          String bottomSheetBuilderFilePath,
-      @JsonKey(name: 'dialogs_path')
-          String dialogsPath,
-      @JsonKey(name: 'dialog_type_file_path')
-          String dialogTypeFilePath,
-      @JsonKey(name: 'dialog_builder_file_path')
-          String dialogBuilderFilePath,
-      @JsonKey(name: 'stacked_app_file_path')
-          String stackedAppFilePath,
-      @JsonKey(name: 'test_helpers_file_path')
-          String testHelpersFilePath,
-      @JsonKey(name: 'test_services_path')
-          String testServicesPath,
-      @JsonKey(name: 'test_views_path')
-          String testViewsPath,
-      @JsonKey(name: 'test_widgets_path')
-          String testWidgetsPath,
-      @JsonKey(name: 'locator_name')
-          String locatorName,
-      @JsonKey(name: 'register_mocks_function')
-          String registerMocksFunction,
-      @JsonKey(name: 'v1')
-          bool v1,
-      @JsonKey(name: 'line_length')
-          int lineLength,
-      @JsonKey(name: 'prefer_web')
-          bool preferWeb});
+      String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path') String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path') String dialogTypeFilePath,
+      @JsonKey(name: 'dialog_builder_file_path') String dialogBuilderFilePath,
+      @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
+      @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') String testWidgetsPath,
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
+      @JsonKey(name: 'v1') bool v1,
+      @JsonKey(name: 'line_length') int lineLength,
+      @JsonKey(name: 'prefer_web') bool preferWeb});
 }
 
 /// @nodoc
@@ -428,44 +394,34 @@ class __$$_ConfigCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Config implements _Config {
   _$_Config(
-      {@JsonKey(name: 'views_path')
-          this.viewsPath = 'ui/views',
-      @JsonKey(name: 'services_path')
-          this.servicesPath = 'services',
-      @JsonKey(name: 'widgets_path')
-          this.widgetsPath = 'ui/widgets/common',
+      {@JsonKey(name: 'views_path') this.viewsPath = 'ui/views',
+      @JsonKey(name: 'services_path') this.servicesPath = 'services',
+      @JsonKey(name: 'widgets_path') this.widgetsPath = 'ui/widgets/common',
       @JsonKey(name: 'bottom_sheets_path')
-          this.bottomSheetsPath = 'ui/bottom_sheets',
+      this.bottomSheetsPath = 'ui/bottom_sheets',
       @JsonKey(name: 'bottom_sheet_type_file_path')
-          this.bottomSheetTypeFilePath = 'enums/bottom_sheet_type.dart',
+      this.bottomSheetTypeFilePath = 'enums/bottom_sheet_type.dart',
       @JsonKey(name: 'bottom_sheet_builder_file_path')
-          this.bottomSheetBuilderFilePath = 'ui/setup/setup_bottom_sheet_ui.dart',
-      @JsonKey(name: 'dialogs_path')
-          this.dialogsPath = 'ui/dialogs',
+      this.bottomSheetBuilderFilePath = 'ui/setup/setup_bottom_sheet_ui.dart',
+      @JsonKey(name: 'dialogs_path') this.dialogsPath = 'ui/dialogs',
       @JsonKey(name: 'dialog_type_file_path')
-          this.dialogTypeFilePath = 'enums/dialog_type.dart',
+      this.dialogTypeFilePath = 'enums/dialog_type.dart',
       @JsonKey(name: 'dialog_builder_file_path')
-          this.dialogBuilderFilePath = 'ui/setup/setup_dialog_ui.dart',
+      this.dialogBuilderFilePath = 'ui/setup/setup_dialog_ui.dart',
       @JsonKey(name: 'stacked_app_file_path')
-          this.stackedAppFilePath = 'app/app.dart',
+      this.stackedAppFilePath = 'app/app.dart',
       @JsonKey(name: 'test_helpers_file_path')
-          this.testHelpersFilePath = 'helpers/test_helpers.dart',
-      @JsonKey(name: 'test_services_path')
-          this.testServicesPath = 'services',
-      @JsonKey(name: 'test_views_path')
-          this.testViewsPath = 'viewmodels',
+      this.testHelpersFilePath = 'helpers/test_helpers.dart',
+      @JsonKey(name: 'test_services_path') this.testServicesPath = 'services',
+      @JsonKey(name: 'test_views_path') this.testViewsPath = 'viewmodels',
       @JsonKey(name: 'test_widgets_path')
-          this.testWidgetsPath = 'widget_models',
-      @JsonKey(name: 'locator_name')
-          this.locatorName = 'locator',
+      this.testWidgetsPath = 'widget_models',
+      @JsonKey(name: 'locator_name') this.locatorName = 'locator',
       @JsonKey(name: 'register_mocks_function')
-          this.registerMocksFunction = 'registerServices',
-      @JsonKey(name: 'v1')
-          this.v1 = false,
-      @JsonKey(name: 'line_length')
-          this.lineLength = 80,
-      @JsonKey(name: 'prefer_web')
-          this.preferWeb = false});
+      this.registerMocksFunction = 'registerServices',
+      @JsonKey(name: 'v1') this.v1 = false,
+      @JsonKey(name: 'line_length') this.lineLength = 80,
+      @JsonKey(name: 'prefer_web') this.preferWeb = false});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -663,44 +619,29 @@ class _$_Config implements _Config {
 
 abstract class _Config implements Config {
   factory _Config(
-      {@JsonKey(name: 'views_path')
-          final String viewsPath,
-      @JsonKey(name: 'services_path')
-          final String servicesPath,
-      @JsonKey(name: 'widgets_path')
-          final String widgetsPath,
-      @JsonKey(name: 'bottom_sheets_path')
-          final String bottomSheetsPath,
+      {@JsonKey(name: 'views_path') final String viewsPath,
+      @JsonKey(name: 'services_path') final String servicesPath,
+      @JsonKey(name: 'widgets_path') final String widgetsPath,
+      @JsonKey(name: 'bottom_sheets_path') final String bottomSheetsPath,
       @JsonKey(name: 'bottom_sheet_type_file_path')
-          final String bottomSheetTypeFilePath,
+      final String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
-          final String bottomSheetBuilderFilePath,
-      @JsonKey(name: 'dialogs_path')
-          final String dialogsPath,
-      @JsonKey(name: 'dialog_type_file_path')
-          final String dialogTypeFilePath,
+      final String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path') final String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path') final String dialogTypeFilePath,
       @JsonKey(name: 'dialog_builder_file_path')
-          final String dialogBuilderFilePath,
-      @JsonKey(name: 'stacked_app_file_path')
-          final String stackedAppFilePath,
-      @JsonKey(name: 'test_helpers_file_path')
-          final String testHelpersFilePath,
-      @JsonKey(name: 'test_services_path')
-          final String testServicesPath,
-      @JsonKey(name: 'test_views_path')
-          final String testViewsPath,
-      @JsonKey(name: 'test_widgets_path')
-          final String testWidgetsPath,
-      @JsonKey(name: 'locator_name')
-          final String locatorName,
+      final String dialogBuilderFilePath,
+      @JsonKey(name: 'stacked_app_file_path') final String stackedAppFilePath,
+      @JsonKey(name: 'test_helpers_file_path') final String testHelpersFilePath,
+      @JsonKey(name: 'test_services_path') final String testServicesPath,
+      @JsonKey(name: 'test_views_path') final String testViewsPath,
+      @JsonKey(name: 'test_widgets_path') final String testWidgetsPath,
+      @JsonKey(name: 'locator_name') final String locatorName,
       @JsonKey(name: 'register_mocks_function')
-          final String registerMocksFunction,
-      @JsonKey(name: 'v1')
-          final bool v1,
-      @JsonKey(name: 'line_length')
-          final int lineLength,
-      @JsonKey(name: 'prefer_web')
-          final bool preferWeb}) = _$_Config;
+      final String registerMocksFunction,
+      @JsonKey(name: 'v1') final bool v1,
+      @JsonKey(name: 'line_length') final int lineLength,
+      @JsonKey(name: 'prefer_web') final bool preferWeb}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 

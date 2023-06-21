@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateDialogCommand extends Command with ProjectStructureValidator {
@@ -29,38 +30,35 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
   String get name => kTemplateNameDialog;
 
   CreateDialogCommand() {
-    argParser.addFlag(
-      ksExcludeRoute,
-      defaultsTo: false,
-      help: kCommandHelpExcludeRoute,
-    );
-    argParser.addFlag(
-      ksModel,
-      defaultsTo: true,
-      help: kCommandHelpModel,
-    );
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['empty'],
-      defaultsTo: 'empty',
-      help: kCommandHelpCreateDialogTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+    argParser
+      ..addFlag(
+        ksExcludeRoute,
+        defaultsTo: false,
+        help: kCommandHelpExcludeRoute,
+      )
+      ..addFlag(
+        ksModel,
+        defaultsTo: true,
+        help: kCommandHelpModel,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        allowed: kCompiledTemplateTypes[kTemplateNameDialog],
+        defaultsTo: 'empty',
+        help: kCommandHelpCreateDialogTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      );
   }
 
   @override
@@ -68,7 +66,6 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
     try {
       final dialogName = argResults!.rest.first;
       final templateType = argResults![ksTemplateType];
-      unawaited(_analyticsService.createDialogEvent(name: dialogName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -90,8 +87,14 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       );
 
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createDialogEvent(name: dialogName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

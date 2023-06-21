@@ -12,6 +12,8 @@ class TemplateHelper {
   final _fileService = locator<FileService>();
   final _pathService = locator<PathService>();
 
+  String packageDescription = 'A new Flutter project.';
+
   String get templatesPath => _pathService.templatesPath;
 
   /// Returns files that end in .stk extensions (which is how we indicate templates in this project)

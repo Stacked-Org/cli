@@ -68,7 +68,7 @@ import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 import '{{{viewTestHelpersImport}}}';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeViewModel getModel() => HomeViewModel();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -76,7 +76,7 @@ void main() {
 
     group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
+        final model = getModel();
         model.incrementCounter();
         expect(model.counterLabel, 'Counter is: 1');
       });
@@ -87,7 +87,7 @@ void main() {
           () {
         final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = _getModel();
+        final model = getModel();
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,
@@ -287,7 +287,7 @@ const String kAppWebTemplateIndexHtmlStkContent = '''
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Learn Flutter Web the Right way">
+  <meta name="description" content="{{packageDescription}}">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -456,23 +456,9 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNS
 const String kAppWebTemplateREADMEMdStkPath = 'README.md.stk';
 
 const String kAppWebTemplateREADMEMdStkContent = '''
-# stacked_app
+# {{packageName}}
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+{{packageDescription}}
 ''';
 
 // --------------------------------------------------
@@ -488,43 +474,32 @@ import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  setupLocator(
-    stackedRouter: stackedRouter,
-  );
+  await setupLocator(stackedRouter: stackedRouter);
   setupDialogUi();
   setupBottomSheetUi();
-
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(builder: (_) => MaterialApp.router(
-        title: 'Stacked Application',
-        theme: Theme.of(context).copyWith(
-          primaryColor: kcBackgroundColor,
-          focusColor: kcPrimaryColor,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: Colors.black,
-              ),
-        ),
+    return ResponsiveApp(
+      builder: (_) => MaterialApp.router(
         routerDelegate: stackedRouter.delegate(),
         routeInformationParser: stackedRouter.defaultRouteParser(),
-      ).animate()
-      .fadeIn(
-        delay: const Duration(milliseconds: 50),
-        duration: const Duration(milliseconds: 400),
-      )
-    );
+      ),
+    ).animate().fadeIn(
+          delay: const Duration(milliseconds: 50),
+          duration: const Duration(milliseconds: 400),
+        );
   }
 }
 
@@ -716,6 +691,13 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -733,13 +715,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           ),
           verticalSpaceLarge,
         ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
       ),
     );
   }
@@ -857,6 +832,10 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                 height: 50,
                 width: double.infinity,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Text(
                   'Got it',
                   style: TextStyle(
@@ -864,10 +843,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             )
@@ -907,61 +882,61 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
       body: Center(
-            child: SizedBox(
-              width: kdDesktopMaxContentWidth,
-              height: kdDesktopMaxContentHeight,
-              child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, DESKTOP UI!',
+        child: SizedBox(
+          width: kdDesktopMaxContentWidth,
+          height: kdDesktopMaxContentHeight,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              verticalSpaceLarge,
+              Column(
+                children: [
+                  const Text(
+                    'Hello, DESKTOP UI!',
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  verticalSpaceMedium,
+                  MaterialButton(
+                    color: Colors.black,
+                    onPressed: viewModel.incrementCounter,
+                    child: Text(
+                      viewModel.counterLabel,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MaterialButton(
+                    color: kcDarkGreyColor,
+                    onPressed: viewModel.showDialog,
+                    child: const Text(
+                      'Show Dialog',
                       style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
                       ),
                     ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
+                  ),
+                  MaterialButton(
+                    color: kcDarkGreyColor,
+                    onPressed: viewModel.showBottomSheet,
+                    child: const Text(
+                      'Show Bottom Sheet',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -1025,23 +1000,23 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -1200,23 +1175,23 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -1561,7 +1536,7 @@ class ScaleOnHover extends StatefulWidget {
   const ScaleOnHover({super.key, required this.child, this.scale = 1.1});
 
   @override
-  _ScaleOnHoverState createState() => _ScaleOnHoverState();
+  State<ScaleOnHover> createState() => _ScaleOnHoverState();
 }
 
 class _ScaleOnHoverState extends State<ScaleOnHover> {
@@ -1578,8 +1553,8 @@ class _ScaleOnHoverState extends State<ScaleOnHover> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeOutCirc,
-        child: widget.child,
         transform: _hovering ? scaleTransform : noScaleTransform,
+        child: widget.child,
       ),
     );
   }
@@ -1590,7 +1565,6 @@ class _ScaleOnHoverState extends State<ScaleOnHover> {
     });
   }
 }
-
 ''';
 
 // --------------------------------------------------
@@ -1616,7 +1590,7 @@ class TranslateOnHover extends StatefulWidget {
   });
 
   @override
-  _TranslateOnHoverState createState() => _TranslateOnHoverState();
+  State<TranslateOnHover> createState() => _TranslateOnHoverState();
 }
 
 class _TranslateOnHoverState extends State<TranslateOnHover> {
@@ -1635,8 +1609,8 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
       onExit: (e) => _mouseEnter(false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        child: widget.child,
         transform: _hovering ? hoverTransform : nonHoverTransform,
+        child: widget.child,
       ),
     );
   }
@@ -1711,8 +1685,8 @@ import 'package:flutter/material.dart';
 extension HoverExtensions on Widget {
   Widget get showCursorOnHover {
     return _returnUnalteredOnMobile(MouseRegion(
-      child: this,
       cursor: SystemMouseCursors.click,
+      child: this,
     ));
   }
 
@@ -1730,8 +1704,8 @@ extension HoverExtensions on Widget {
   /// Scales the widget by [scale] on hover
   Widget scaleOnHover({double scale = 1.1}) {
     return _returnUnalteredOnMobile(ScaleOnHover(
-      child: this,
       scale: scale,
+      child: this,
     ));
   }
 
@@ -1757,104 +1731,32 @@ const String kAppWebTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
 
 const String kAppWebTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+description: {{packageDescription}}
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.2.7
-  stacked_services: ^1.0.2
+  stacked: ^3.4.0
+  stacked_services: ^1.1.0
   url_strategy: ^0.2.0
   responsive_builder: ^0.7.0
-  flutter_animate: ^4.1.0
+  flutter_animate: ^4.1.1+1
 
 dev_dependencies:
+  build_runner: ^2.4.5
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.1
+  stacked_generator: ^1.3.3
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^1.3.0
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
 
 ''';
 
@@ -1922,7 +1824,7 @@ import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 import '{{{viewTestHelpersImport}}}';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeViewModel getModel() => HomeViewModel();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -1930,7 +1832,7 @@ void main() {
 
     group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
+        final model = getModel();
         model.incrementCounter();
         expect(model.counterLabel, 'Counter is: 1');
       });
@@ -1941,7 +1843,7 @@ void main() {
           () {
         final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = _getModel();
+        final model = getModel();
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,
@@ -2095,23 +1997,9 @@ void _removeRegistrationIfExists<T extends Object>() {
 const String kAppMobileTemplateREADMEMdStkPath = 'README.md.stk';
 
 const String kAppMobileTemplateREADMEMdStkContent = '''
-# stacked_app
+# {{packageName}}
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+{{packageDescription}}
 ''';
 
 // --------------------------------------------------
@@ -2126,31 +2014,22 @@ import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-void main() {
-  setupLocator();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-      ),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
@@ -2333,6 +2212,13 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -2350,13 +2236,6 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           ),
           verticalSpaceLarge,
         ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
       ),
     );
   }
@@ -2474,6 +2353,10 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                 height: 50,
                 width: double.infinity,
                 alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Text(
                   'Got it',
                   style: TextStyle(
@@ -2481,10 +2364,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             )
@@ -2648,23 +2527,23 @@ class HomeView extends StackedView<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -2939,101 +2818,29 @@ const String kAppMobileTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
 
 const String kAppMobileTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+description: {{packageDescription}}
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.2.7
-  stacked_services: ^1.0.0
+  stacked: ^3.4.0
+  stacked_services: ^1.1.0
 
 dev_dependencies:
+  build_runner: ^2.4.5
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.1
+  stacked_generator: ^1.3.3
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^1.0.0
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
 
 ''';
 

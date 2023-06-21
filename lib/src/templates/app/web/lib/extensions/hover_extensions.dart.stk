@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 extension HoverExtensions on Widget {
   Widget get showCursorOnHover {
     return _returnUnalteredOnMobile(MouseRegion(
-      child: this,
       cursor: SystemMouseCursors.click,
+      child: this,
     ));
   }
 
@@ -25,8 +25,8 @@ extension HoverExtensions on Widget {
   /// Scales the widget by [scale] on hover
   Widget scaleOnHover({double scale = 1.1}) {
     return _returnUnalteredOnMobile(ScaleOnHover(
-      child: this,
       scale: scale,
+      child: this,
     ));
   }
 
