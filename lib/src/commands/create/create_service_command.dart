@@ -41,7 +41,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
         abbr: 't',
         allowed: kCompiledTemplateTypes[kTemplateNameService],
         defaultsTo: 'empty',
-        help: kCommandHelpCreateAppTemplate,
+        help: kCommandHelpCreateServiceTemplate,
       )
       ..addOption(
         ksConfigPath,

@@ -61,6 +61,9 @@ const String kCommandHelpConfigFilePath =
 
 const String kCommandHelpPath = 'Sets the relative path for the component.';
 
+const String kCommandHelpCreateServiceTemplate =
+    'Selects the type of service to create instead of the default empty service.';
+
 const String kCommandHelpCreateViewTemplate =
     'Selects the type of view to create instead of the default empty view.';
 
