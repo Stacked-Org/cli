@@ -8,7 +8,7 @@ import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 import '{{{viewTestHelpersImport}}}';
 
 void main() {
-  HomeViewModel _getModel() => HomeViewModel();
+  HomeViewModel getModel() => HomeViewModel();
 
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
@@ -16,7 +16,7 @@ void main() {
 
     group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
+        final model = getModel();
         model.incrementCounter();
         expect(model.counterLabel, 'Counter is: 1');
       });
@@ -27,7 +27,7 @@ void main() {
           () {
         final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = _getModel();
+        final model = getModel();
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,

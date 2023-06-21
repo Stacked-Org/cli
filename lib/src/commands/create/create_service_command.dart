@@ -61,7 +61,6 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
     try {
       final serviceName = argResults!.rest.first;
       final templateType = argResults![ksTemplateType];
-      unawaited(_analyticsService.createServiceEvent(name: serviceName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -81,8 +80,14 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
         templateType: templateType,
       );
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createServiceEvent(name: serviceName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

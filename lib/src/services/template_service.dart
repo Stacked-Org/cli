@@ -338,6 +338,7 @@ class TemplateService {
     return {
       ...renderTemplate,
       // All template data will have the values added below
+      kTemplatePropertyPackageDescription: _templateHelper.packageDescription,
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
       kTemplatePropertyServiceImportPath: _configService.serviceImportPath,

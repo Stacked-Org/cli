@@ -50,6 +50,9 @@ const String kTemplatePropertyViewFileNameWithoutExtension =
 /// pubspec.yaml file in the root folder.
 const String kTemplatePropertyPackageName = 'packageName';
 
+/// The description of the package.
+const String kTemplatePropertyPackageDescription = 'packageDescription';
+
 /// The name of the service class in pascal case
 const String kTemplatePropertyServiceName = 'serviceName';
 

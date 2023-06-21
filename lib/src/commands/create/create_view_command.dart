@@ -67,7 +67,6 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
     try {
       final viewName = argResults!.rest.first;
       var templateType = argResults![ksTemplateType] as String?;
-      unawaited(_analyticsService.createViewEvent(name: viewName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -94,8 +93,14 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         templateType: templateType,
       );
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createViewEvent(name: viewName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

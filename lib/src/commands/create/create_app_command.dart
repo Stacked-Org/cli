@@ -14,6 +14,7 @@ import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_cli/src/templates/template_helper.dart';
 
 class CreateAppCommand extends Command {
   final _analyticsService = locator<AnalyticsService>();
@@ -21,6 +22,7 @@ class CreateAppCommand extends Command {
   final _fileService = locator<FileService>();
   final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
+  final _templateHelper = locator<TemplateHelper>();
   final _templateService = locator<TemplateService>();
 
   @override
@@ -32,12 +34,6 @@ class CreateAppCommand extends Command {
 
   CreateAppCommand() {
     argParser
-      ..addFlag(
-        ksAppMinimalTemplate,
-        abbr: 'e',
-        defaultsTo: true,
-        help: kCommandHelpAppMinimalTemplate,
-      )
       ..addFlag(
         ksV1,
         aliases: [ksUseBuilder],
@@ -88,17 +84,19 @@ class CreateAppCommand extends Command {
       final appName = workingDirectory.split('/').last;
       final templateType = argResults![ksTemplateType];
 
-      unawaited(_analyticsService.createAppEvent(name: appName));
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(
-        appName: workingDirectory,
-        shouldUseMinimalTemplate: argResults![ksAppMinimalTemplate],
+        name: workingDirectory,
         description: argResults![ksAppDescription],
         organization: argResults![ksAppOrganization],
         platforms: argResults![ksAppPlatforms],
       );
 
       _log.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
+
+      if (argResults![ksAppDescription] != null) {
+        _templateHelper.packageDescription = argResults![ksAppDescription];
+      }
 
       await _templateService.renderTemplate(
         templateName: name,
@@ -114,8 +112,14 @@ class CreateAppCommand extends Command {
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       await _processService.runFormat(appName: workingDirectory);
       await _clean(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createAppEvent(name: appName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 

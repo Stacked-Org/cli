@@ -66,7 +66,6 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
     try {
       final dialogName = argResults!.rest.first;
       final templateType = argResults![ksTemplateType];
-      unawaited(_analyticsService.createDialogEvent(name: dialogName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -88,8 +87,14 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       );
 
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createDialogEvent(name: dialogName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

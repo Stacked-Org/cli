@@ -26,8 +26,13 @@ class UpdateCommand extends Command {
 
       await _processService.runPubGlobalActivate();
       unawaited(_analyticsService.updateCliEvent());
-    } catch (e) {
-      _log.warn(message: e.toString());
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

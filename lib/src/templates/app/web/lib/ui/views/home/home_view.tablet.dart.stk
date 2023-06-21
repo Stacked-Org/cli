@@ -45,23 +45,23 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
                         'Show Dialog',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showBottomSheet,
                       child: const Text(
                         'Show Bottom Sheet',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )

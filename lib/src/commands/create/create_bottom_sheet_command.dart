@@ -66,8 +66,6 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
     try {
       final bottomSheetName = argResults!.rest.first;
       final templateType = argResults![ksTemplateType];
-      unawaited(
-          _analyticsService.createBottomSheetEvent(name: bottomSheetName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -89,8 +87,16 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       );
 
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(
+        _analyticsService.createBottomSheetEvent(name: bottomSheetName),
+      );
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }
