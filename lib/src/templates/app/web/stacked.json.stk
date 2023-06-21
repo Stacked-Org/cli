@@ -1,9 +1,5 @@
 {
-    "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
-    "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
     "bottom_sheets_path": "ui/bottom_sheets",
-    "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
-    "dialog_type_file_path": "enums/dialog_type.dart",
     "dialogs_path": "ui/dialogs",
     "line_length": 80,
     "locator_name": "locator",
