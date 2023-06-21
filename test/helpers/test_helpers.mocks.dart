@@ -569,6 +569,20 @@ class MockTemplateService extends _i1.Mock implements _i9.TemplateService {
 /// See the documentation for Mockito's code generation for more information.
 class MockTemplateHelper extends _i1.Mock implements _i12.TemplateHelper {
   @override
+  String get packageDescription => (super.noSuchMethod(
+        Invocation.getter(#packageDescription),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  set packageDescription(String? _packageDescription) => super.noSuchMethod(
+        Invocation.setter(
+          #packageDescription,
+          _packageDescription,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   String get templatesPath => (super.noSuchMethod(
         Invocation.getter(#templatesPath),
         returnValue: '',
@@ -1147,19 +1161,17 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
       );
   @override
   _i6.Future<void> runCreateApp({
-    required String? appName,
-    bool? shouldUseMinimalTemplate = true,
+    required String? name,
     String? description,
     String? organization,
-    List<String>? platforms,
+    List<String>? platforms = const [],
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #runCreateApp,
           [],
           {
-            #appName: appName,
-            #shouldUseMinimalTemplate: shouldUseMinimalTemplate,
+            #name: name,
             #description: description,
             #organization: organization,
             #platforms: platforms,

@@ -4,7 +4,6 @@ const String kTemplateNameBottomSheet = 'bottom_sheet';
 const String kTemplateNameDialog = 'dialog';
 const String kTemplateNameGenerate = 'generate';
 const String kTemplateNameService = 'service';
-const String kTemplateNameUpdate = 'update';
 const String kTemplateNameView = 'view';
 const String kTemplateNameWidget = 'widget';
 
@@ -50,6 +49,9 @@ const String kTemplatePropertyViewFileNameWithoutExtension =
 /// The name of the package that the cli tool is running in. This is read from the
 /// pubspec.yaml file in the root folder.
 const String kTemplatePropertyPackageName = 'packageName';
+
+/// The description of the package.
+const String kTemplatePropertyPackageDescription = 'packageDescription';
 
 /// The name of the service class in pascal case
 const String kTemplatePropertyServiceName = 'serviceName';
@@ -182,6 +184,22 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
     ),
   {{/templates}}
   },
+  {{/stackedTemplates}}
+};
+''';
+
+const String kTemplateTypesMap = '''
+/// NOTE: This is generated code from the compileTemplates command. Do not 
+///       modify by hand.
+///       This file should be checked into source control.
+
+Map<String, List<String>> kCompiledTemplateTypes = {
+  {{#stackedTemplates}}
+  '{{name}}': [
+    {{#templates}}
+    '{{type}}',
+    {{/templates}}
+  ],
   {{/stackedTemplates}}
 };
 ''';

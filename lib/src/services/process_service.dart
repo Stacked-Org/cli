@@ -32,21 +32,20 @@ class ProcessService {
   ///   organization (String): The organization responsible for your new Flutter project.
   ///   platforms (List<String>): The platforms supported by this project.
   Future<void> runCreateApp({
-    required String appName,
-    bool shouldUseMinimalTemplate = true,
+    required String name,
     String? description,
     String? organization,
-    List<String>? platforms,
+    List<String> platforms = const [],
   }) async {
     await _runProcess(
       programName: ksFlutter,
       arguments: [
         ksCreate,
-        appName,
-        shouldUseMinimalTemplate ? '-e' : '--no-empty',
+        name,
+        '-e',
         if (description != null) '--description="$description"',
         if (organization != null) '--org="$organization"',
-        if (platforms != null) '--platforms=${platforms.join(",")}',
+        if (platforms.isNotEmpty) '--platforms=${platforms.join(",")}',
       ],
     );
   }

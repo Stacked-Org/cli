@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_constants.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateServiceCommand extends Command with ProjectStructureValidator {
@@ -29,33 +30,30 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
   String get name => kTemplateNameService;
 
   CreateServiceCommand() {
-    argParser.addFlag(
-      ksExcludeDependency,
-      defaultsTo: false,
-      help: kCommandHelpExcludeRoute,
-    );
-    argParser.addOption(
-      ksLineLength,
-      abbr: 'l',
-      help: kCommandHelpLineLength,
-      valueHelp: '80',
-    );
-
-    argParser.addOption(
-      ksTemplateType,
-      abbr: 't',
-      // TODO (Create App Templates): Generate a constant with these values when
-      // running the compile command
-      allowed: ['empty'],
-      defaultsTo: 'empty',
-      help: kCommandHelpCreateAppTemplate,
-    );
-
-    argParser.addOption(
-      ksConfigPath,
-      abbr: 'c',
-      help: kCommandHelpConfigFilePath,
-    );
+    argParser
+      ..addFlag(
+        ksExcludeDependency,
+        defaultsTo: false,
+        help: kCommandHelpExcludeRoute,
+      )
+      ..addOption(
+        ksTemplateType,
+        abbr: 't',
+        allowed: kCompiledTemplateTypes[kTemplateNameService],
+        defaultsTo: 'empty',
+        help: kCommandHelpCreateAppTemplate,
+      )
+      ..addOption(
+        ksConfigPath,
+        abbr: 'c',
+        help: kCommandHelpConfigFilePath,
+      )
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      );
   }
 
   @override
@@ -63,7 +61,6 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
     try {
       final serviceName = argResults!.rest.first;
       final templateType = argResults![ksTemplateType];
-      unawaited(_analyticsService.createServiceEvent(name: serviceName));
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -83,8 +80,14 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
         templateType: templateType,
       );
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-    } catch (e) {
-      _log.warn(message: e.toString());
+      unawaited(_analyticsService.createServiceEvent(name: serviceName));
+    } catch (e, s) {
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+        stackTrace: s.toString(),
+      ));
     }
   }
 }

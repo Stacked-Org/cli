@@ -23,12 +23,12 @@ import 'package:stacked_cli/src/templates/template_render_functions.dart';
 /// Given the data that points to templates it writes out those templates
 /// using the same file paths
 class TemplateService {
-  final _fileService = locator<FileService>();
-  final _processService = locator<ProcessService>();
-  final _templateHelper = locator<TemplateHelper>();
-  final _pubspecService = locator<PubspecService>();
   final _configService = locator<ConfigService>();
-  final _clog = locator<ColorizedLogService>();
+  final _fileService = locator<FileService>();
+  final _log = locator<ColorizedLogService>();
+  final _processService = locator<ProcessService>();
+  final _pubspecService = locator<PubspecService>();
+  final _templateHelper = locator<TemplateHelper>();
 
   /// List of templates that can be appended.
   static const List<String> templatesToAppend = [
@@ -38,8 +38,8 @@ class TemplateService {
     'lib/enums/dialog_type.dart.stk',
   ];
 
-  /// Reads the template folder and creates the dart code that will be used to generate
-  /// the templates
+  /// Reads the template folder and creates the dart code that will be used to
+  /// generate the templates
   Future<void> compileTemplateInformation() async {
     final templatesPath = _templateHelper.templatesPath;
 
@@ -55,8 +55,7 @@ class TemplateService {
         templateFilePath: stackedTemplateFolderPath,
       );
 
-      final List<String> templateTypes =
-          await _templateHelper.getTemplateTypesFromTemplate(
+      final templateTypes = await _templateHelper.getTemplateTypesFromTemplate(
         templateDirectoryPath: stackedTemplateFolderPath,
       );
 
@@ -115,6 +114,11 @@ class TemplateService {
     await _fileService.writeStringFile(
       file: File(path.join(templatesPath, 'compiled_template_map.dart')),
       fileContent: templateMapContent,
+    );
+
+    await _createTemplateTypesConstantMap(
+      templatesPath: templatesPath,
+      stackedTemplates: stackedTemplates,
     );
   }
 
@@ -334,6 +338,7 @@ class TemplateService {
     return {
       ...renderTemplate,
       // All template data will have the values added below
+      kTemplatePropertyPackageDescription: _templateHelper.packageDescription,
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
       kTemplatePropertyServiceImportPath: _configService.serviceImportPath,
@@ -376,7 +381,7 @@ class TemplateService {
       );
 
       if (!fileExists) {
-        _clog.warn(
+        _log.warn(
             message:
                 'Modification not applied. The file $modificationPath does not exist');
         throw InvalidStackedStructureException(kInvalidStackedStructureAppFile);
@@ -387,7 +392,7 @@ class TemplateService {
       );
 
       if (!fileContent.contains(fileToModify.modificationIdentifier)) {
-        _clog.warn(
+        _log.warn(
             message:
                 'Modification not applied. The identifier `${fileToModify.modificationIdentifier}` does not exist in the file.');
       }
@@ -471,5 +476,25 @@ class TemplateService {
   /// append as their FileModificationType or not.
   bool shouldAppendTemplate(String relativeOutputPath) {
     return templatesToAppend.any((template) => template == relativeOutputPath);
+  }
+
+  /// Creates `kCompiledTemplateTypes` on `compiled_constants.dart` file.
+  Future<void> _createTemplateTypesConstantMap({
+    required String templatesPath,
+    required List<CompiledCreateCommand> stackedTemplates,
+  }) async {
+    final templateTypesMap = Template(kTemplateTypesMap);
+    final templateTypesMapData = {
+      'stackedTemplates': stackedTemplates.map((e) => e.toJson()).toList(),
+    };
+
+    final templateMapContent = templateTypesMap.renderString(
+      templateTypesMapData,
+    );
+
+    await _fileService.writeStringFile(
+      file: File(path.join(templatesPath, 'compiled_constants.dart')),
+      fileContent: templateMapContent,
+    );
   }
 }
