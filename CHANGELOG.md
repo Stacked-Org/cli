@@ -1,3 +1,17 @@
+# [1.10.0](https://github.com/Stacked-Org/cli/compare/v1.9.0...v1.10.0) (2023-06-22)
+
+
+### Bug Fixes
+
+* update default stacked configuration ([#31](https://github.com/Stacked-Org/cli/issues/31)) ([2b2d3b1](https://github.com/Stacked-Org/cli/commit/2b2d3b16e655d13da5c3d9319142629860db871e))
+* update template argument description ([#30](https://github.com/Stacked-Org/cli/issues/30)) ([f7fc75b](https://github.com/Stacked-Org/cli/commit/f7fc75bc9452e7b8f4162d3bce536205815b3ec9))
+
+
+### Features
+
+* add `path` option to create Widget command ([#25](https://github.com/Stacked-Org/cli/issues/25)) ([47a5623](https://github.com/Stacked-Org/cli/commit/47a56233cde58a654aaf8311ea706baa5ee8cca0))
+* add more arguments to create app command ([#27](https://github.com/Stacked-Org/cli/issues/27)) ([10cdefb](https://github.com/Stacked-Org/cli/commit/10cdefbb9414515fe8d7e9537f4326582a0aac4c))
+
 # [1.9.0](https://github.com/Stacked-Org/cli/compare/v1.8.3...v1.9.0) (2023-06-01)
 
 
