@@ -64,7 +64,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
       await deleteDialog(outputPath: workingDirectory);
-      await removeDialogFromBuilder(outputPath: workingDirectory);
+      await removeDialogFromDependency(outputPath: workingDirectory);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       unawaited(
         _analyticsService.deleteDialogEvent(name: argResults!.rest.first),
@@ -97,7 +97,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   ///
   /// Args:
   ///   outputPath (String): The path to the output folder.
-  Future<void> removeDialogFromBuilder({String? outputPath}) async {
+  Future<void> removeDialogFromDependency({String? outputPath}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
       name: argResults!.rest.first,
@@ -106,6 +106,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
       removedContent: argResults!.rest.first,
+      type: kTemplateNameDialog,
     );
   }
 }
