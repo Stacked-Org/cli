@@ -86,7 +86,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   Future<void> deleteDialog({String? outputPath}) async {
     /// Deleting the dialog folder.
     String directoryPath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: 'lib/ui/dialogs/',
+      inputTemplatePath: 'lib/ui/dialogs/generic',
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
