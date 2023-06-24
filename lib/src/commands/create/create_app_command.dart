@@ -75,6 +75,7 @@ class CreateAppCommand extends Command {
 
   @override
   Future<void> run() async {
+    _log.stackedOutput(message: 'Test', isBold: true);
     try {
       await _configService.findAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
