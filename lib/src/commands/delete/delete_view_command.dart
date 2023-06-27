@@ -56,6 +56,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+      final viewName = argResults!.rest.first;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -63,8 +64,10 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
       _processService.formattingLineLength = argResults?[ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
-      await deleteViewAndTestFiles(outputPath: workingDirectory);
-      await removeViewFromRoute(outputPath: workingDirectory);
+      await _deleteViewAndTestFiles(
+          outputPath: workingDirectory, viewName: viewName);
+      await _removeViewFromRoute(
+          outputPath: workingDirectory, viewName: viewName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       unawaited(
         _analyticsService.deleteViewEvent(name: argResults!.rest.first),
@@ -82,12 +85,16 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   /// It deletes the view and test files
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> deleteViewAndTestFiles({String? outputPath}) async {
+  ///
+  ///   `outputPath` (String): The path to the output folder.
+  ///
+  ///   `viewName` (String): The name of the view.
+  Future<void> _deleteViewAndTestFiles(
+      {String? outputPath, required String viewName}) async {
     /// Deleting the view folder.
     String directoryPath = _templateService.getTemplateOutputPath(
       inputTemplatePath: 'lib/ui/views/generic/',
-      name: argResults!.rest.first,
+      name: viewName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFolder(directoryPath: directoryPath);
@@ -95,7 +102,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     /// Deleting the test file for the view.
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kViewEmptyTemplateGenericViewmodelTestPath,
-      name: argResults!.rest.first,
+      name: viewName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFile(filePath: filePath);
@@ -104,16 +111,20 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   /// It removes the view from [app.dart]
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> removeViewFromRoute({String? outputPath}) async {
+  ///
+  ///   `outputPath` (String): The path to the output folder.
+  ///
+  ///   `viewName` (String): The name of the view.
+  Future<void> _removeViewFromRoute(
+      {String? outputPath, required String viewName}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
-      name: argResults!.rest.first,
+      name: viewName,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
-      removedContent: argResults!.rest.first,
+      removedContent: viewName,
     );
   }
 }
