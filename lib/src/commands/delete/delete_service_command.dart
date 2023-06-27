@@ -56,6 +56,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+      final serviceName = argResults!.rest.first;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -63,9 +64,12 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       _processService.formattingLineLength = argResults?[ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
-      await deleteServiceAndTestFiles(outputPath: workingDirectory);
-      await removeServiceFromTestHelper(outputPath: workingDirectory);
-      await removeServiceFromDependency(outputPath: workingDirectory);
+      await _deleteServiceAndTestFiles(
+          outputPath: workingDirectory, serviceName: serviceName);
+      await _removeServiceFromTestHelper(
+          outputPath: workingDirectory, serviceName: serviceName);
+      await _removeServiceFromDependency(
+          outputPath: workingDirectory, serviceName: serviceName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       unawaited(_analyticsService.deleteServiceEvent(
         name: argResults!.rest.first,
@@ -83,12 +87,16 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
   /// It deletes the service and test files
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> deleteServiceAndTestFiles({String? outputPath}) async {
+  ///
+  ///  `outputPath` (String): The path to the output folder.
+  ///
+  ///  `serviceName` (String): The name of the service to be deleted.
+  Future<void> _deleteServiceAndTestFiles(
+      {String? outputPath, required String serviceName}) async {
     /// Deleting the service file.
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kServiceEmptyTemplateGenericServicePath,
-      name: argResults!.rest.first,
+      name: serviceName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFile(filePath: filePath);
@@ -96,21 +104,29 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     //Delete test file for service
     filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kServiceEmptyTemplateGenericServiceTestPath,
-      name: argResults!.rest.first,
+      name: serviceName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFile(filePath: filePath);
   }
 
-  Future<void> removeServiceFromTestHelper({String? outputPath}) async {
+  /// It removes the service from [test_helper.dart]
+  ///
+  /// Args:
+  ///
+  ///  `outputPath` (String): The path to the output folder.
+  ///
+  ///  `serviceName` (String): The name of the service to be deleted.
+  Future<void> _removeServiceFromTestHelper(
+      {String? outputPath, required String serviceName}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateTestHelpersPath,
-      name: argResults!.rest.first,
+      name: serviceName,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
-      removedContent: argResults!.rest.first,
+      removedContent: serviceName,
       type: kTemplateNameService,
     );
   }
@@ -118,16 +134,20 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
   /// It removes the service from [app.dart]
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> removeServiceFromDependency({String? outputPath}) async {
+  ///
+  ///  `outputPath` (String): The path to the output folder.
+  ///
+  ///  `serviceName` (String): The name of the service to be deleted.
+  Future<void> _removeServiceFromDependency(
+      {String? outputPath, required String serviceName}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
-      name: argResults!.rest.first,
+      name: serviceName,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
-      removedContent: argResults!.rest.first,
+      removedContent: serviceName,
       type: kTemplateNameService,
     );
   }

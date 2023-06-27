@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
@@ -56,6 +57,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+      final dialogName = argResults!.rest.first;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -63,12 +65,15 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
       _processService.formattingLineLength = argResults?[ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
-      await deleteDialog(outputPath: workingDirectory);
-      await removeDialogFromDependency(outputPath: workingDirectory);
+      await _deleteDialog(outputPath: workingDirectory, dialogName: dialogName);
+      await _removeDialogFromDependency(
+          outputPath: workingDirectory, dialogName: dialogName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       unawaited(
         _analyticsService.deleteDialogEvent(name: argResults!.rest.first),
       );
+    } on PathNotFoundException catch (e) {
+      _log.error(message: e.message);
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(
@@ -82,30 +87,46 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   /// It deletes the dialog files
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> deleteDialog({String? outputPath}) async {
+  ///
+  ///  `outputPath` (String): The path to the output folder.
+  ///
+  ///  `dialogName` (String): The name of the dialog.
+  Future<void> _deleteDialog(
+      {String? outputPath, required String dialogName}) async {
     /// Deleting the dialog folder.
     String directoryPath = _templateService.getTemplateOutputPath(
       inputTemplatePath: 'lib/ui/dialogs/generic',
-      name: argResults!.rest.first,
+      name: dialogName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFolder(directoryPath: directoryPath);
+
+    //Delete test file for dialog
+    final filePath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: kDialogEmptyTemplateGenericDialogModelTestPath,
+      name: dialogName,
+      outputFolder: outputPath,
+    );
+    await _fileService.deleteFile(filePath: filePath);
   }
 
   /// It removes the dialog from [app.dart]
   ///
   /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> removeDialogFromDependency({String? outputPath}) async {
+  ///
+  ///  `outputPath` (String): The path to the output folder.
+  ///
+  ///  `dialogName` (String): The name of the dialog.
+  Future<void> _removeDialogFromDependency(
+      {String? outputPath, required String dialogName}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
-      name: argResults!.rest.first,
+      name: dialogName,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
-      removedContent: argResults!.rest.first,
+      removedContent: dialogName,
       type: kTemplateNameDialog,
     );
   }

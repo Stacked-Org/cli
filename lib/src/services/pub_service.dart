@@ -4,6 +4,7 @@ import 'package:pub_updater/pub_updater.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/services/colorized_log_service.dart';
 
 import 'process_service.dart';
 
@@ -21,7 +22,7 @@ class PubService {
     for (var package in packages) {
       if (!package.contains(ksStackedCli)) continue;
 
-      version = package.split(' ').last;
+      version = package.split(' ').elementAt(1);
       break;
     }
 
@@ -36,6 +37,8 @@ class PubService {
   /// Checks whether or not has the latest version for `stacked_cli` package
   /// installed on the system.
   Future<bool> hasLatestVersion() async {
+    locator<ColorizedLogService>()
+        .stackedOutput(message: 'Before get current version', isBold: true);
     final currentVersion = await getCurrentVersion();
     if (currentVersion == currentVersionNotAvailable) {
       await update();
