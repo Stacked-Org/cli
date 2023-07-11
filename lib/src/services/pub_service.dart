@@ -37,8 +37,6 @@ class PubService {
   /// Checks whether or not has the latest version for `stacked_cli` package
   /// installed on the system.
   Future<bool> hasLatestVersion() async {
-    locator<ColorizedLogService>()
-        .stackedOutput(message: 'Before get current version', isBold: true);
     final currentVersion = await getCurrentVersion();
     if (currentVersion == currentVersionNotAvailable) {
       await update();
