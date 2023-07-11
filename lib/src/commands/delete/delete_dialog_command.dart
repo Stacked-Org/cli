@@ -73,7 +73,11 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
         _analyticsService.deleteDialogEvent(name: argResults!.rest.first),
       );
     } on PathNotFoundException catch (e) {
-      _log.error(message: e.message);
+      _log.error(message: e.toString());
+      unawaited(_analyticsService.logExceptionEvent(
+        runtimeType: e.runtimeType.toString(),
+        message: e.toString(),
+      ));
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(
