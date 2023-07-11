@@ -111,7 +111,11 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
       name: dialogName,
       outputFolder: outputPath,
     );
-    await _fileService.deleteFile(filePath: filePath);
+
+    final fileExists = await _fileService.fileExists(filePath: filePath);
+    if (fileExists) {
+      await _fileService.deleteFile(filePath: filePath);
+    }
   }
 
   /// It removes the dialog from [app.dart]
