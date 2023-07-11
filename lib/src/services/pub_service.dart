@@ -4,7 +4,6 @@ import 'package:pub_updater/pub_updater.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/colorized_log_service.dart';
 
 import 'process_service.dart';
 
