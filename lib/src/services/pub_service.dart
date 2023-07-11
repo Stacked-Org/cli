@@ -22,7 +22,7 @@ class PubService {
     for (var package in packages) {
       if (!package.contains(ksStackedCli)) continue;
 
-      version = package.split(' ').elementAt(1);
+      version = package.split(' ').last;
       break;
     }
 
