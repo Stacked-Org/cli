@@ -132,6 +132,18 @@ class AnalyticsService {
     await _waitLastPingOrCloseAtTimeout();
   }
 
+  /// Sends delete dialog command event
+  Future<void> deleteDialogEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
+    await _analytics.sendEvent(
+      'command',
+      'delete',
+      label: 'dialog',
+      parameters: {kcdVersion: version, kcdName: name},
+    );
+    await _waitLastPingOrCloseAtTimeout();
+  }
+
   /// Sends generate command event
   Future<void> generateCodeEvent() async {
     final version = await locator<PubService>().getCurrentVersion();

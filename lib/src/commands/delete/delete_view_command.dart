@@ -15,7 +15,7 @@ import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/compiled_templates.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
-class DeleteServiceCommand extends Command with ProjectStructureValidator {
+class DeleteViewCommand extends Command with ProjectStructureValidator {
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
   final _log = locator<ColorizedLogService>();
@@ -26,12 +26,12 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   String get description =>
-      'Deletes a service with all associated files and makes necessary code changes for deleting a service.';
+      'Deletes a view with all associated files and makes necessary code changes for deleting a view.';
 
   @override
-  String get name => kTemplateNameService;
+  String get name => kTemplateNameView;
 
-  DeleteServiceCommand() {
+  DeleteViewCommand() {
     argParser
       ..addFlag(
         ksExcludeRoute,
@@ -56,7 +56,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-      final serviceName = argResults!.rest.first;
+      final viewName = argResults!.rest.first;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -64,16 +64,14 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       _processService.formattingLineLength = argResults?[ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
-      await _deleteServiceAndTestFiles(
-          outputPath: workingDirectory, serviceName: serviceName);
-      await _removeServiceFromTestHelper(
-          outputPath: workingDirectory, serviceName: serviceName);
-      await _removeServiceFromDependency(
-          outputPath: workingDirectory, serviceName: serviceName);
+      await _deleteViewAndTestFiles(
+          outputPath: workingDirectory, viewName: viewName);
+      await _removeViewFromRoute(
+          outputPath: workingDirectory, viewName: viewName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      unawaited(_analyticsService.deleteServiceEvent(
-        name: argResults!.rest.first,
-      ));
+      unawaited(
+        _analyticsService.deleteViewEvent(name: argResults!.rest.first),
+      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(
@@ -84,71 +82,49 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     }
   }
 
-  /// It deletes the service and test files
+  /// It deletes the view and test files
   ///
   /// Args:
   ///
-  ///  `outputPath` (String): The path to the output folder.
+  ///   `outputPath` (String): The path to the output folder.
   ///
-  ///  `serviceName` (String): The name of the service to be deleted.
-  Future<void> _deleteServiceAndTestFiles(
-      {String? outputPath, required String serviceName}) async {
-    /// Deleting the service file.
-    String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kServiceEmptyTemplateGenericServicePath,
-      name: serviceName,
+  ///   `viewName` (String): The name of the view.
+  Future<void> _deleteViewAndTestFiles(
+      {String? outputPath, required String viewName}) async {
+    /// Deleting the view folder.
+    String directoryPath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: 'lib/ui/views/generic/',
+      name: viewName,
       outputFolder: outputPath,
     );
-    await _fileService.deleteFile(filePath: filePath);
+    await _fileService.deleteFolder(directoryPath: directoryPath);
 
-    //Delete test file for service
-    filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kServiceEmptyTemplateGenericServiceTestPath,
-      name: serviceName,
+    /// Deleting the test file for the view.
+    String filePath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: kViewEmptyTemplateGenericViewmodelTestPath,
+      name: viewName,
       outputFolder: outputPath,
     );
     await _fileService.deleteFile(filePath: filePath);
   }
 
-  /// It removes the service from [test_helper.dart]
+  /// It removes the view from [app.dart]
   ///
   /// Args:
   ///
-  ///  `outputPath` (String): The path to the output folder.
+  ///   `outputPath` (String): The path to the output folder.
   ///
-  ///  `serviceName` (String): The name of the service to be deleted.
-  Future<void> _removeServiceFromTestHelper(
-      {String? outputPath, required String serviceName}) async {
-    String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppMobileTemplateTestHelpersPath,
-      name: serviceName,
-      outputFolder: outputPath,
-    );
-    await _fileService.removeSpecificFileLines(
-      filePath: filePath,
-      removedContent: serviceName,
-      type: kTemplateNameService,
-    );
-  }
-
-  /// It removes the service from [app.dart]
-  ///
-  /// Args:
-  ///
-  ///  `outputPath` (String): The path to the output folder.
-  ///
-  ///  `serviceName` (String): The name of the service to be deleted.
-  Future<void> _removeServiceFromDependency(
-      {String? outputPath, required String serviceName}) async {
+  ///   `viewName` (String): The name of the view.
+  Future<void> _removeViewFromRoute(
+      {String? outputPath, required String viewName}) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
-      name: serviceName,
+      name: viewName,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
-      removedContent: serviceName,
-      type: kTemplateNameService,
+      removedContent: viewName,
     );
   }
 }
