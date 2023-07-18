@@ -1,3 +1,15 @@
+# [1.11.0](https://github.com/Stacked-Org/cli/compare/v1.10.0...v1.11.0) (2023-07-18)
+
+
+### Bug Fixes
+
+* avoid removing multiple dependencies when multiple classes match at the end of the name ([#35](https://github.com/Stacked-Org/cli/issues/35)) ([4b0665a](https://github.com/Stacked-Org/cli/commit/4b0665a38b8f03e75647aebd5a63bf4432465784))
+
+
+### Features
+
+* add delete dialog command ([#34](https://github.com/Stacked-Org/cli/issues/34)) ([650d8b8](https://github.com/Stacked-Org/cli/commit/650d8b8553fa9a4152ec573aef426659455d7879))
+
 # [1.10.0](https://github.com/Stacked-Org/cli/compare/v1.9.0...v1.10.0) (2023-06-22)
 
 
