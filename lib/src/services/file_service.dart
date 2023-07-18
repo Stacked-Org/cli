@@ -136,14 +136,14 @@ class FileService {
       );
     }
     List<String> fileLines = await readFileAsLines(filePath: filePath);
-    fileLines.removeWhere((line) => line.contains(recaseName.snakeCase));
-    fileLines.removeWhere((line) => line.contains(recaseName.pascalCase));
+    fileLines.removeWhere((line) => line.contains('/${recaseName.snakeCase}'));
+    fileLines.removeWhere((line) => line.contains(' ${recaseName.pascalCase}'));
     await writeStringFile(
       file: File(filePath),
       fileContent: fileLines.join('\n'),
       type: FileModificationType.Modify,
       verbose: true,
-      verboseMessage: "Removed ${recaseName.pascalCase}$type from $filePath",
+      verboseMessage: "Removed ${recaseName.pascalCase} from $filePath",
     );
   }
 

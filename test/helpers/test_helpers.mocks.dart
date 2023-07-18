@@ -1377,6 +1377,17 @@ class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
+  _i6.Future<void> deleteDialogEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteDialogEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
   _i6.Future<void> generateCodeEvent() => (super.noSuchMethod(
         Invocation.method(
           #generateCodeEvent,
