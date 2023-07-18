@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/Stacked-Org/cli/compare/v1.11.0...v1.11.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* update unit tests ([#36](https://github.com/Stacked-Org/cli/issues/36)) ([8bdef92](https://github.com/Stacked-Org/cli/commit/8bdef928d8c49ee45422f8512e118652a3a2bcd3))
+
 # [1.11.0](https://github.com/Stacked-Org/cli/compare/v1.10.0...v1.11.0) (2023-07-18)
 
 
