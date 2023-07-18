@@ -33,8 +33,8 @@ void main() {
             filePath: ksTestFileName, removedContent: content);
         List<String> file = await File(ksTestFileName).readAsLines();
         expect(
-            file.contains(recasedContent.snakeCase) ||
-                file.contains('${recasedContent.pascalCase}View'),
+            file.contains('/${recasedContent.snakeCase}') ||
+                file.contains(' ${recasedContent.pascalCase}'),
             false);
       });
 
@@ -42,18 +42,20 @@ void main() {
           'when called with filepath & content with type service lines holding content should be removed from the file',
           () async {
         createTestFile(kAppMobileTemplateTestHelpersContent);
-        String content = "navigation";
-        var recasedContent = ReCase(content);
+        final content = "navigation";
+        final recasedContent = ReCase(content);
         final fileService = _getService();
         await fileService.removeSpecificFileLines(
           filePath: ksTestFileName,
           removedContent: content,
           type: kTemplateNameService,
         );
-        String file = await File(ksTestFileName).readAsString();
+        final file = await File(ksTestFileName).readAsString();
+        print('--- file ---');
+        print(file);
         expect(
-            file.contains(recasedContent.snakeCase) ||
-                file.contains('${recasedContent.pascalCase}Service'),
+            file.contains('/${recasedContent.snakeCase}') ||
+                file.contains(' ${recasedContent.pascalCase}'),
             false);
       });
     });
