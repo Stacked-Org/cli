@@ -51,8 +51,6 @@ void main() {
           type: kTemplateNameService,
         );
         final file = await File(ksTestFileName).readAsString();
-        print('--- file ---');
-        print(file);
         expect(
             file.contains('/${recasedContent.snakeCase}') ||
                 file.contains(' ${recasedContent.pascalCase}'),

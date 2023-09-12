@@ -44,7 +44,7 @@ class ProcessService {
         name,
         '-e',
         if (description != null) '--description="$description"',
-        if (organization != null) '--org="$organization"',
+        if (organization != null) '--org=$organization',
         if (platforms.isNotEmpty) '--platforms=${platforms.join(",")}',
       ],
     );
