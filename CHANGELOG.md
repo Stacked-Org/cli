@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/Stacked-Org/cli/compare/v1.11.1...v1.11.2) (2023-09-12)
+
+
+### Bug Fixes
+
+* update org option on create app command ([699df52](https://github.com/Stacked-Org/cli/commit/699df52101f5c0908c79f33467693505c9986288))
+
 ## [1.11.1](https://github.com/Stacked-Org/cli/compare/v1.11.0...v1.11.1) (2023-07-18)
 
 
