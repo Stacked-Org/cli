@@ -11,7 +11,7 @@ class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Hello, DESKTOP UI!',
+          'Hello, DESKTOP UI - {{viewName}}!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
