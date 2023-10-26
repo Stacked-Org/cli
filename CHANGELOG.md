@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/Stacked-Org/cli/compare/v1.11.3...v1.12.0) (2023-10-26)
+
+
+### Features
+
+* Add viewname on view generation ([#41](https://github.com/Stacked-Org/cli/issues/41)) ([bee1f0e](https://github.com/Stacked-Org/cli/commit/bee1f0e3eb7dedcb3fed7d3915d038fe48f3855f))
+
 ## [1.11.3](https://github.com/Stacked-Org/cli/compare/v1.11.2...v1.11.3) (2023-09-19)
 
 
