@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/Stacked-Org/cli/compare/v1.12.0...v1.12.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* replace Google Analytics with PostHog ([#42](https://github.com/Stacked-Org/cli/issues/42)) ([0b553fc](https://github.com/Stacked-Org/cli/commit/0b553fc49f1bd804e48d76d3a0cb95600829fe02))
+
 # [1.12.0](https://github.com/Stacked-Org/cli/compare/v1.11.3...v1.12.0) (2023-10-26)
 
 
