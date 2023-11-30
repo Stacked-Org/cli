@@ -6,10 +6,10 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/compiled_constants.dart';
@@ -17,7 +17,7 @@ import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 
 class CreateAppCommand extends Command {
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
   final _log = locator<ColorizedLogService>();
@@ -112,7 +112,10 @@ class CreateAppCommand extends Command {
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       await _processService.runFormat(appName: workingDirectory);
       await _clean(workingDirectory: workingDirectory);
-      unawaited(_analyticsService.createAppEvent(name: appName));
+      await _analyticsService.createAppEvent(
+        name: appName,
+        arguments: argResults!.arguments,
+      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

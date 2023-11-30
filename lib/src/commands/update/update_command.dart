@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pub_service.dart';
 
 class UpdateCommand extends Command {
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
   final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
   final _pubService = locator<PubService>();
@@ -25,7 +25,7 @@ class UpdateCommand extends Command {
       if (await _pubService.hasLatestVersion()) return;
 
       await _processService.runPubGlobalActivate();
-      unawaited(_analyticsService.updateCliEvent());
+      await _analyticsService.updateCliEvent();
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

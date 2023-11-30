@@ -3,13 +3,12 @@ import 'dart:io';
 
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 
 /// helper service to run flutter commands
 class ProcessService {
-  final _analyticsService = locator<AnalyticsService>();
   final _cLog = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
 
@@ -188,7 +187,7 @@ class ProcessService {
       final message =
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.message}';
       _cLog.error(message: message);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         runtimeType: e.runtimeType.toString(),
         message: message,
         stackTrace: s.toString(),
@@ -197,7 +196,7 @@ class ProcessService {
       final message =
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.toString()}';
       _cLog.error(message: message);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         runtimeType: e.runtimeType.toString(),
         message: message,
         stackTrace: s.toString(),

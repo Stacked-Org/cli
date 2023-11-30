@@ -5,9 +5,9 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
@@ -20,7 +20,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
   final _processService = locator<ProcessService>();
   final _pubspecService = locator<PubspecService>();
   final _templateService = locator<TemplateService>();
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
 
   @override
   String get description =>
@@ -93,7 +93,10 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         templateType: templateType,
       );
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      unawaited(_analyticsService.createViewEvent(name: viewName));
+      await _analyticsService.createViewEvent(
+        name: viewName,
+        arguments: argResults!.arguments,
+      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

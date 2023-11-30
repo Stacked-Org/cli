@@ -13,11 +13,11 @@ import 'package:ansicolor/ansicolor.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i3;
 import 'package:stacked_cli/src/models/template_models.dart' as _i10;
-import 'package:stacked_cli/src/services/analytics_service.dart' as _i17;
 import 'package:stacked_cli/src/services/colorized_log_service.dart' as _i14;
 import 'package:stacked_cli/src/services/config_service.dart' as _i15;
 import 'package:stacked_cli/src/services/file_service.dart' as _i5;
 import 'package:stacked_cli/src/services/path_service.dart' as _i8;
+import 'package:stacked_cli/src/services/posthog_service.dart' as _i17;
 import 'package:stacked_cli/src/services/process_service.dart' as _i16;
 import 'package:stacked_cli/src/services/pub_service.dart' as _i18;
 import 'package:stacked_cli/src/services/pubspec_service.dart' as _i13;
@@ -1264,10 +1264,16 @@ class MockProcessService extends _i1.Mock implements _i16.ProcessService {
       );
 }
 
-/// A class which mocks [AnalyticsService].
+/// A class which mocks [PosthogService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
+class MockPosthogService extends _i1.Mock implements _i17.PosthogService {
+  @override
+  bool get verbose => (super.noSuchMethod(
+        Invocation.getter(#verbose),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
   @override
   bool get isFirstRun => (super.noSuchMethod(
         Invocation.getter(#isFirstRun),
@@ -1281,126 +1287,183 @@ class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  void enable(bool? value) => super.noSuchMethod(
+  _i6.Future<void> enable(bool? value) => (super.noSuchMethod(
         Invocation.method(
           #enable,
           [value],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createAppEvent({required String? name}) =>
+  _i6.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createAppEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createAppEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createBottomSheetEvent({required String? name}) =>
+  _i6.Future<void> createBottomSheetEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createBottomSheetEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createDialogEvent({required String? name}) =>
+  _i6.Future<void> createDialogEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createDialogEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createServiceEvent({required String? name}) =>
+  _i6.Future<void> createServiceEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createServiceEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createViewEvent({required String? name}) =>
+  _i6.Future<void> createViewEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createViewEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> createWidgetEvent({required String? name}) =>
+  _i6.Future<void> createWidgetEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createWidgetEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> deleteServiceEvent({required String? name}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteServiceEvent,
-          [],
-          {#name: name},
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> deleteViewEvent({required String? name}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteViewEvent,
-          [],
-          {#name: name},
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> deleteDialogEvent({required String? name}) =>
+  _i6.Future<void> deleteDialogEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteDialogEvent,
           [],
-          {#name: name},
+          {
+            #name: name,
+            #arguments: arguments,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> generateCodeEvent() => (super.noSuchMethod(
+  _i6.Future<void> deleteServiceEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteServiceEvent,
+          [],
+          {
+            #name: name,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> deleteViewEvent({
+    required String? name,
+    required List<String>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteViewEvent,
+          [],
+          {
+            #name: name,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> generateCodeEvent({required List<String>? arguments}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #generateCodeEvent,
           [],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-  @override
-  _i6.Future<void> updateCliEvent() => (super.noSuchMethod(
-        Invocation.method(
-          #updateCliEvent,
-          [],
+          {#arguments: arguments},
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -1422,6 +1485,15 @@ class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
             #message: message,
             #stackTrace: stackTrace,
           },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> updateCliEvent() => (super.noSuchMethod(
+        Invocation.method(
+          #updateCliEvent,
+          [],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),

@@ -11,7 +11,7 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/pub_service.dart';
 
 Future<void> main(List<String> arguments) async {
@@ -59,14 +59,14 @@ Future<void> main(List<String> arguments) async {
     runner.run(arguments);
   } on InvalidStackedStructureException catch (e) {
     stdout.writeln(e.message);
-    locator<AnalyticsService>().logExceptionEvent(
+    locator<PosthogService>().logExceptionEvent(
       runtimeType: e.runtimeType.toString(),
       message: e.toString(),
     );
     exit(2);
   } catch (e, s) {
     stdout.writeln(e.toString());
-    locator<AnalyticsService>().logExceptionEvent(
+    locator<PosthogService>().logExceptionEvent(
       runtimeType: e.runtimeType.toString(),
       message: e.toString(),
       stackTrace: s.toString(),
@@ -83,12 +83,12 @@ Future<void> _handleVersion() async {
 /// Enables or disables sending of analytics data.
 bool _handleAnalytics(ArgResults argResults) {
   if (argResults[ksEnableAnalytics]) {
-    locator<AnalyticsService>().enable(true);
+    locator<PosthogService>().enable(true);
     return true;
   }
 
   if (argResults[ksDisableAnalytics]) {
-    locator<AnalyticsService>().enable(false);
+    locator<PosthogService>().enable(false);
     return true;
   }
 
@@ -97,7 +97,7 @@ bool _handleAnalytics(ArgResults argResults) {
 
 /// Allows user decide to enable or not analytics on first run.
 Future<void> _handleFirstRun() async {
-  final analyticsService = locator<AnalyticsService>();
+  final analyticsService = locator<PosthogService>();
   if (!analyticsService.isFirstRun) return;
 
   stdout.writeln('''

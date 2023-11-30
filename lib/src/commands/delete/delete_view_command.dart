@@ -5,10 +5,10 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
@@ -22,7 +22,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   final _processService = locator<ProcessService>();
   final _pubspecService = locator<PubspecService>();
   final _templateService = locator<TemplateService>();
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
 
   @override
   String get description =>
@@ -69,8 +69,9 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
       await _removeViewFromRoute(
           outputPath: workingDirectory, viewName: viewName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      unawaited(
-        _analyticsService.deleteViewEvent(name: argResults!.rest.first),
+      await _analyticsService.deleteViewEvent(
+        name: argResults!.rest.first,
+        arguments: argResults!.arguments,
       );
     } catch (e, s) {
       _log.error(message: e.toString());

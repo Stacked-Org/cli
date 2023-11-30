@@ -5,11 +5,11 @@ import 'package:mockito/mockito.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/config_file_not_found_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/path_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pub_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
@@ -30,7 +30,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ColorizedLogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ConfigService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProcessService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<AnalyticsService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<PosthogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<PubService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
@@ -184,10 +184,10 @@ MockConfigService getAndRegisterConfigService({
   return service;
 }
 
-MockAnalyticsService getAndRegisterAnalyticsService() {
-  _removeRegistrationIfExists<AnalyticsService>();
-  final service = MockAnalyticsService();
-  locator.registerSingleton<AnalyticsService>(service);
+MockPosthogService getAndRegisterPosthogService() {
+  _removeRegistrationIfExists<PosthogService>();
+  final service = MockPosthogService();
+  locator.registerSingleton<PosthogService>(service);
   return service;
 }
 
@@ -233,7 +233,7 @@ void registerServices() {
   getAndRegisterColorizedLogService();
   getAndRegisterConfigService();
   getAndRegisterProcessService();
-  getAndRegisterAnalyticsService();
+  getAndRegisterPosthogService();
   getAndRegisterPubService();
   // @stacked-mock-helper-register
 }
