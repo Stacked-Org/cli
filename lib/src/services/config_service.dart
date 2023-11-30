@@ -6,15 +6,14 @@ import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/config_file_not_found_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/models/config_model.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/path_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 
 /// Handles app configuration of stacked cli
 class ConfigService {
   final _log = locator<ColorizedLogService>();
-  final _analyticsService = locator<AnalyticsService>();
   final _fileService = locator<FileService>();
   final _pathService = locator<PathService>();
 
@@ -124,7 +123,7 @@ class ConfigService {
       if (e.shouldHaltCommand) rethrow;
 
       _log.warn(message: e.message);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
@@ -132,7 +131,7 @@ class ConfigService {
       );
     } catch (e, s) {
       _log.error(message: e.toString());
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         runtimeType: e.runtimeType.toString(),
         message: e.toString(),
         stackTrace: s.toString(),
@@ -158,7 +157,7 @@ class ConfigService {
       if (e.shouldHaltCommand) rethrow;
 
       _log.warn(message: e.message);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
@@ -166,7 +165,7 @@ class ConfigService {
       );
     } catch (e, s) {
       _log.error(message: e.toString());
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         runtimeType: e.runtimeType.toString(),
         message: e.toString(),
         stackTrace: s.toString(),
@@ -253,7 +252,7 @@ class ConfigService {
       if (e.shouldHaltCommand) rethrow;
 
       _log.warn(message: e.message);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
@@ -261,7 +260,7 @@ class ConfigService {
       );
     } on FormatException catch (e, s) {
       _log.warn(message: kConfigFileMalformed);
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
@@ -269,7 +268,7 @@ class ConfigService {
       );
     } catch (e, s) {
       _log.error(message: e.toString());
-      _analyticsService.logExceptionEvent(
+      locator<PosthogService>().logExceptionEvent(
         runtimeType: e.runtimeType.toString(),
         message: e.toString(),
         stackTrace: s.toString(),

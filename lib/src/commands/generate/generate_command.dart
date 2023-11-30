@@ -4,13 +4,13 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class GenerateCommand extends Command {
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
   final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
 
@@ -45,7 +45,9 @@ class GenerateCommand extends Command {
         shouldDeleteConflictingOutputs: argResults?[ksDeleteConflictOutputs],
         shouldWatch: argResults?[ksWatch],
       );
-      unawaited(_analyticsService.generateCodeEvent());
+      await _analyticsService.generateCodeEvent(
+        arguments: argResults!.arguments,
+      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

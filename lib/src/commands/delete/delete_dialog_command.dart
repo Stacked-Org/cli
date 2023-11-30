@@ -6,10 +6,10 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
@@ -23,7 +23,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   final _processService = locator<ProcessService>();
   final _pubspecService = locator<PubspecService>();
   final _templateService = locator<TemplateService>();
-  final _analyticsService = locator<AnalyticsService>();
+  final _analyticsService = locator<PosthogService>();
 
   @override
   String get description =>
@@ -69,8 +69,9 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
       await _removeDialogFromDependency(
           outputPath: workingDirectory, dialogName: dialogName);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      unawaited(
-        _analyticsService.deleteDialogEvent(name: argResults!.rest.first),
+      await _analyticsService.deleteDialogEvent(
+        name: argResults!.rest.first,
+        arguments: argResults!.arguments,
       );
     } on PathNotFoundException catch (e) {
       _log.error(message: e.toString());
