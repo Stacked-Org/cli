@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/Stacked-Org/cli/compare/v1.12.1...v1.12.2) (2023-12-01)
+
+
+### Bug Fixes
+
+* update package dependencies ([#43](https://github.com/Stacked-Org/cli/issues/43)) ([04eb94d](https://github.com/Stacked-Org/cli/commit/04eb94dd1e47238d021b057f400799c3101ab6d5))
+
 ## [1.12.1](https://github.com/Stacked-Org/cli/compare/v1.12.0...v1.12.1) (2023-11-30)
 
 
