@@ -1,3 +1,11 @@
+## [1.12.3](https://github.com/Stacked-Org/cli/compare/v1.12.2...v1.12.3) (2023-12-02)
+
+
+### Bug Fixes
+
+* update GitHub workflow ([e1897b8](https://github.com/Stacked-Org/cli/commit/e1897b85da776424e92713e42457aa03873b7ac4))
+* update GitHub workflow ([e0f797d](https://github.com/Stacked-Org/cli/commit/e0f797d637b2171b34ca60f12f6cb731f210c019))
+
 ## [1.12.2](https://github.com/Stacked-Org/cli/compare/v1.12.1...v1.12.2) (2023-12-01)
 
 
