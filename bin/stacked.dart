@@ -45,7 +45,7 @@ Future<void> main(List<String> arguments) async {
 
   try {
     final argResults = runner.parse(arguments);
-    await _handleFirstRun();
+    // await _handleFirstRun();
 
     if (argResults[ksVersion]) {
       await _handleVersion();
