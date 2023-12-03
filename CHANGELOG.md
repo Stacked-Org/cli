@@ -1,3 +1,10 @@
+## [1.12.4](https://github.com/Stacked-Org/cli/compare/v1.12.3...v1.12.4) (2023-12-03)
+
+
+### Bug Fixes
+
+* removes analytics opt-in request ([6f252ed](https://github.com/Stacked-Org/cli/commit/6f252ed65bc13edcdfc727f238c7e8038c2b24c6))
+
 ## [1.12.3](https://github.com/Stacked-Org/cli/compare/v1.12.2...v1.12.3) (2023-12-02)
 
 
