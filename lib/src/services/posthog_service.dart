@@ -45,8 +45,6 @@ class PosthogService {
       'telemetry_config',
       compactionStrategy: (entries, deletedEntries) => deletedEntries > 50,
     );
-
-    _log.info(message: 'Initialized with Key:${_apiKey.substring(0, 2)}');
   }
 
   Future<void> _capture({
@@ -56,7 +54,7 @@ class PosthogService {
     try {
       if (!enabled) return;
 
-      if (_apiKey.isEmpty) throw PostHogApiKeyNotFoundException();
+      if (_apiKey.isEmpty) return;
 
       final version = await _pubService.getCurrentVersion();
 

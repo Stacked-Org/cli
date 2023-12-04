@@ -19,7 +19,7 @@ jobs:
           channel: 'stable'
       - run: dart pub get
       - name: Build app
-        run: dart compile exe -D POSTHOG_API_KEY="${{ secrets.POSTHOG_API_KEY }}" bin/stacked.dart
+        run: dart compile exe -D POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }} bin/stacked.dart
       - name: release
         uses: cycjimmy/semantic-release-action@v3
         with:
