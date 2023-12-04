@@ -45,6 +45,8 @@ class PosthogService {
       'telemetry_config',
       compactionStrategy: (entries, deletedEntries) => deletedEntries > 50,
     );
+
+    _log.info(message: 'Initialized with Key:${_apiKey.substring(0, 2)}');
   }
 
   Future<void> _capture({
