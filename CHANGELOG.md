@@ -1,3 +1,10 @@
+## [1.12.8](https://github.com/Stacked-Org/cli/compare/v1.12.7...v1.12.8) (2024-03-11)
+
+
+### Bug Fixes
+
+* create view not using the prefer_web config value ([8b138fa](https://github.com/Stacked-Org/cli/commit/8b138fa7b171df0fc44807030f46819c77f7db14))
+
 ## [1.12.7](https://github.com/Stacked-Org/cli/compare/v1.12.6...v1.12.7) (2024-03-11)
 
 
