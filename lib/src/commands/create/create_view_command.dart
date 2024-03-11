@@ -46,7 +46,6 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         ksTemplateType,
         abbr: 't',
         allowed: kCompiledTemplateTypes[kTemplateNameView],
-        defaultsTo: 'empty',
         help: kCommandHelpCreateViewTemplate,
       )
       ..addOption(
