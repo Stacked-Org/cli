@@ -25,13 +25,19 @@ class PosthogService {
   final _baseUri = Uri.parse('https://app.posthog.com/capture');
 
   /// Is this the first time the tool has run?
-  bool get isFirstRun => _box.get(_isFirstRunKey, defaultValue: true);
+  // bool get isFirstRun => _box.get(_isFirstRunKey, defaultValue: true);
+  bool get isFirstRun => false;
 
   /// Will analytics data be sent?
-  bool get enabled => _box.get(_isEnabledKey, defaultValue: false);
+  // bool get enabled => _box.get(_isEnabledKey, defaultValue: false);
+  bool get enabled => false;
 
   /// Enables or disables sending of analytics data.
   Future<void> enable(bool value) async {
+    /// Disable Analytics until we find how to resolve FileSystemException
+    /// triggered twice
+    return;
+
     await _box.put(_isFirstRunKey, false);
     await _box.put(_isEnabledKey, value);
   }
@@ -39,6 +45,10 @@ class PosthogService {
   late Box _box;
 
   Future<void> init() async {
+    /// Disable Analytics until we find how to resolve FileSystemException
+    /// triggered twice
+    return;
+
     Hive.init('${_pathService.configHome.path}/stacked');
 
     _box = await Hive.openBox(

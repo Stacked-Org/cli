@@ -27,16 +27,16 @@ Future<void> main(List<String> arguments) async {
       negatable: false,
       help: kCommandHelpVersion,
     )
-    ..argParser.addFlag(
-      ksEnableAnalytics,
-      negatable: false,
-      help: kCommandHelpEnableAnalytics,
-    )
-    ..argParser.addFlag(
-      ksDisableAnalytics,
-      negatable: false,
-      help: kCommandHelpDisableAnalytics,
-    )
+    // ..argParser.addFlag(
+    //   ksEnableAnalytics,
+    //   negatable: false,
+    //   help: kCommandHelpEnableAnalytics,
+    // )
+    // ..argParser.addFlag(
+    //   ksDisableAnalytics,
+    //   negatable: false,
+    //   help: kCommandHelpDisableAnalytics,
+    // )
     ..addCommand(CreateCommand())
     ..addCommand(DeleteCommand())
     ..addCommand(CompileCommand())
@@ -52,7 +52,9 @@ Future<void> main(List<String> arguments) async {
       exit(0);
     }
 
-    if (_handleAnalytics(argResults)) exit(0);
+    /// Disable Analytics until we find how to resolve FileSystemException
+    /// triggered twice
+    // if (_handleAnalytics(argResults)) exit(0);
 
     await _notifyNewVersionAvailable(arguments: arguments);
 
