@@ -80,6 +80,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       // 1. If the template is supplied we use that template
       // 2. If the template is null use config web to decide
       print('templateType:$templateType preferWeb:${_configService.preferWeb}');
+
+      // We assign this when it's not null so there should be no default value for this
       templateType ??= _configService.preferWeb ? 'web' : 'empty';
 
       await _templateService.renderTemplate(
