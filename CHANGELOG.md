@@ -1,3 +1,10 @@
+## [1.12.7](https://github.com/Stacked-Org/cli/compare/v1.12.6...v1.12.7) (2024-03-11)
+
+
+### Bug Fixes
+
+* disable Analytics ([fb45126](https://github.com/Stacked-Org/cli/commit/fb451265d1c24825fc8433a7a805a6ee55441100))
+
 ## [1.12.6](https://github.com/Stacked-Org/cli/compare/v1.12.5...v1.12.6) (2023-12-04)
 
 
