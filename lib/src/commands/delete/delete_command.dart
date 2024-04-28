@@ -1,4 +1,5 @@
 import 'package:args/command_runner.dart';
+import 'package:stacked_cli/src/commands/delete/delete_bottomsheet_command.dart';
 import 'package:stacked_cli/src/commands/delete/delete_dialog_command.dart';
 import 'package:stacked_cli/src/commands/delete/delete_service_command.dart';
 
@@ -18,5 +19,6 @@ class DeleteCommand extends Command {
     addSubcommand(DeleteServiceCommand());
     addSubcommand(DeleteViewCommand());
     addSubcommand(DeleteDialogCommand());
+    addSubcommand(DeleteBottomsheetCommand());
   }
 }
