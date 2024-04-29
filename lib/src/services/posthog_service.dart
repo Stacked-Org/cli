@@ -183,6 +183,20 @@ class PosthogService {
     );
   }
 
+  // Below event added if needed
+  Future<void> deleteBottomsheetEvent({
+    required String name,
+    required List<String> arguments,
+  }) async {
+    await _capture(
+      event: "Delete Bottom Sheet",
+      properties: {
+        "name": name,
+        "arguments": arguments,
+      },
+    );
+  }
+
   Future<void> deleteServiceEvent({
     required String name,
     required List<String> arguments,
