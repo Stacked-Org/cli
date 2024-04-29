@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/Stacked-Org/cli/compare/v1.12.8...v1.13.0) (2024-04-29)
+
+
+### Features
+
+* add delete bottom_sheet command ([#44](https://github.com/Stacked-Org/cli/issues/44)) ([683d295](https://github.com/Stacked-Org/cli/commit/683d295a5a0e69a2cd33fc0aac63a1530001d4b6))
+
 ## [1.12.8](https://github.com/Stacked-Org/cli/compare/v1.12.7...v1.12.8) (2024-03-11)
 
 
