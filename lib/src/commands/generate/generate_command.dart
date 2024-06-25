@@ -41,6 +41,8 @@ class GenerateCommand extends Command {
   @override
   Future<void> run() async {
     try {
+      final workingDirectory = argResults!.rest.first;
+
       await _processService.runBuildRunner(
         shouldDeleteConflictingOutputs: argResults?[ksDeleteConflictOutputs],
         shouldWatch: argResults?[ksWatch],
@@ -48,6 +50,7 @@ class GenerateCommand extends Command {
       await _analyticsService.generateCodeEvent(
         arguments: argResults!.arguments,
       );
+      await _processService.runFormat(appName: workingDirectory);
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(
