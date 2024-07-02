@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/Stacked-Org/cli/compare/v1.13.0...v1.13.1) (2024-07-02)
+
+
+### Bug Fixes
+
+* improve generate command ([#47](https://github.com/Stacked-Org/cli/issues/47)) ([327fe8d](https://github.com/Stacked-Org/cli/commit/327fe8df8702efe07159e41a2db4d03383efc91b))
+
 # [1.13.0](https://github.com/Stacked-Org/cli/compare/v1.12.8...v1.13.0) (2024-04-29)
 
 
