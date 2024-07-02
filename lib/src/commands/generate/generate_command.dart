@@ -5,12 +5,14 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
+import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/posthog_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class GenerateCommand extends Command {
   final _analyticsService = locator<PosthogService>();
+  final _configService = locator<ConfigService>();
   final _log = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
 
@@ -23,6 +25,12 @@ class GenerateCommand extends Command {
 
   GenerateCommand() {
     argParser
+      ..addOption(
+        ksLineLength,
+        abbr: 'l',
+        help: kCommandHelpLineLength,
+        valueHelp: '80',
+      )
       ..addFlag(
         ksDeleteConflictOutputs,
         abbr: 'd',
@@ -41,10 +49,13 @@ class GenerateCommand extends Command {
   @override
   Future<void> run() async {
     try {
+      await _configService.composeAndLoadConfigFile();
+      _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runBuildRunner(
         shouldDeleteConflictingOutputs: argResults?[ksDeleteConflictOutputs],
         shouldWatch: argResults?[ksWatch],
       );
+      await _processService.runFormat();
       await _analyticsService.generateCodeEvent(
         arguments: argResults!.arguments,
       );
