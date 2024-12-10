@@ -1406,6 +1406,13 @@ class MockConfigService extends _i1.Mock implements _i16.ConfigService {
       ) as bool);
 
   @override
+  bool get offlineMode => (super.noSuchMethod(
+        Invocation.getter(#offlineMode),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   int get lineLength => (super.noSuchMethod(
         Invocation.getter(#lineLength),
         returnValue: 0,
