@@ -6,7 +6,7 @@ part of 'config_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
+_$ConfigImpl _$$ConfigImplFromJson(Map<String, dynamic> json) => _$ConfigImpl(
       viewsPath: json['views_path'] as String? ?? 'ui/views',
       servicesPath: json['services_path'] as String? ?? 'services',
       widgetsPath: json['widgets_path'] as String? ?? 'ui/widgets/common',
@@ -33,11 +33,13 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       registerMocksFunction:
           json['register_mocks_function'] as String? ?? 'registerServices',
       v1: json['v1'] as bool? ?? false,
-      lineLength: json['line_length'] as int? ?? 80,
+      lineLength: (json['line_length'] as num?)?.toInt() ?? 80,
       preferWeb: json['prefer_web'] as bool? ?? false,
+      offlineMode: json['offline_mode'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
+Map<String, dynamic> _$$ConfigImplToJson(_$ConfigImpl instance) =>
+    <String, dynamic>{
       'views_path': instance.viewsPath,
       'services_path': instance.servicesPath,
       'widgets_path': instance.widgetsPath,
@@ -57,4 +59,5 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'v1': instance.v1,
       'line_length': instance.lineLength,
       'prefer_web': instance.preferWeb,
+      'offline_mode': instance.offlineMode,
     };
