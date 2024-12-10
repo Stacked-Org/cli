@@ -13,9 +13,11 @@ class ProcessService {
   final _configService = locator<ConfigService>();
 
   late String _formattingLineLength;
+  late bool _offlineMode;
 
   ProcessService() {
     _formattingLineLength = _configService.lineLength.toString();
+    _offlineMode = _configService.offlineMode;
   }
 
   set formattingLineLength(String? length) {
@@ -64,6 +66,7 @@ class ProcessService {
         ...buildRunnerArguments,
         shouldWatch ? ksWatch : ksBuild,
         if (shouldDeleteConflictingOutputs) ksDeleteConflictingOutputs,
+        if (_offlineMode) ksNoPubGet,
       ],
       workingDirectory: workingDirectory,
     );
