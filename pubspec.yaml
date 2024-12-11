@@ -32,4 +32,4 @@ dev_dependencies:
   json_serializable: ^6.7.1
 
 executables:
-  stacked2:
+  stacked:
