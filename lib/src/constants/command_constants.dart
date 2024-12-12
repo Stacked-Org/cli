@@ -1,4 +1,5 @@
 /// Stores all the commands used throughout the app that
+library;
 
 const String ksDart = 'dart';
 const String ksFlutter = 'flutter';
@@ -12,6 +13,7 @@ const String ksBuildRunner = 'build_runner';
 const String ksDeleteConflictOutputs = 'delete-conflicting-outputs';
 const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
 const String ksVersion = 'version';
+const String ksDisableVersionCheck = 'disable-version-check';
 const String ksEnableAnalytics = 'enable-analytics';
 const String ksDisableAnalytics = 'disable-analytics';
 const String ksExcludeRoute = 'exclude-route';

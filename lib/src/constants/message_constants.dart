@@ -1,5 +1,6 @@
 /// Stores all the messages used throughout the app that communicates
 /// with the user of the package.
+library;
 
 /// Message shown when we encounter a failure during generation that's caused by an invalid
 /// app structure.
@@ -24,6 +25,9 @@ for the stacked-cli roadmap.
 ''';
 
 const String kCommandHelpVersion = 'Print the current version.';
+
+const String kCommandHelpDisableVersionCheck =
+    'Disables version check, primarily used during development';
 
 const String kCommandHelpEnableAnalytics = 'Enable Analytics.';
 

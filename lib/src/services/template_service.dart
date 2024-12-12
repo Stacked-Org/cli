@@ -93,8 +93,12 @@ class TemplateService {
     }
 
     final outputTemplate = Template(kTemplateDataStructure);
-    final templateItemsData = {
-      'templateItems': allTemplateItems.map((e) => e.toJson()).toList(),
+    final Map<String, List<Map<String, dynamic>>> templateItemsData = {
+      'templateItems': allTemplateItems.map((e) {
+        Map<String, dynamic> result = e.toJson();
+        result['path'] = result['path'].replaceAll(r'\', '/');
+        return result;
+      }).toList(),
     };
 
     final allTemplateItemsContent =
