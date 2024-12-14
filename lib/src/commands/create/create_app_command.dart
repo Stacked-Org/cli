@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
@@ -80,8 +81,12 @@ class CreateAppCommand extends Command {
         configFilePath: argResults![ksConfigPath],
       );
 
-      final workingDirectory = argResults!.rest.first;
-      final appName = workingDirectory.split('/').last;
+      final List<String> workingDirectoryList =
+          argResults!.rest.first.split('/');
+      workingDirectoryList
+          .add(ReCase(workingDirectoryList.removeLast()).snakeCase);
+      final String appName = workingDirectoryList.last;
+      final String workingDirectory = workingDirectoryList.join('/');
       final templateType = argResults![ksTemplateType];
 
       _processService.formattingLineLength = argResults![ksLineLength];
