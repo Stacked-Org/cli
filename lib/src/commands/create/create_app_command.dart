@@ -81,13 +81,25 @@ class CreateAppCommand extends Command {
         configFilePath: argResults![ksConfigPath],
       );
 
+      final templateType = argResults![ksTemplateType];
+
+      // appName validation and recasing
       final List<String> workingDirectoryList =
           argResults!.rest.first.split('/');
-      workingDirectoryList
-          .add(ReCase(workingDirectoryList.removeLast()).snakeCase);
-      final String appName = workingDirectoryList.last;
-      final String workingDirectory = workingDirectoryList.join('/');
-      final templateType = argResults![ksTemplateType];
+      final String originalAppName = workingDirectoryList.removeLast();
+      final String appName = ReCase(originalAppName).snakeCase;
+      if (originalAppName != appName) {
+        _log.info(
+            message:
+                '$originalAppName is not snake_case as required by dart, did you mean $appName? [Y/N]');
+        String input;
+        do {
+          input = stdin.readLineSync()?.toUpperCase().trim() ?? '';
+        } while (!(input == 'Y' || input == 'N'));
+        input == 'N' ? throw 'error: project name not snake_case' : {};
+      }
+      workingDirectoryList.add(appName);
+      final workingDirectory = workingDirectoryList.join('/');
 
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(
