@@ -66,6 +66,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
     try {
       final List<String> viewNames = argResults!.rest;
       var templateType = argResults![ksTemplateType] as String?;
+      // TODO: Find new way to pass workingDirectory
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
