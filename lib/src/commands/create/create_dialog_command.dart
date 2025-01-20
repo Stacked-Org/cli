@@ -64,8 +64,9 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
   @override
   Future<void> run() async {
     try {
-      final dialogName = argResults!.rest.first;
+      final List<String> dialogNames = argResults!.rest;
       final templateType = argResults![ksTemplateType];
+      // TODO: Find new way to pass workingDirectory
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -76,21 +77,24 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
 
-      await _templateService.renderTemplate(
-        templateName: name,
-        name: dialogName,
-        outputPath: workingDirectory,
-        verbose: true,
-        excludeRoute: argResults![ksExcludeRoute],
-        hasModel: argResults![ksModel],
-        templateType: templateType,
-      );
+      for (var i = 0; i < dialogNames.length; i++) {
+        await _templateService.renderTemplate(
+          templateName: name,
+          name: dialogNames[i],
+          outputPath: workingDirectory,
+          verbose: true,
+          excludeRoute: argResults![ksExcludeRoute],
+          hasModel: argResults![ksModel],
+          templateType: templateType,
+        );
+
+        await _analyticsService.createDialogEvent(
+          name: dialogNames[i],
+          arguments: argResults!.arguments,
+        );
+      }
 
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      await _analyticsService.createDialogEvent(
-        name: dialogName,
-        arguments: argResults!.arguments,
-      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

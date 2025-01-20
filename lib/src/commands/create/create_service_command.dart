@@ -59,8 +59,9 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
   @override
   Future<void> run() async {
     try {
-      final serviceName = argResults!.rest.first;
+      final List<String> serviceNames = argResults!.rest;
       final templateType = argResults![ksTemplateType];
+      // TODO: Find new way to pass workingDirectory
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
@@ -71,19 +72,23 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
 
-      await _templateService.renderTemplate(
-        templateName: name,
-        name: serviceName,
-        outputPath: workingDirectory,
-        verbose: true,
-        excludeRoute: argResults![ksExcludeDependency],
-        templateType: templateType,
-      );
+      for (var i = 0; i < serviceNames.length; i++) {
+        await _templateService.renderTemplate(
+          templateName: name,
+          name: serviceNames[i],
+          outputPath: workingDirectory,
+          verbose: true,
+          excludeRoute: argResults![ksExcludeDependency],
+          templateType: templateType,
+        );
+
+        await _analyticsService.createServiceEvent(
+          name: serviceNames[i],
+          arguments: argResults!.arguments,
+        );
+      }
+
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      await _analyticsService.createServiceEvent(
-        name: serviceName,
-        arguments: argResults!.arguments,
-      );
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(
