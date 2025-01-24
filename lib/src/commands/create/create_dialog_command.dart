@@ -58,6 +58,10 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
         abbr: 'l',
         help: kCommandHelpLineLength,
         valueHelp: '80',
+      )
+      ..addOption(
+        ksProjectPath,
+        help: kCommandHelpProjectPath,
       );
   }
 
@@ -66,22 +70,20 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
     try {
       final List<String> dialogNames = argResults!.rest;
       final templateType = argResults![ksTemplateType];
-      // TODO: Find new way to pass workingDirectory
-      final workingDirectory =
-          argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: workingDirectory,
+        projectPath: argResults![ksProjectPath],
       );
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: workingDirectory);
-      await validateStructure(outputPath: workingDirectory);
+      await _pubspecService.initialise(
+          workingDirectory: argResults![ksProjectPath]);
+      await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < dialogNames.length; i++) {
         await _templateService.renderTemplate(
           templateName: name,
           name: dialogNames[i],
-          outputPath: workingDirectory,
+          outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeRoute],
           hasModel: argResults![ksModel],
@@ -94,7 +96,8 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
         );
       }
 
-      await _processService.runBuildRunner(workingDirectory: workingDirectory);
+      await _processService.runBuildRunner(
+          workingDirectory: argResults![ksProjectPath]);
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

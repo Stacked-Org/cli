@@ -58,6 +58,10 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         abbr: 'l',
         help: kCommandHelpLineLength,
         valueHelp: '80',
+      )
+      ..addOption(
+        ksProjectPath,
+        help: kCommandHelpProjectPath,
       );
   }
 
@@ -66,16 +70,14 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
     try {
       final List<String> viewNames = argResults!.rest;
       var templateType = argResults![ksTemplateType] as String?;
-      // TODO: Find new way to pass workingDirectory
-      final workingDirectory =
-          argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: workingDirectory,
+        projectPath: argResults![ksProjectPath],
       );
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: workingDirectory);
-      await validateStructure(outputPath: workingDirectory);
+      await _pubspecService.initialise(
+          workingDirectory: argResults![ksProjectPath]);
+      await validateStructure(outputPath: argResults![ksProjectPath]);
 
       // Determine which template to use with the following rules:
       // 1. If the template is supplied we use that template
@@ -89,7 +91,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         await _templateService.renderTemplate(
           templateName: name,
           name: viewNames[i],
-          outputPath: workingDirectory,
+          outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeRoute],
           useBuilder: argResults![ksV1] ?? _configService.v1,
@@ -102,7 +104,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         );
       }
 
-      await _processService.runBuildRunner(workingDirectory: workingDirectory);
+      await _processService.runBuildRunner(
+          workingDirectory: argResults![ksProjectPath]);
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

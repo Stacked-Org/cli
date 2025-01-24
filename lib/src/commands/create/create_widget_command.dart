@@ -57,6 +57,10 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
         abbr: 'l',
         help: kCommandHelpLineLength,
         valueHelp: '80',
+      )
+      ..addOption(
+        ksProjectPath,
+        help: kCommandHelpProjectPath,
       );
   }
 
@@ -65,27 +69,24 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
     try {
       final List<String> widgetNames = argResults!.rest;
       final templateType = argResults![ksTemplateType];
-      // TODO: Find new way to pass workingDirectory
-      final workingDirectory =
-          argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-
       // load configuration
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: workingDirectory,
+        projectPath: argResults![ksProjectPath],
       );
       // override [widgets_path] value on configuration
       _configService.setWidgetsPath(argResults![ksPath]);
 
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: workingDirectory);
-      await validateStructure(outputPath: workingDirectory);
+      await _pubspecService.initialise(
+          workingDirectory: argResults![ksProjectPath]);
+      await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < widgetNames.length; i) {
         await _templateService.renderTemplate(
           templateName: name,
           name: widgetNames[i],
-          outputPath: workingDirectory,
+          outputPath: argResults![ksProjectPath],
           verbose: true,
           hasModel: argResults![ksModel],
           templateType: templateType,
