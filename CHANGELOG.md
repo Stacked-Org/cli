@@ -1,3 +1,10 @@
+## [1.13.4](https://github.com/Stacked-Org/cli/compare/v1.13.3...v1.13.4) (2025-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency get_it to v8 ([#49](https://github.com/Stacked-Org/cli/issues/49)) ([4ce0c36](https://github.com/Stacked-Org/cli/commit/4ce0c366634dd8d41968e269f8bf3446ddd62e19))
+
 ## [1.13.3](https://github.com/Stacked-Org/cli/compare/v1.13.2...v1.13.3) (2025-01-26)
 
 
