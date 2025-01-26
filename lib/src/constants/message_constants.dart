@@ -1,5 +1,6 @@
 /// Stores all the messages used throughout the app that communicates
 /// with the user of the package.
+library;
 
 /// Message shown when we encounter a failure during generation that's caused by an invalid
 /// app structure.
@@ -100,4 +101,8 @@ Stacked config file should be renamed from "stacked.config.json" to "stacked.jso
 
 const String kDeprecatedPaths = '''
 Paths on Stacked config do not need to start with directory "lib" or "test" because  are mandatory directories, defined by the Flutter framework. Stacked cli will not accept paths starting with "lib" or "test" after the next minor release.
+''';
+
+const String kCommandHelpProjectPath = '''
+When path is provided, it will be considered the project directory instead of the current directory.
 ''';
