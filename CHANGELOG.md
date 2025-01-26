@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/Stacked-Org/cli/compare/v1.13.1...v1.13.2) (2025-01-26)
+
+
+### Bug Fixes
+
+* **actions:** allow tests to pass with warning ([#53](https://github.com/Stacked-Org/cli/issues/53)) ([bc00354](https://github.com/Stacked-Org/cli/commit/bc00354f878d84f37bd3d14803ccac7d798e78ed))
+
 ## [1.13.1](https://github.com/Stacked-Org/cli/compare/v1.13.0...v1.13.1) (2024-07-02)
 
 
