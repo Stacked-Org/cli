@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/config_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
@@ -80,9 +81,25 @@ class CreateAppCommand extends Command {
         configFilePath: argResults![ksConfigPath],
       );
 
-      final workingDirectory = argResults!.rest.first;
-      final appName = workingDirectory.split('/').last;
       final templateType = argResults![ksTemplateType];
+
+      // appName validation and recasing
+      final List<String> workingDirectoryList =
+          argResults!.rest.first.split('/');
+      final String originalAppName = workingDirectoryList.removeLast();
+      final String appName = ReCase(originalAppName).snakeCase;
+      if (originalAppName != appName) {
+        _log.info(
+            message:
+                '$originalAppName is not snake_case as required by dart, did you mean $appName? [Y/N]');
+        String input;
+        do {
+          input = stdin.readLineSync()?.toUpperCase().trim() ?? '';
+        } while (!(input == 'Y' || input == 'N'));
+        input == 'N' ? throw 'error: project name not snake_case' : {};
+      }
+      workingDirectoryList.add(appName);
+      final workingDirectory = workingDirectoryList.join('/');
 
       _processService.formattingLineLength = argResults![ksLineLength];
       await _processService.runCreateApp(
