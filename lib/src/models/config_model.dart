@@ -93,6 +93,9 @@ class Config with _$Config {
     /// the code.
     @JsonKey(name: 'line_length') @Default(80) int lineLength,
     @JsonKey(name: 'prefer_web') @Default(false) bool preferWeb,
+
+    /// Boolean value determining if build_runner should run pub get.
+    @JsonKey(name: 'offline_mode') @Default(false) bool offlineMode,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);
