@@ -27,6 +27,8 @@ Future<void> main(List<String> arguments) async {
       negatable: false,
       help: kCommandHelpVersion,
     )
+    ..argParser.addFlag(ksDisableVersionCheck,
+        negatable: false, help: kCommandHelpDisableVersionCheck)
     // ..argParser.addFlag(
     //   ksEnableAnalytics,
     //   negatable: false,
@@ -56,7 +58,9 @@ Future<void> main(List<String> arguments) async {
     /// triggered twice
     // if (_handleAnalytics(argResults)) exit(0);
 
-    await _notifyNewVersionAvailable(arguments: arguments);
+    !argResults[ksDisableVersionCheck]
+        ? await _notifyNewVersionAvailable(arguments: arguments)
+        : {};
 
     runner.run(arguments);
   } on InvalidStackedStructureException catch (e) {
