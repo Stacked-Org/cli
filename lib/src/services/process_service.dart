@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
@@ -166,17 +168,43 @@ class ProcessService {
 
       final lines = <String>[];
       final lineSplitter = LineSplitter();
-      await process.stdout.transform(utf8.decoder).forEach((output) {
-        if (verbose) _cLog.flutterOutput(message: output);
+
+      final Stream<IdStreamResponse<String>> infoStream =
+          process.stdout.transform(utf8.decoder).transform(
+                StreamTransformer.fromHandlers(
+                  handleData: (data, sink) => sink.add(
+                    IdStreamResponse('info', data),
+                  ),
+                ),
+              );
+
+      final Stream<IdStreamResponse<String>> errorStream =
+          process.stderr.transform(utf8.decoder).transform(
+                StreamTransformer.fromHandlers(
+                  handleData: (data, sink) => sink.add(
+                    IdStreamResponse('error', data),
+                  ),
+                ),
+              );
+
+      final Stream<IdStreamResponse<String>> groupedStream =
+          StreamGroup.merge([infoStream, errorStream]);
+
+      await for (final value in groupedStream) {
+        if (value.id == 'error') {
+          _cLog.error(message: value.value);
+        } else if (value.id == 'info' && verbose) {
+          _cLog.flutterOutput(message: value.value);
+        }
 
         if (handleOutput != null) {
           lines.addAll(lineSplitter
-              .convert(output)
+              .convert(value.value)
               .map((l) => l.trim())
               .where((l) => l.isNotEmpty)
               .toList());
         }
-      });
+      }
 
       await handleOutput?.call(lines);
 
@@ -220,4 +248,11 @@ class ProcessService {
       message: 'Command complete. ExitCode: $exitCode',
     );
   }
+}
+
+class IdStreamResponse<T> {
+  final String id;
+  final T value;
+
+  IdStreamResponse(this.id, this.value);
 }
