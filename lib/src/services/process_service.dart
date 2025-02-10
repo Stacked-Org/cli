@@ -137,6 +137,7 @@ class ProcessService {
   }
 
   /// It runs a process and logs the output to the console when [verbose] is true.
+  /// Will throw if the process errors out and won't run any subsequent processes.
   ///
   /// Args:
   ///   programName (String): The name of the program to run.
