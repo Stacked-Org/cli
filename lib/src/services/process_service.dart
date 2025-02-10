@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
+import 'package:stacked_cli/src/exceptions/stacked_process_failed_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
@@ -170,30 +171,30 @@ class ProcessService {
       final lines = <String>[];
       final lineSplitter = LineSplitter();
 
-      final Stream<IdStreamResponse<String>> infoStream =
+      final Stream<_IdStreamResponse<String>> infoStream =
           process.stdout.transform(utf8.decoder).transform(
                 StreamTransformer.fromHandlers(
                   handleData: (data, sink) => sink.add(
-                    IdStreamResponse('info', data),
+                    _IdStreamResponse('info', data),
                   ),
                 ),
               );
 
-      final Stream<IdStreamResponse<String>> errorStream =
+      final Stream<_IdStreamResponse<String>> errorStream =
           process.stderr.transform(utf8.decoder).transform(
                 StreamTransformer.fromHandlers(
                   handleData: (data, sink) => sink.add(
-                    IdStreamResponse('error', data),
+                    _IdStreamResponse('error', data),
                   ),
                 ),
               );
 
-      final Stream<IdStreamResponse<String>> groupedStream =
+      final Stream<_IdStreamResponse<String>> groupedStream =
           StreamGroup.merge([infoStream, errorStream]);
 
       await for (final value in groupedStream) {
         if (value.id == 'error') {
-          throw SubCommandException(value.value);
+          throw StackedProcessFailedException(value.value);
         } else if (value.id == 'info' && verbose) {
           _cLog.flutterOutput(message: value.value);
         }
@@ -221,7 +222,7 @@ class ProcessService {
         message: message,
         stackTrace: s.toString(),
       );
-    } on SubCommandException catch (e, _) {
+    } on StackedProcessFailedException catch (e, _) {
       rethrow;
     } catch (e, s) {
       final message =
@@ -253,17 +254,12 @@ class ProcessService {
   }
 }
 
-class IdStreamResponse<T> {
+/// A simple wrapper class for values emitted by stderr- and stdout streams
+/// to differentiate between them when merged.
+/// [id] should be either 'error' or 'info'.
+class _IdStreamResponse<T> {
   final String id;
   final T value;
 
-  IdStreamResponse(this.id, this.value);
-}
-
-class SubCommandException implements Exception {
-  final dynamic msg;
-  SubCommandException(this.msg);
-
-  @override
-  toString() => msg.toString();
+  _IdStreamResponse(this.id, this.value);
 }
