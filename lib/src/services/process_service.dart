@@ -192,7 +192,7 @@ class ProcessService {
 
       await for (final value in groupedStream) {
         if (value.id == 'error') {
-          _cLog.error(message: value.value);
+          throw SubCommandException(value.value);
         } else if (value.id == 'info' && verbose) {
           _cLog.flutterOutput(message: value.value);
         }
@@ -220,6 +220,8 @@ class ProcessService {
         message: message,
         stackTrace: s.toString(),
       );
+    } on SubCommandException catch (e, _) {
+      rethrow;
     } catch (e, s) {
       final message =
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.toString()}';
@@ -255,4 +257,12 @@ class IdStreamResponse<T> {
   final T value;
 
   IdStreamResponse(this.id, this.value);
+}
+
+class SubCommandException implements Exception {
+  final dynamic msg;
+  SubCommandException(this.msg);
+
+  @override
+  toString() => msg.toString();
 }
