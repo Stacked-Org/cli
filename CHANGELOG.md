@@ -1,10 +1,12 @@
-## 2.0.0-beta.0 (2024-10-17)
+## 2.0.0
 
 ### Features
 
 * Adds multi create functionality for views, services, dialogs and bottom sheets.
 
 Example: stacked create view -t web login signup dashboard home profile settings
+
+* Adds golden test setup to stacked templates
 
 ### Breaking Changes
 

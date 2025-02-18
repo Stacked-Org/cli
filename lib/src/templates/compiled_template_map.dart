@@ -28,6 +28,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateInfoAlertDialogModelTestContent,
             fileType: FileType.text),
         TemplateFile(
+            relativeOutputPath: kAppWebTemplateHomeViewGoldenTestPath,
+            content: kAppWebTemplateHomeViewGoldenTestContent,
+            fileType: FileType.text),
+        TemplateFile(
             relativeOutputPath: kAppWebTemplateTestHelpersPath,
             content: kAppWebTemplateTestHelpersContent,
             fileType: FileType.text),
@@ -179,6 +183,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
         TemplateFile(
             relativeOutputPath: kAppMobileTemplateInfoAlertDialogModelTestPath,
             content: kAppMobileTemplateInfoAlertDialogModelTestContent,
+            fileType: FileType.text),
+        TemplateFile(
+            relativeOutputPath: kAppMobileTemplateHomeViewGoldenTestPath,
+            content: kAppMobileTemplateHomeViewGoldenTestContent,
             fileType: FileType.text),
         TemplateFile(
             relativeOutputPath: kAppMobileTemplateTestHelpersPath,

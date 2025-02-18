@@ -143,6 +143,50 @@ void main() {
 
 // --------------------------------------------------
 
+// -------- HomeViewGoldenTest Template Data ----------
+
+const String kAppWebTemplateHomeViewGoldenTestPath =
+    'test/golden/home_view_golden_test.dart.stk';
+
+const String kAppWebTemplateHomeViewGoldenTestContent = '''
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/ui/views/home/home_view.dart';
+
+void main() {
+  setUpAll(() => setupLocator());
+  tearDownAll(() => locator.reset());
+
+  testGoldens('HomeView - default state', (tester) async {
+    await loadAppFonts();
+    
+    // Set device pixel ratio and size for web
+    await tester.binding.setSurfaceSize(const Size(1920, 1080));
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    
+    await tester.pumpWidget(
+      const MediaQuery(
+        data: MediaQueryData(
+          size: Size(1920, 1080),
+          devicePixelRatio: 1.0,
+        ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: HomeView(),
+        ),
+      ),
+    );
+
+    await screenMatchesGolden(tester, 'home_view_default');
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
 // -------- TestHelpers Template Data ----------
 
 const String kAppWebTemplateTestHelpersPath =
@@ -455,6 +499,16 @@ const String kAppWebTemplateREADMEMdStkContent = '''
 # {{packageName}}
 
 {{packageDescription}}
+
+## Golden Tests
+
+Golden tests are already setup for this project. To run the tests and update the golden files, run:
+
+```bash
+flutter test --update-goldens
+```
+
+The golden test screenshots will be stored under `test/golden/`.
 ''';
 
 // --------------------------------------------------
@@ -1750,6 +1804,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   mockito: ^5.4.1
   stacked_generator: ^1.3.3
+  golden_toolkit: ^0.15.0
 
 flutter:
   uses-material-design: true
@@ -1895,6 +1950,50 @@ void main() {
 
 // --------------------------------------------------
 
+// -------- HomeViewGoldenTest Template Data ----------
+
+const String kAppMobileTemplateHomeViewGoldenTestPath =
+    'test/golden/home_view_golden_test.dart.stk';
+
+const String kAppMobileTemplateHomeViewGoldenTestContent = '''
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/ui/views/home/home_view.dart';
+
+void main() {
+  setUpAll(() => setupLocator());
+  tearDownAll(() => locator.reset());
+
+  testGoldens('HomeView - default state', (tester) async {
+    await loadAppFonts();
+    
+    // Set device pixel ratio and size
+    await tester.binding.setSurfaceSize(const Size(393, 852));
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    
+    await tester.pumpWidget(
+      const MediaQuery(
+        data: MediaQueryData(
+          size: Size(393, 852),
+          devicePixelRatio: 1.0,
+        ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: HomeView(),
+        ),
+      ),
+    );
+
+    await screenMatchesGolden(tester, 'home_view_default');
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
 // -------- TestHelpers Template Data ----------
 
 const String kAppMobileTemplateTestHelpersPath =
@@ -1992,6 +2091,16 @@ const String kAppMobileTemplateREADMEMdStkContent = '''
 # {{packageName}}
 
 {{packageDescription}}
+
+## Golden Tests
+
+Golden tests are already setup for this project. To run the tests and update the golden files, run:
+
+```bash
+flutter test --update-goldens
+```
+
+The golden test screenshots will be stored under `test/golden/`.
 ''';
 
 // --------------------------------------------------
@@ -2830,6 +2939,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   mockito: ^5.4.1
   stacked_generator: ^1.3.3
+  golden_toolkit: ^0.15.0
 
 flutter:
   uses-material-design: true
@@ -3267,6 +3377,7 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        child: const Center(child: Text("{{viewName}}")),
       ),
     );
   }
@@ -3366,7 +3477,7 @@ class {{viewName}}Mobile extends ViewModelWidget<{{viewModelName}}> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Hello, MOBILE UI!',
+          'Hello, MOBILE UI - {{viewName}}!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
@@ -3400,7 +3511,7 @@ class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Hello, TABLET UI!',
+          'Hello, TABLET UI - {{viewName}}!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
@@ -3476,7 +3587,7 @@ class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Hello, DESKTOP UI!',
+          'Hello, DESKTOP UI - {{viewName}}!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
