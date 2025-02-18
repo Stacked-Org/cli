@@ -28,6 +28,6 @@ void main() {
       ),
     );
 
-    await screenMatchesGolden(tester, 'screenshots/home_view_default');
+    await screenMatchesGolden(tester, 'home_view_default');
   });
 }

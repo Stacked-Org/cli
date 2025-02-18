@@ -186,7 +186,7 @@ void main() {
       ),
     );
 
-    await screenMatchesGolden(tester, 'screenshots/home_view_default');
+    await screenMatchesGolden(tester, 'home_view_default');
   });
 }
 
@@ -526,7 +526,7 @@ Golden tests are already setup for this project. To run the tests and update the
 flutter test --update-goldens
 ```
 
-The golden test screenshots will be stored under `test/goldens/screenshots/`.
+The golden test screenshots will be stored under `test/golden/`.
 ''';
 
 // --------------------------------------------------
@@ -2043,7 +2043,7 @@ void main() {
       ),
     );
 
-    await screenMatchesGolden(tester, 'screenshots/home_view_default');
+    await screenMatchesGolden(tester, 'home_view_default');
   });
 }
 
@@ -2160,7 +2160,7 @@ Golden tests are already setup for this project. To run the tests and update the
 flutter test --update-goldens
 ```
 
-The golden test screenshots will be stored under `test/goldens/screenshots/`.
+The golden test screenshots will be stored under `test/golden/`.
 ''';
 
 // --------------------------------------------------
