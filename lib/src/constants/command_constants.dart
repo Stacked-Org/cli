@@ -1,4 +1,5 @@
 /// Stores all the commands used throughout the app that
+library;
 
 const String ksDart = 'dart';
 const String ksFlutter = 'flutter';
@@ -34,6 +35,7 @@ const String ksAppMinimalTemplate = 'empty';
 const String ksAppDescription = 'description';
 const String ksAppOrganization = 'org';
 const String ksAppPlatforms = 'platforms';
+const String ksProjectPath = 'project-path';
 
 /// A list of strings that are used to run the run build_runner
 /// [build or watch] --delete-conflicting-outputs command.

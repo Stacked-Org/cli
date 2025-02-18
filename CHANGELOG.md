@@ -1,3 +1,17 @@
+## 2.0.0-beta.0 (2024-10-17)
+
+### Features
+
+* Adds multi create functionality for views, services, dialogs and bottom sheets.
+
+Example: stacked create view -t web login signup dashboard home profile settings
+
+### Breaking Changes
+
+The names of the objects being created has to be last, meaning we now have an enforced order due to the implementation of this feature. 
+
+Docs and error messages has to be updated to reflect this change. 
+
 ## [1.13.4](https://github.com/Stacked-Org/cli/compare/v1.13.3...v1.13.4) (2025-01-26)
 
 
@@ -18,6 +32,7 @@
 ### Bug Fixes
 
 * **actions:** allow tests to pass with warning ([#53](https://github.com/Stacked-Org/cli/issues/53)) ([bc00354](https://github.com/Stacked-Org/cli/commit/bc00354f878d84f37bd3d14803ccac7d798e78ed))
+
 
 ## [1.13.1](https://github.com/Stacked-Org/cli/compare/v1.13.0...v1.13.1) (2024-07-02)
 

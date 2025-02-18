@@ -58,23 +58,26 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
         abbr: 'l',
         help: kCommandHelpLineLength,
         valueHelp: '80',
+      )
+      ..addOption(
+        ksProjectPath,
+        help: kCommandHelpProjectPath,
       );
   }
 
   @override
   Future<void> run() async {
     try {
-      final viewName = argResults!.rest.first;
+      final List<String> viewNames = argResults!.rest;
       var templateType = argResults![ksTemplateType] as String?;
-      final workingDirectory =
-          argResults!.rest.length > 1 ? argResults!.rest[1] : null;
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
-        projectPath: workingDirectory,
+        projectPath: argResults![ksProjectPath],
       );
       _processService.formattingLineLength = argResults![ksLineLength];
-      await _pubspecService.initialise(workingDirectory: workingDirectory);
-      await validateStructure(outputPath: workingDirectory);
+      await _pubspecService.initialise(
+          workingDirectory: argResults![ksProjectPath]);
+      await validateStructure(outputPath: argResults![ksProjectPath]);
 
       // Determine which template to use with the following rules:
       // 1. If the template is supplied we use that template
@@ -84,20 +87,25 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       // We assign this when it's not null so there should be no default value for this
       templateType ??= _configService.preferWeb ? 'web' : 'empty';
 
-      await _templateService.renderTemplate(
-        templateName: name,
-        name: viewName,
-        outputPath: workingDirectory,
-        verbose: true,
-        excludeRoute: argResults![ksExcludeRoute],
-        useBuilder: argResults![ksV1] ?? _configService.v1,
-        templateType: templateType,
-      );
-      await _processService.runBuildRunner(workingDirectory: workingDirectory);
-      await _analyticsService.createViewEvent(
-        name: viewName,
-        arguments: argResults!.arguments,
-      );
+      for (var i = 0; i < viewNames.length; i++) {
+        await _templateService.renderTemplate(
+          templateName: name,
+          name: viewNames[i],
+          outputPath: argResults![ksProjectPath],
+          verbose: true,
+          excludeRoute: argResults![ksExcludeRoute],
+          useBuilder: argResults![ksV1] ?? _configService.v1,
+          templateType: templateType,
+        );
+
+        await _analyticsService.createViewEvent(
+          name: viewNames[i],
+          arguments: argResults!.arguments,
+        );
+      }
+
+      await _processService.runBuildRunner(
+          workingDirectory: argResults![ksProjectPath]);
     } catch (e, s) {
       _log.error(message: e.toString());
       unawaited(_analyticsService.logExceptionEvent(

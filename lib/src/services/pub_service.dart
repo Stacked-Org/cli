@@ -20,8 +20,12 @@ class PubService {
     final packages = await _processService.runPubGlobalList();
     for (var package in packages) {
       if (!package.contains(ksStackedCli)) continue;
-
-      version = package.split(' ').last;
+      final splitResults = package.split(' ');
+      if (splitResults.length > 2) {
+        version = splitResults[1];
+      } else {
+        version = splitResults.last;
+      }
       break;
     }
 
