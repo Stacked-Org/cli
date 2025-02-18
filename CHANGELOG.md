@@ -12,6 +12,27 @@ The names of the objects being created has to be last, meaning we now have an en
 
 Docs and error messages has to be updated to reflect this change. 
 
+## [1.13.4](https://github.com/Stacked-Org/cli/compare/v1.13.3...v1.13.4) (2025-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency get_it to v8 ([#49](https://github.com/Stacked-Org/cli/issues/49)) ([4ce0c36](https://github.com/Stacked-Org/cli/commit/4ce0c366634dd8d41968e269f8bf3446ddd62e19))
+
+## [1.13.3](https://github.com/Stacked-Org/cli/compare/v1.13.2...v1.13.3) (2025-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pub_updater to ^0.5.0 ([#48](https://github.com/Stacked-Org/cli/issues/48)) ([712884f](https://github.com/Stacked-Org/cli/commit/712884f0b778b93258b18529cb73c57483a6adcf))
+
+## [1.13.2](https://github.com/Stacked-Org/cli/compare/v1.13.1...v1.13.2) (2025-01-26)
+
+
+### Bug Fixes
+
+* **actions:** allow tests to pass with warning ([#53](https://github.com/Stacked-Org/cli/issues/53)) ([bc00354](https://github.com/Stacked-Org/cli/commit/bc00354f878d84f37bd3d14803ccac7d798e78ed))
+
 
 ## [1.13.1](https://github.com/Stacked-Org/cli/compare/v1.13.0...v1.13.1) (2024-07-02)
 
