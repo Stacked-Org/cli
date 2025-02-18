@@ -153,7 +153,7 @@ void main() {
 // -------- HomeViewGoldenTest Template Data ----------
 
 const String kAppWebTemplateHomeViewGoldenTestPath =
-    'test/goldens/home_view_golden_test.dart.stk';
+    'test/golden/home_view_golden_test.dart.stk';
 
 const String kAppWebTemplateHomeViewGoldenTestContent = '''
 import 'package:flutter/material.dart';
@@ -2010,7 +2010,7 @@ void main() {
 // -------- HomeViewGoldenTest Template Data ----------
 
 const String kAppMobileTemplateHomeViewGoldenTestPath =
-    'test/goldens/home_view_golden_test.dart.stk';
+    'test/golden/home_view_golden_test.dart.stk';
 
 const String kAppMobileTemplateHomeViewGoldenTestContent = '''
 import 'package:flutter/material.dart';
