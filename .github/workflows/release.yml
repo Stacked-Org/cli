@@ -21,7 +21,7 @@ jobs:
       - name: Build app
         run: dart compile exe -D POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }} bin/stacked.dart
       - name: release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v4
         with:
           extra_plugins: |
             @semantic-release/exec
