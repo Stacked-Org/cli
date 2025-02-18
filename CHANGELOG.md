@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/Stacked-Org/cli/compare/v1.13.4...v1.14.0) (2025-02-18)
+
+
+### Features
+
+* Adds golden tests and multiple files with create command ([#58](https://github.com/Stacked-Org/cli/issues/58)) ([85babf1](https://github.com/Stacked-Org/cli/commit/85babf1c05641e48cb3c4ae7bb2b6103e6a9725f))
+
 ## 2.0.0
 
 ### Features
