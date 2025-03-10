@@ -15,6 +15,7 @@ import 'package:stacked_cli/src/services/pub_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
+
 // @stacked-import
 
 import '../test_constants.dart';
@@ -153,6 +154,7 @@ MockConfigService getAndRegisterConfigService({
   String locatorName = 'locator',
   String registerMocksFunction = 'registerServices',
   bool v1 = false,
+  bool offlineMode = false,
   int lineLength = 80,
 }) {
   _removeRegistrationIfExists<ConfigService>();
@@ -168,6 +170,7 @@ MockConfigService getAndRegisterConfigService({
   when(service.locatorName).thenReturn(locatorName);
   when(service.registerMocksFunction).thenReturn(registerMocksFunction);
   when(service.v1).thenReturn(v1);
+  when(service.offlineMode).thenReturn(offlineMode);
   when(service.lineLength).thenReturn(lineLength);
 
   when(service.replaceCustomPaths(any)).thenAnswer(

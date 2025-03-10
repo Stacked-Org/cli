@@ -12,6 +12,7 @@ const String ksBuild = 'build';
 const String ksBuildRunner = 'build_runner';
 const String ksDeleteConflictOutputs = 'delete-conflicting-outputs';
 const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
+const String ksNoPubGet = '--no-pub';
 const String ksVersion = 'version';
 const String ksEnableAnalytics = 'enable-analytics';
 const String ksDisableAnalytics = 'disable-analytics';

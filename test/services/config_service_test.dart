@@ -41,6 +41,7 @@ void main() {
       "test_views_path": "my/personal/path/to/tests/viewmodel",
       "test_widgets_path": "my/personal/path/to/tests/widget_models",
       "v1": false,
+      "offline_mode": false,
       "views_path": "my/personal/path/to/views",
       "widgets_path": "ui/widgets/common"
     });
