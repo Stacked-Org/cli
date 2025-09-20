@@ -57,6 +57,11 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
+      )
+      ..addFlag(
+        ksNoTest,
+        defaultsTo: false,
+        help: kCommandHelpNoTest,
       );
   }
 
@@ -82,6 +87,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
           verbose: true,
           excludeRoute: argResults![ksExcludeDependency],
           templateType: templateType,
+          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createServiceEvent(
