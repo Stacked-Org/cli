@@ -100,6 +100,12 @@ class ConfigService {
   /// True: ViewModelBuilder
   bool get v1 => _customConfig.v1;
 
+  /// Returns boolean value to determine if build_runner should run pub get.
+  ///
+  /// False: pub get should run
+  /// True: pub get should not run
+  bool get offlineMode => _customConfig.offlineMode;
+
   /// Returns int value for line length when format code.
   int get lineLength => _customConfig.lineLength;
 
