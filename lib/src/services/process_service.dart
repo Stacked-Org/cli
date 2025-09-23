@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
+import 'package:stacked_cli/src/exceptions/stacked_process_failed_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
@@ -135,6 +138,7 @@ class ProcessService {
   }
 
   /// It runs a process and logs the output to the console when [verbose] is true.
+  /// Will throw if the process errors out and won't run any subsequent processes.
   ///
   /// Args:
   ///   programName (String): The name of the program to run.
@@ -166,17 +170,43 @@ class ProcessService {
 
       final lines = <String>[];
       final lineSplitter = LineSplitter();
-      await process.stdout.transform(utf8.decoder).forEach((output) {
-        if (verbose) _cLog.flutterOutput(message: output);
+
+      final Stream<_IdStreamResponse<String>> infoStream =
+          process.stdout.transform(utf8.decoder).transform(
+                StreamTransformer.fromHandlers(
+                  handleData: (data, sink) => sink.add(
+                    _IdStreamResponse('info', data),
+                  ),
+                ),
+              );
+
+      final Stream<_IdStreamResponse<String>> errorStream =
+          process.stderr.transform(utf8.decoder).transform(
+                StreamTransformer.fromHandlers(
+                  handleData: (data, sink) => sink.add(
+                    _IdStreamResponse('error', data),
+                  ),
+                ),
+              );
+
+      final Stream<_IdStreamResponse<String>> groupedStream =
+          StreamGroup.merge([infoStream, errorStream]);
+
+      await for (final value in groupedStream) {
+        if (value.id == 'error') {
+          throw StackedProcessFailedException(value.value);
+        } else if (value.id == 'info' && verbose) {
+          _cLog.flutterOutput(message: value.value);
+        }
 
         if (handleOutput != null) {
           lines.addAll(lineSplitter
-              .convert(output)
+              .convert(value.value)
               .map((l) => l.trim())
               .where((l) => l.isNotEmpty)
               .toList());
         }
-      });
+      }
 
       await handleOutput?.call(lines);
 
@@ -192,6 +222,8 @@ class ProcessService {
         message: message,
         stackTrace: s.toString(),
       );
+    } on StackedProcessFailedException catch (e, _) {
+      rethrow;
     } catch (e, s) {
       final message =
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.toString()}';
@@ -220,4 +252,14 @@ class ProcessService {
       message: 'Command complete. ExitCode: $exitCode',
     );
   }
+}
+
+/// A simple wrapper class for values emitted by stderr- and stdout streams
+/// to differentiate between them when merged.
+/// [id] should be either 'error' or 'info'.
+class _IdStreamResponse<T> {
+  final String id;
+  final T value;
+
+  _IdStreamResponse(this.id, this.value);
 }
