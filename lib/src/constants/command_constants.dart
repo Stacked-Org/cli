@@ -36,6 +36,7 @@ const String ksAppDescription = 'description';
 const String ksAppOrganization = 'org';
 const String ksAppPlatforms = 'platforms';
 const String ksProjectPath = 'project-path';
+const String ksNoTest = 'no-test';
 
 /// A list of strings that are used to run the run build_runner
 /// [build or watch] --delete-conflicting-outputs command.

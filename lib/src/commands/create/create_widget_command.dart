@@ -61,6 +61,11 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
+      )
+      ..addFlag(
+        ksNoTest,
+        defaultsTo: false,
+        help: kCommandHelpNoTest,
       );
   }
 
@@ -82,7 +87,7 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
           workingDirectory: argResults![ksProjectPath]);
       await validateStructure(outputPath: argResults![ksProjectPath]);
 
-      for (var i = 0; i < widgetNames.length; i) {
+      for (var i = 0; i < widgetNames.length; i++) {
         await _templateService.renderTemplate(
           templateName: name,
           name: widgetNames[i],
@@ -90,6 +95,7 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
           verbose: true,
           hasModel: argResults![ksModel],
           templateType: templateType,
+          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createWidgetEvent(

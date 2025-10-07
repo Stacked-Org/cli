@@ -62,6 +62,11 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
+      )
+      ..addFlag(
+        ksNoTest,
+        defaultsTo: false,
+        help: kCommandHelpNoTest,
       );
   }
 
@@ -96,6 +101,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
           excludeRoute: argResults![ksExcludeRoute],
           useBuilder: argResults![ksV1] ?? _configService.v1,
           templateType: templateType,
+          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createViewEvent(

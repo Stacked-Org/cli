@@ -1,3 +1,13 @@
+## [Unreleased]
+
+### Features
+
+* **create commands:** Add --no-test flag to skip test file generation ([#XX](https://github.com/Stacked-Org/stacked/issues/1097))
+  - Added --no-test flag to all create commands (view, service, bottom_sheet, dialog, widget)
+  - When provided, no test files will be generated for the created components
+  - Maintains backward compatibility with default behavior unchanged
+  - Fixed for-loop bug in CreateWidgetCommand
+
 # [1.14.0](https://github.com/Stacked-Org/cli/compare/v1.13.4...v1.14.0) (2025-02-18)
 
 

@@ -154,6 +154,9 @@ class TemplateService {
     /// When supplied it selects the template type to use within the command that's being
     /// run. This is supplied using --template=web or similar based on the command being run
     required String templateType,
+
+    /// When set to true, no test files will be generated
+    bool noTest = false,
   }) async {
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName]![templateType] ??
@@ -166,6 +169,7 @@ class TemplateService {
       outputFolder: outputPath,
       useBuilder: useBuilder,
       hasModel: hasModel,
+      noTest: noTest,
     );
 
     if (templateName == kTemplateNameView && excludeRoute) {
@@ -187,6 +191,7 @@ class TemplateService {
     String? outputFolder,
     bool useBuilder = false,
     bool hasModel = true,
+    bool noTest = false,
   }) async {
     /// Sort template files to ensure default view will be always after v1 view.
     template.templateFiles.sort(
@@ -228,6 +233,11 @@ class TemplateService {
 
           continue;
         }
+      }
+
+      /// Skip test files if noTest flag is true
+      if (noTest && templateFile.relativeOutputPath.contains('test/')) {
+        continue;
       }
 
       final templateContent = templateFile.fileType == FileType.text

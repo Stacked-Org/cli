@@ -106,3 +106,6 @@ Paths on Stacked config do not need to start with directory "lib" or "test" beca
 const String kCommandHelpProjectPath = '''
 When path is provided, it will be considered the project directory instead of the current directory.
 ''';
+
+const String kCommandHelpNoTest = 
+    'When provided, no test files will be generated for the created component.';

@@ -62,6 +62,11 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
+      )
+      ..addFlag(
+        ksNoTest,
+        defaultsTo: false,
+        help: kCommandHelpNoTest,
       );
   }
 
@@ -88,6 +93,7 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
           excludeRoute: argResults![ksExcludeRoute],
           hasModel: argResults![ksModel],
           templateType: templateType,
+          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createBottomSheetEvent(

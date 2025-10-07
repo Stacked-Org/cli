@@ -12,7 +12,7 @@ part of 'config_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Config _$ConfigFromJson(Map<String, dynamic> json) {
   return _Config.fromJson(json);
@@ -101,8 +101,12 @@ mixin _$Config {
   @JsonKey(name: 'prefer_web')
   bool get preferWeb => throw _privateConstructorUsedError;
 
+  /// Serializes this Config to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Config
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConfigCopyWith<Config> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -145,6 +149,8 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Config
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -250,9 +256,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
 }
 
 /// @nodoc
-abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
-  factory _$$_ConfigCopyWith(_$_Config value, $Res Function(_$_Config) then) =
-      __$$_ConfigCopyWithImpl<$Res>;
+abstract class _$$ConfigImplCopyWith<$Res> implements $ConfigCopyWith<$Res> {
+  factory _$$ConfigImplCopyWith(
+          _$ConfigImpl value, $Res Function(_$ConfigImpl) then) =
+      __$$ConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -280,12 +287,15 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ConfigCopyWithImpl<$Res>
-    extends _$ConfigCopyWithImpl<$Res, _$_Config>
-    implements _$$_ConfigCopyWith<$Res> {
-  __$$_ConfigCopyWithImpl(_$_Config _value, $Res Function(_$_Config) _then)
+class __$$ConfigImplCopyWithImpl<$Res>
+    extends _$ConfigCopyWithImpl<$Res, _$ConfigImpl>
+    implements _$$ConfigImplCopyWith<$Res> {
+  __$$ConfigImplCopyWithImpl(
+      _$ConfigImpl _value, $Res Function(_$ConfigImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Config
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -309,7 +319,7 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? lineLength = null,
     Object? preferWeb = null,
   }) {
-    return _then(_$_Config(
+    return _then(_$ConfigImpl(
       viewsPath: null == viewsPath
           ? _value.viewsPath
           : viewsPath // ignore: cast_nullable_to_non_nullable
@@ -392,8 +402,8 @@ class __$$_ConfigCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Config implements _Config {
-  _$_Config(
+class _$ConfigImpl implements _Config {
+  _$ConfigImpl(
       {@JsonKey(name: 'views_path') this.viewsPath = 'ui/views',
       @JsonKey(name: 'services_path') this.servicesPath = 'services',
       @JsonKey(name: 'widgets_path') this.widgetsPath = 'ui/widgets/common',
@@ -423,8 +433,8 @@ class _$_Config implements _Config {
       @JsonKey(name: 'line_length') this.lineLength = 80,
       @JsonKey(name: 'prefer_web') this.preferWeb = false});
 
-  factory _$_Config.fromJson(Map<String, dynamic> json) =>
-      _$$_ConfigFromJson(json);
+  factory _$ConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ConfigImplFromJson(json);
 
   /// Path where views and viewmodels will be genereated.
   @override
@@ -532,10 +542,10 @@ class _$_Config implements _Config {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Config &&
+            other is _$ConfigImpl &&
             (identical(other.viewsPath, viewsPath) ||
                 other.viewsPath == viewsPath) &&
             (identical(other.servicesPath, servicesPath) ||
@@ -578,7 +588,7 @@ class _$_Config implements _Config {
                 other.preferWeb == preferWeb));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -603,15 +613,17 @@ class _$_Config implements _Config {
         preferWeb
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Config
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ConfigCopyWith<_$_Config> get copyWith =>
-      __$$_ConfigCopyWithImpl<_$_Config>(this, _$identity);
+  _$$ConfigImplCopyWith<_$ConfigImpl> get copyWith =>
+      __$$ConfigImplCopyWithImpl<_$ConfigImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ConfigToJson(
+    return _$$ConfigImplToJson(
       this,
     );
   }
@@ -641,112 +653,114 @@ abstract class _Config implements Config {
       final String registerMocksFunction,
       @JsonKey(name: 'v1') final bool v1,
       @JsonKey(name: 'line_length') final int lineLength,
-      @JsonKey(name: 'prefer_web') final bool preferWeb}) = _$_Config;
+      @JsonKey(name: 'prefer_web') final bool preferWeb}) = _$ConfigImpl;
 
-  factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
-
-  @override
+  factory _Config.fromJson(Map<String, dynamic> json) = _$ConfigImpl.fromJson;
 
   /// Path where views and viewmodels will be genereated.
+  @override
   @JsonKey(name: 'views_path')
   String get viewsPath;
-  @override
 
   /// Path where services will be genereated.
+  @override
   @JsonKey(name: 'services_path')
   String get servicesPath;
-  @override
 
   /// Path where widgets will be genereated.
+  @override
   @JsonKey(name: 'widgets_path')
   String get widgetsPath;
-  @override
 
   /// Path where bottom sheets will be genereated.
+  @override
   @JsonKey(name: 'bottom_sheets_path')
   String get bottomSheetsPath;
-  @override
 
   /// File path where BottomSheetType enum values are located.
+  @override
   @JsonKey(name: 'bottom_sheet_type_file_path')
   String get bottomSheetTypeFilePath;
-  @override
 
   /// File path where BottomSheet builders are located.
+  @override
   @JsonKey(name: 'bottom_sheet_builder_file_path')
   String get bottomSheetBuilderFilePath;
-  @override
 
   /// Path where dialogs will be genereated.
+  @override
   @JsonKey(name: 'dialogs_path')
   String get dialogsPath;
-  @override
 
   /// File path where DialogType enum values are located.
+  @override
   @JsonKey(name: 'dialog_type_file_path')
   String get dialogTypeFilePath;
-  @override
 
   /// File path where Dialog builders are located.
+  @override
   @JsonKey(name: 'dialog_builder_file_path')
   String get dialogBuilderFilePath;
-  @override
 
   /// File path where StackedApp is setup.
+  @override
   @JsonKey(name: 'stacked_app_file_path')
   String get stackedAppFilePath;
-  @override
 
   /// File path where register functions for unit test setup and mock
   /// declarations are located.
+  @override
   @JsonKey(name: 'test_helpers_file_path')
   String get testHelpersFilePath;
-  @override
 
   /// Paths where services unit tests will be genereated.
+  @override
   @JsonKey(name: 'test_services_path')
   String get testServicesPath;
-  @override
 
   /// Path where viewmodels unit tests will be genereated.
+  @override
   @JsonKey(name: 'test_views_path')
   String get testViewsPath;
-  @override
 
   /// Path where widget models unit tests will be genereated.
+  @override
   @JsonKey(name: 'test_widgets_path')
   String get testWidgetsPath;
-  @override
 
   /// The name of the locator to use when registering test mocks
+  @override
   @JsonKey(name: 'locator_name')
   String get locatorName;
-  @override
 
   /// The name of the function that registers the mock services for tests.
   ///
   /// This is used when creating a test file during the `create service` command
+  @override
   @JsonKey(name: 'register_mocks_function')
   String get registerMocksFunction;
-  @override
 
   /// Boolean value to determine view builder style
   ///
   /// This is used when creating a view file during `create view` command. By
   /// default, StackedView is used.
+  @override
   @JsonKey(name: 'v1')
   bool get v1;
-  @override
 
   /// Defines the integer value to determine the line length when formatting
   /// the code.
+  @override
   @JsonKey(name: 'line_length')
   int get lineLength;
   @override
   @JsonKey(name: 'prefer_web')
   bool get preferWeb;
+
+  /// Create a copy of Config
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ConfigCopyWith<_$_Config> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ConfigImplCopyWith<_$ConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
