@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/Stacked-Org/cli/compare/v1.14.0...v1.15.0) (2025-10-07)
+
+
+### Features
+
+* add --no-test flag to skip test file generation in create commands ([#63](https://github.com/Stacked-Org/cli/issues/63)) ([86e06bf](https://github.com/Stacked-Org/cli/commit/86e06bf79dd310920522ce282540e0ed5c15ddbd))
+
 ## [Unreleased]
 
 ### Features
