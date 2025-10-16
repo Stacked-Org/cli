@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/commands/compile/compile_command.dart';
+import 'package:stacked_cli/src/commands/convert/convert_command.dart';
 import 'package:stacked_cli/src/commands/create/create_command.dart';
 import 'package:stacked_cli/src/commands/delete/delete_command.dart';
 import 'package:stacked_cli/src/commands/generate/generate_command.dart';
@@ -38,6 +39,7 @@ Future<void> main(List<String> arguments) async {
     //   help: kCommandHelpDisableAnalytics,
     // )
     ..addCommand(CreateCommand())
+    ..addCommand(ConvertCommand())
     ..addCommand(DeleteCommand())
     ..addCommand(CompileCommand())
     ..addCommand(GenerateCommand())

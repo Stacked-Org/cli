@@ -80,6 +80,15 @@ const String kCommandHelpCreateBottomSheetTemplate =
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 
+const String kCommandHelpConvertViewDevice =
+    'Specifies which device variant (mobile, tablet, desktop) should receive the original UI when converting to responsive structure. Default is mobile.';
+
+const String kConvertViewMustBeStackedView =
+    'Only views that extend StackedView or use ViewModelBuilder can be converted.';
+
+const String kConvertAppNoViewsFound =
+    'No Stacked views were found to convert. Ensure your view path is configured correctly.';
+
 const String kCommandHelpWatch =
     'Generates the code for the Stacked application, watching the file system for updates and rebuilding as appropriate.';
 
