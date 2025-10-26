@@ -376,7 +376,8 @@ class TemplateService {
           'No render function has been defined for the template $templateName. Please define a render function before running the command again.');
     }
 
-    final renderDataForTemplate = renderFunction(nameRecase);
+    // Pass subfolder to render function
+    final renderDataForTemplate = renderFunction(nameRecase, subfolder);
 
     final packageName = templateName == kTemplateNameApp ? name : null;
 
