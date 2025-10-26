@@ -1,9 +1,11 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
+
 // -------- StackedJsonStk Template Data ----------
 
-const String kAppWebTemplateStackedJsonStkPath = 'stacked.json.stk';
+const String kAppWebTemplateStackedJsonStkPath =
+    'stacked.json.stk';
 
 const String kAppWebTemplateStackedJsonStkContent = '''
 {
@@ -27,6 +29,7 @@ const String kAppWebTemplateStackedJsonStkContent = '''
 
 // --------------------------------------------------
 
+
 // -------- UnknownViewmodelTest Template Data ----------
 
 const String kAppWebTemplateUnknownViewmodelTestPath =
@@ -47,6 +50,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewmodelTest Template Data ----------
 
@@ -99,6 +103,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetModelTest Template Data ----------
 
 const String kAppWebTemplateNoticeSheetModelTestPath =
@@ -121,6 +126,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- InfoAlertDialogModelTest Template Data ----------
 
 const String kAppWebTemplateInfoAlertDialogModelTestPath =
@@ -142,6 +148,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewGoldenTest Template Data ----------
 
@@ -186,6 +193,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- TestHelpers Template Data ----------
 
@@ -276,9 +284,11 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
+
 // -------- BuildYamlStk Template Data ----------
 
-const String kAppWebTemplateBuildYamlStkPath = 'build.yaml.stk';
+const String kAppWebTemplateBuildYamlStkPath =
+    'build.yaml.stk';
 
 const String kAppWebTemplateBuildYamlStkContent = '''
 targets:
@@ -291,9 +301,11 @@ targets:
 
 // --------------------------------------------------
 
+
 // -------- MainIconPngStk Template Data ----------
 
-const String kAppWebTemplateMainIconPngStkPath = 'web/main-icon.png.stk';
+const String kAppWebTemplateMainIconPngStkPath =
+    'web/main-icon.png.stk';
 
 const String kAppWebTemplateMainIconPngStkContent = '''
 iVBORw0KGgoAAAANSUhEUgAAALMAAACzCAYAAADCFC3zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAN5SURBVHgB7daLjVNBDEDRF0QjVEIrdMLSAS3RyZZAByGWdqUQ5Z/5eGbOkSw3cC152wAAAAAAAAAAAAAAAACAjHZbYfuDDW77tdvt3raCvmzQXvGQg5hprUrIQcy0VC3kIGZaqRpyEDMtVA85iJnamoQcxExNzUIOYqaWpiEHMVND85CDmCmtS8hBzJTULeQgZkrpGnIQMyV0DzmImVelCDmImVekCTmImWelCjmImWekCzmImUelDDmImUekDTmImXulDjmImXukDzmImVuGCDmImWuGCTmImUuGCjmImXOGCzmImVNDhhzEzLFhQw5i5tPQIQcxE4YPOYiZKUIOYl7bNCEHMa9rqpCDmNc0XchBzOuZMuQg5rVMG3IQ8zqmDjmIeQ3ThxzEPL8lQg5intsyIQcxz2upkIOY57RcyEHM81ky5CDmuSwbchDzPJYOOYh5DsuHHMQ8PiF/EPPYhHxEzOMS8gkxj0nIZ4h5PEK+QMxjEfIVYh6HkG8Q8xiEfAcx5yfkO4k5NyE/QMx5CflBYs5JyE8Qcz5CfpKYcxHyC8Sch5BfJOYchFyAmPsTciFi7kvIBYm5HyEXJuY+hFyBmNsTciVibkvIFYm5HSFXttsK2+/3bxunvh/mz8axv4fj/r0VVDxm/nc47p+H9bZx6v0Q87etIG9GRUJuS8yVCLk9MVcg5D7EXJiQ+xFzQULuS8yFCLk/MRcg5BzE/CIh5yHmFwg5FzE/Scj5iPkJQs5JzA8Scl5ifoCQcxPznYScn5jvIOQxiPkGIY9DzFcIeSxivkDI4xHzGUIek5hPCHlcYj4i5LGJ+YOQxyfmTcizWD5mIc9j6ZiFPJdlYxbyfJaMWchzWi5mIc9rqZiFPLdlYhby/JaIWchrmD5mIa9j6piFvJZpYxbyeqaMWchrmi5mIa9rqpiFvLZpYhYyU8QsZMLwMQuZT0PHLGSODRuzkDk1ZMxC5pzhYhYylwwVs5C5ZpiYhcwtQ8QsZO6RPmYhc6/UMQuZR6SNWcg8KmXMQuYZ6WIWMs9KFbOQeUWamIXMq1LELGRK6B6zkCmla8xCpqRuMQuZ0rrELGRqaB6zkKmlacxCpqZmMQuZ2prELGRaqB6zkGmlasxCpqVqMQuZ1qrELGR6+LoVdgj5x2HFvG9w2fsGAAAAAAAAAAAAAAAAACzhH8sFZqawpyetAAAAAElFTkSuQmCC
@@ -301,9 +313,11 @@ iVBORw0KGgoAAAANSUhEUgAAALMAAACzCAYAAADCFC3zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNS
 
 // --------------------------------------------------
 
+
 // -------- IndexHtmlStk Template Data ----------
 
-const String kAppWebTemplateIndexHtmlStkPath = 'web/index.html.stk';
+const String kAppWebTemplateIndexHtmlStkPath =
+    'web/index.html.stk';
 
 const String kAppWebTemplateIndexHtmlStkContent = '''
 <!DOCTYPE html>
@@ -481,9 +495,11 @@ const String kAppWebTemplateIndexHtmlStkContent = '''
 
 // --------------------------------------------------
 
+
 // -------- FaviconPngStk Template Data ----------
 
-const String kAppWebTemplateFaviconPngStkPath = 'web/favicon.png.stk';
+const String kAppWebTemplateFaviconPngStkPath =
+    'web/favicon.png.stk';
 
 const String kAppWebTemplateFaviconPngStkContent = '''
 iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHaSURBVHgBpVTNasJAEN7dxLQl+FNEFBRR8VCQgo+gryCkh9499CnUg/gMvo3eFWw9eBLS4sWT2oOHRLOdWWLYxkRT+8GS3cnkm28mM0tIMOhpwzmn7plKdurawz9EdLtdNhqNWKvVekyn0ynLsghjTPg4jsNt26a6rnO09/v9r2Qy6UwmkwOlwoX7yZVqtWqA07v78uqKx+NmsVhsw179Jc4wDKVcLrejEvkXCHlBDlmdlkgkPm8lhKw+arWahipRKikUCspqtSqe2FOpFKnX6+QSZrMZ2W63Yr/b7Z6htshl45kOh8MnOWKj0eCXAD8vSKmOf54ho6qqnEREr9fDbjizZzIZikBCut/v6X/IENBeQikSck3TrnFdJJMghJ3V0L86nc5ZHbHOsk82m9WFUCTEzg8DkEVRhpOE6jhD57CUo5IR4tVQpMyCUg5KM0LKorH5crn8lqNhY4/HY9JsNkMVYWPLWK/XXutRmJQHGPQ5uXH0cGxLpdK9SNeVe8jlcgNyI2CWB6ZpHjwDjgxGyOfzb3+5JIBoXqlUXuG2uSOnHpQCUSi0slgs7qCNVAwCEHXZbDZYV+8sZpYxJxaLHaFc1nQ6PYLZCcsAy6BIT0U6eza83X2CBH4AHNJFlWlQookAAAAASUVORK5CYII=
@@ -491,9 +507,11 @@ iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNS
 
 // --------------------------------------------------
 
+
 // -------- READMEMdStk Template Data ----------
 
-const String kAppWebTemplateREADMEMdStkPath = 'README.md.stk';
+const String kAppWebTemplateREADMEMdStkPath =
+    'README.md.stk';
 
 const String kAppWebTemplateREADMEMdStkContent = '''
 # {{packageName}}
@@ -513,9 +531,11 @@ The golden test screenshots will be stored under `test/golden/`.
 
 // --------------------------------------------------
 
+
 // -------- Main Template Data ----------
 
-const String kAppWebTemplateMainPath = 'lib/main.dart.stk';
+const String kAppWebTemplateMainPath =
+    'lib/main.dart.stk';
 
 const String kAppWebTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -557,6 +577,7 @@ class MainApp extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- AppConstants Template Data ----------
 
 const String kAppWebTemplateAppConstantsPath =
@@ -573,9 +594,11 @@ const double kdDesktopMaxContentHeight = 750;
 
 // --------------------------------------------------
 
+
 // -------- UiHelpers Template Data ----------
 
-const String kAppWebTemplateUiHelpersPath = 'lib/ui/common/ui_helpers.dart.stk';
+const String kAppWebTemplateUiHelpersPath =
+    'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppWebTemplateUiHelpersContent = '''
 import 'dart:math';
@@ -661,6 +684,7 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
+
 // -------- AppStrings Template Data ----------
 
 const String kAppWebTemplateAppStringsPath =
@@ -675,9 +699,11 @@ const String ksHomeBottomSheetDescription =
 
 // --------------------------------------------------
 
+
 // -------- AppColors Template Data ----------
 
-const String kAppWebTemplateAppColorsPath = 'lib/ui/common/app_colors.dart.stk';
+const String kAppWebTemplateAppColorsPath =
+    'lib/ui/common/app_colors.dart.stk';
 
 const String kAppWebTemplateAppColorsContent = '''
 import 'package:flutter/material.dart';
@@ -696,6 +722,7 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetModel Template Data ----------
 
 const String kAppWebTemplateNoticeSheetModelPath =
@@ -709,6 +736,7 @@ class NoticeSheetModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- NoticeSheet Template Data ----------
 
@@ -778,6 +806,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
 
 // --------------------------------------------------
 
+
 // -------- InfoAlertDialogModel Template Data ----------
 
 const String kAppWebTemplateInfoAlertDialogModelPath =
@@ -791,6 +820,7 @@ class InfoAlertDialogModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -911,6 +941,7 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewDesktop Template Data ----------
 
 const String kAppWebTemplateHomeViewDesktopPath =
@@ -996,6 +1027,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewMobile Template Data ----------
 
@@ -1083,6 +1115,7 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- HomeView Template Data ----------
 
 const String kAppWebTemplateHomeViewPath =
@@ -1124,6 +1157,7 @@ class HomeView extends StackedView<HomeViewModel> {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewmodel Template Data ----------
 
@@ -1171,6 +1205,7 @@ class HomeViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewTablet Template Data ----------
 
@@ -1258,6 +1293,7 @@ class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- UnknownView Template Data ----------
 
 const String kAppWebTemplateUnknownViewPath =
@@ -1299,6 +1335,7 @@ class UnknownView extends StackedView<UnknownViewModel> {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- UnknownViewDesktop Template Data ----------
 
@@ -1355,6 +1392,7 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- UnknownViewTablet Template Data ----------
 
 const String kAppWebTemplateUnknownViewTabletPath =
@@ -1410,6 +1448,7 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- UnknownViewmodel Template Data ----------
 
 const String kAppWebTemplateUnknownViewmodelPath =
@@ -1423,6 +1462,7 @@ class UnknownViewModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- UnknownViewMobile Template Data ----------
 
@@ -1478,6 +1518,7 @@ class UnknownViewMobile extends ViewModelWidget<UnknownViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppWebTemplateStartupViewmodelPath =
@@ -1504,6 +1545,7 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupView Template Data ----------
 
@@ -1571,6 +1613,7 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- ScaleOnHover Template Data ----------
 
 const String kAppWebTemplateScaleOnHoverPath =
@@ -1618,6 +1661,7 @@ class _ScaleOnHoverState extends State<ScaleOnHover> {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- TranslateOnHover Template Data ----------
 
@@ -1675,9 +1719,11 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
 
 // --------------------------------------------------
 
+
 // -------- App Template Data ----------
 
-const String kAppWebTemplateAppPath = 'lib/app/app.dart.stk';
+const String kAppWebTemplateAppPath =
+    'lib/app/app.dart.stk';
 
 const String kAppWebTemplateAppContent = '''
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
@@ -1720,6 +1766,7 @@ class App {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HoverExtensions Template Data ----------
 
@@ -1775,9 +1822,11 @@ extension HoverExtensions on Widget {
 
 // --------------------------------------------------
 
+
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppWebTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
+const String kAppWebTemplatePubspecYamlStkPath =
+    'pubspec.yaml.stk';
 
 const String kAppWebTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
@@ -1813,9 +1862,11 @@ flutter:
 
 // --------------------------------------------------
 
+
 // -------- SettingsJsonStk Template Data ----------
 
-const String kAppWebTemplateSettingsJsonStkPath = '.vscode/settings.json.stk';
+const String kAppWebTemplateSettingsJsonStkPath =
+    '.vscode/settings.json.stk';
 
 const String kAppWebTemplateSettingsJsonStkContent = '''
 {
@@ -1829,9 +1880,11 @@ const String kAppWebTemplateSettingsJsonStkContent = '''
 
 // --------------------------------------------------
 
+
 // -------- StackedJsonStk Template Data ----------
 
-const String kAppMobileTemplateStackedJsonStkPath = 'stacked.json.stk';
+const String kAppMobileTemplateStackedJsonStkPath =
+    'stacked.json.stk';
 
 const String kAppMobileTemplateStackedJsonStkContent = '''
 {
@@ -1854,6 +1907,7 @@ const String kAppMobileTemplateStackedJsonStkContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewmodelTest Template Data ----------
 
@@ -1906,6 +1960,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetModelTest Template Data ----------
 
 const String kAppMobileTemplateNoticeSheetModelTestPath =
@@ -1927,6 +1982,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- InfoAlertDialogModelTest Template Data ----------
 
@@ -1950,10 +2006,11 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewGoldenTest Template Data ----------
 
 const String kAppMobileTemplateHomeViewGoldenTestPath =
-    'test/golden/home_view_golden_test.dart.stk';
+    'test/goldens/home_view_golden_test.dart.stk';
 
 const String kAppMobileTemplateHomeViewGoldenTestContent = '''
 import 'package:flutter/material.dart';
@@ -1993,6 +2050,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- TestHelpers Template Data ----------
 
@@ -2083,9 +2141,11 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
+
 // -------- READMEMdStk Template Data ----------
 
-const String kAppMobileTemplateREADMEMdStkPath = 'README.md.stk';
+const String kAppMobileTemplateREADMEMdStkPath =
+    'README.md.stk';
 
 const String kAppMobileTemplateREADMEMdStkContent = '''
 # {{packageName}}
@@ -2101,13 +2161,16 @@ flutter test --update-goldens
 ```
 
 The golden test screenshots will be stored under `test/golden/`.
+```
 ''';
 
 // --------------------------------------------------
 
+
 // -------- Main Template Data ----------
 
-const String kAppMobileTemplateMainPath = 'lib/main.dart.stk';
+const String kAppMobileTemplateMainPath =
+    'lib/main.dart.stk';
 
 const String kAppMobileTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -2144,6 +2207,7 @@ class MainApp extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- UiHelpers Template Data ----------
 
@@ -2234,6 +2298,7 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
+
 // -------- AppStrings Template Data ----------
 
 const String kAppMobileTemplateAppStringsPath =
@@ -2247,6 +2312,7 @@ const String ksHomeBottomSheetDescription =
 ''';
 
 // --------------------------------------------------
+
 
 // -------- AppColors Template Data ----------
 
@@ -2268,6 +2334,7 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetModel Template Data ----------
 
 const String kAppMobileTemplateNoticeSheetModelPath =
@@ -2281,6 +2348,7 @@ class NoticeSheetModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- NoticeSheet Template Data ----------
 
@@ -2350,6 +2418,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
 
 // --------------------------------------------------
 
+
 // -------- InfoAlertDialogModel Template Data ----------
 
 const String kAppMobileTemplateInfoAlertDialogModelPath =
@@ -2363,6 +2432,7 @@ class InfoAlertDialogModel extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -2483,6 +2553,7 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewV1 Template Data ----------
 
 const String kAppMobileTemplateHomeViewV1Path =
@@ -2570,6 +2641,7 @@ class HomeView extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeView Template Data ----------
 
@@ -2666,6 +2738,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewmodel Template Data ----------
 
 const String kAppMobileTemplateHomeViewmodelPath =
@@ -2713,6 +2786,7 @@ class HomeViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
+
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppMobileTemplateStartupViewmodelPath =
@@ -2741,6 +2815,7 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupViewV1 Template Data ----------
 
@@ -2806,6 +2881,7 @@ class StartupView extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupView Template Data ----------
 
@@ -2873,9 +2949,11 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- App Template Data ----------
 
-const String kAppMobileTemplateAppPath = 'lib/app/app.dart.stk';
+const String kAppMobileTemplateAppPath =
+    'lib/app/app.dart.stk';
 
 const String kAppMobileTemplateAppContent = '''
 import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
@@ -2913,9 +2991,11 @@ class App {}
 
 // --------------------------------------------------
 
+
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppMobileTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
+const String kAppMobileTemplatePubspecYamlStkPath =
+    'pubspec.yaml.stk';
 
 const String kAppMobileTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
@@ -2948,6 +3028,7 @@ flutter:
 
 // --------------------------------------------------
 
+
 // -------- SettingsJsonStk Template Data ----------
 
 const String kAppMobileTemplateSettingsJsonStkPath =
@@ -2964,6 +3045,7 @@ const String kAppMobileTemplateSettingsJsonStkContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericModelTest Template Data ----------
 
@@ -2986,6 +3068,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericUseModel Template Data ----------
 
@@ -3019,6 +3102,7 @@ class {{widgetName}} extends StackedView<{{widgetModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- Generic Template Data ----------
 
 const String kWidgetEmptyTemplateGenericPath =
@@ -3040,6 +3124,7 @@ class {{widgetName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- GenericModel Template Data ----------
 
 const String kWidgetEmptyTemplateGenericModelPath =
@@ -3052,6 +3137,7 @@ class {{widgetModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericDialogModelTest Template Data ----------
 
@@ -3075,6 +3161,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericDialogModel Template Data ----------
 
 const String kDialogEmptyTemplateGenericDialogModelPath =
@@ -3088,6 +3175,7 @@ class {{dialogModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericDialogUseModel Template Data ----------
 
@@ -3209,6 +3297,7 @@ class {{dialogName}} extends StackedView<{{dialogModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericDialog Template Data ----------
 
 const String kDialogEmptyTemplateGenericDialogPath =
@@ -3318,6 +3407,7 @@ class {{dialogName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewEmptyTemplateGenericViewmodelTestPath =
@@ -3340,6 +3430,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewEmptyTemplateGenericViewmodelPath =
@@ -3352,6 +3443,7 @@ class {{viewModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericView Template Data ----------
 
@@ -3391,6 +3483,7 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewV1 Template Data ----------
 
 const String kViewEmptyTemplateGenericViewV1Path =
@@ -3422,6 +3515,7 @@ class {{viewName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewWebTemplateGenericViewmodelTestPath =
@@ -3444,6 +3538,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewWebTemplateGenericViewmodelPath =
@@ -3457,6 +3552,7 @@ class {{viewModelName}} extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericViewMobile Template Data ----------
 
@@ -3492,6 +3588,7 @@ class {{viewName}}Mobile extends ViewModelWidget<{{viewModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewTablet Template Data ----------
 
 const String kViewWebTemplateGenericViewTabletPath =
@@ -3525,6 +3622,7 @@ class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericView Template Data ----------
 
@@ -3568,6 +3666,7 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewDesktop Template Data ----------
 
 const String kViewWebTemplateGenericViewDesktopPath =
@@ -3602,6 +3701,7 @@ class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceEmptyTemplateGenericServiceTestPath =
@@ -3624,6 +3724,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericService Template Data ----------
 
 const String kServiceEmptyTemplateGenericServicePath =
@@ -3636,6 +3737,7 @@ class {{serviceName}} {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericSheetModelTest Template Data ----------
 
@@ -3659,6 +3761,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericSheetModel Template Data ----------
 
 const String kBottomSheetEmptyTemplateGenericSheetModelPath =
@@ -3672,6 +3775,7 @@ class {{sheetModelName}} extends BaseViewModel {}
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericSheetUseModel Template Data ----------
 
@@ -3743,6 +3847,7 @@ class {{sheetName}} extends StackedView<{{sheetModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericSheet Template Data ----------
 
 const String kBottomSheetEmptyTemplateGenericSheetPath =
@@ -3801,3 +3906,4 @@ class {{sheetName}} extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
+
