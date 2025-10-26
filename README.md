@@ -1,6 +1,32 @@
-# Stacked CLI
+# Stacked CLI - Extended Version with Subdirectory Support
 
 The official CLI (Command Line Interface) dev tools for working with the Stacked framework. Stacked is a framework built in Flutter for production teams. It is built for maintenance, readability, and scaleability. To read about the usage of this tool read the [Stacked CLI docs](https://stacked.filledstacks.com/docs/Tooling/stacked-cli)
+
+## 🚀 Extended Features - Subdirectory Support
+
+This version of the Stacked CLI has been extended to support creating components in subdirectories for better domain-driven organization:
+
+### Create Views with Subdirectories
+```bash
+stacked create view sales/dashboard
+stacked create view student/login
+stacked create view signature_flow/client_form
+```
+
+### Create Services with Subdirectories
+```bash
+stacked create service api/auth
+stacked create service sales/lead_management
+```
+
+### Create Other Components with Subdirectories
+```bash
+stacked create bottom_sheet forms/client_info
+stacked create dialog alerts/error
+stacked create widget charts/sales_graph
+```
+
+This enhancement allows for better organization by domain while maintaining full Stacked framework compatibility
 
 ## Running the code
 

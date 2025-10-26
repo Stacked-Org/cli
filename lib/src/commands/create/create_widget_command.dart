@@ -61,11 +61,6 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
-      )
-      ..addFlag(
-        ksNoTest,
-        defaultsTo: false,
-        help: kCommandHelpNoTest,
       );
   }
 
@@ -88,18 +83,26 @@ class CreateWidgetCommand extends Command with ProjectStructureValidator {
       await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < widgetNames.length; i++) {
+        // Parse the widget name to support subdirectories
+        final widgetPath = widgetNames[i];
+        final pathParts = widgetPath.split('/');
+        final widgetName = pathParts.last;
+        final subfolders = pathParts.length > 1
+            ? pathParts.sublist(0, pathParts.length - 1).join('/')
+            : null;
+
         await _templateService.renderTemplate(
           templateName: name,
-          name: widgetNames[i],
+          name: widgetName,
+          subfolder: subfolders,
           outputPath: argResults![ksProjectPath],
           verbose: true,
           hasModel: argResults![ksModel],
           templateType: templateType,
-          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createWidgetEvent(
-          name: widgetNames[i],
+          name: widgetPath,
           arguments: argResults!.arguments,
         );
       }
