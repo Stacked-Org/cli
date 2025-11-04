@@ -57,11 +57,6 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
-      )
-      ..addFlag(
-        ksNoTest,
-        defaultsTo: false,
-        help: kCommandHelpNoTest,
       );
   }
 
@@ -80,18 +75,26 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < serviceNames.length; i++) {
+        // Parse the service name to support subdirectories
+        final servicePath = serviceNames[i];
+        final pathParts = servicePath.split('/');
+        final serviceName = pathParts.last;
+        final subfolders = pathParts.length > 1
+            ? pathParts.sublist(0, pathParts.length - 1).join('/')
+            : null;
+
         await _templateService.renderTemplate(
           templateName: name,
-          name: serviceNames[i],
+          name: serviceName,
+          subfolder: subfolders,
           outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeDependency],
           templateType: templateType,
-          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createServiceEvent(
-          name: serviceNames[i],
+          name: servicePath,
           arguments: argResults!.arguments,
         );
       }

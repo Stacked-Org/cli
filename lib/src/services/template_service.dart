@@ -130,6 +130,9 @@ class TemplateService {
     /// The name to use for the views when generating the view template
     required String name,
 
+    /// The subfolder path for organizing views (e.g., "sales", "student/dashboard")
+    String? subfolder,
+
     /// When value is true, should log on stdout what is happening during command execution.
     bool verbose = false,
 
@@ -154,9 +157,6 @@ class TemplateService {
     /// When supplied it selects the template type to use within the command that's being
     /// run. This is supplied using --template=web or similar based on the command being run
     required String templateType,
-
-    /// When set to true, no test files will be generated
-    bool noTest = false,
   }) async {
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName]![templateType] ??
@@ -166,10 +166,10 @@ class TemplateService {
       template: template,
       templateName: templateName,
       name: name,
+      subfolder: subfolder,
       outputFolder: outputPath,
       useBuilder: useBuilder,
       hasModel: hasModel,
-      noTest: noTest,
     );
 
     if (templateName == kTemplateNameView && excludeRoute) {
@@ -180,6 +180,7 @@ class TemplateService {
       template: template,
       templateName: templateName,
       name: name,
+      subfolder: subfolder,
       outputPath: outputPath,
     );
   }
@@ -188,10 +189,10 @@ class TemplateService {
     required StackedTemplate template,
     required String templateName,
     required String name,
+    String? subfolder,
     String? outputFolder,
     bool useBuilder = false,
     bool hasModel = true,
-    bool noTest = false,
   }) async {
     /// Sort template files to ensure default view will be always after v1 view.
     template.templateFiles.sort(
@@ -235,22 +236,19 @@ class TemplateService {
         }
       }
 
-      /// Skip test files if noTest flag is true
-      if (noTest && templateFile.relativeOutputPath.contains('test/')) {
-        continue;
-      }
-
       final templateContent = templateFile.fileType == FileType.text
           ? renderContentForTemplate(
               content: templateFile.content,
               templateName: templateName,
               name: name,
+              subfolder: subfolder,
             )
           : base64Decode(templateFile.content.trim().replaceAll('\n', ''));
 
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
         name: name,
+        subfolder: subfolder,
         outputFolder: outputFolder,
       );
 
@@ -276,17 +274,61 @@ class TemplateService {
   String getTemplateOutputPath({
     required String inputTemplatePath,
     required String name,
+    String? subfolder,
     String? outputFolder,
   }) {
     final hasOutputFolder = outputFolder != null;
     final recaseName = ReCase(name);
-    final modifiedOutputPath = _configService
+    var modifiedOutputPath = _configService
         .replaceCustomPaths(inputTemplatePath)
         .replaceAll(
           'generic',
           recaseName.snakeCase,
         )
         .replaceFirst('.stk', '');
+
+    // If subfolder is provided, inject it into the appropriate path
+    if (subfolder != null) {
+      if (modifiedOutputPath.contains('ui/views/')) {
+        // Handle views with subfolders
+        // Check if path ends with '/' (directory) or a file
+        if (modifiedOutputPath.endsWith('${recaseName.snakeCase}/')) {
+          modifiedOutputPath = modifiedOutputPath.replaceFirst(
+            'ui/views/${recaseName.snakeCase}/',
+            'ui/views/$subfolder/${recaseName.snakeCase}/',
+          );
+        } else {
+          modifiedOutputPath = modifiedOutputPath.replaceFirst(
+            'ui/views/${recaseName.snakeCase}',
+            'ui/views/$subfolder/${recaseName.snakeCase}',
+          );
+        }
+      } else if (modifiedOutputPath.contains('services/')) {
+        // Handle services with subfolders
+        modifiedOutputPath = modifiedOutputPath.replaceFirst(
+          'services/${recaseName.snakeCase}_service.dart',
+          'services/$subfolder/${recaseName.snakeCase}_service.dart',
+        );
+      } else if (modifiedOutputPath.contains('ui/dialogs/')) {
+        // Handle dialogs with subfolders
+        modifiedOutputPath = modifiedOutputPath.replaceFirst(
+          'ui/dialogs/${recaseName.snakeCase}',
+          'ui/dialogs/$subfolder/${recaseName.snakeCase}',
+        );
+      } else if (modifiedOutputPath.contains('ui/bottom_sheets/')) {
+        // Handle bottom sheets with subfolders
+        modifiedOutputPath = modifiedOutputPath.replaceFirst(
+          'ui/bottom_sheets/${recaseName.snakeCase}',
+          'ui/bottom_sheets/$subfolder/${recaseName.snakeCase}',
+        );
+      } else if (modifiedOutputPath.contains('ui/widgets/')) {
+        // Handle widgets with subfolders
+        modifiedOutputPath = modifiedOutputPath.replaceFirst(
+          'ui/widgets/${recaseName.snakeCase}',
+          'ui/widgets/$subfolder/${recaseName.snakeCase}',
+        );
+      }
+    }
 
     if (hasOutputFolder) {
       return path.join(outputFolder, modifiedOutputPath);
@@ -301,12 +343,14 @@ class TemplateService {
     required String content,
     required String templateName,
     required String name,
+    String? subfolder,
   }) {
     var viewTemplate = Template(content, lenient: true);
 
     final renderData = getTemplateRenderData(
       templateName: templateName,
       name: name,
+      subfolder: subfolder,
     );
 
     return viewTemplate.renderString(renderData);
@@ -316,6 +360,7 @@ class TemplateService {
   Map<String, String> getTemplateRenderData({
     required String templateName,
     required String name,
+    String? subfolder,
 
     /// This value is only for testing
     Map<String, RenderFunction>? testRenderFunctions,
@@ -331,7 +376,8 @@ class TemplateService {
           'No render function has been defined for the template $templateName. Please define a render function before running the command again.');
     }
 
-    final renderDataForTemplate = renderFunction(nameRecase);
+    // Pass subfolder to render function
+    final renderDataForTemplate = renderFunction(nameRecase, subfolder);
 
     final packageName = templateName == kTemplateNameApp ? name : null;
 
@@ -375,6 +421,7 @@ class TemplateService {
     required StackedTemplate template,
     required String templateName,
     required String name,
+    String? subfolder,
     String? outputPath,
   }) async {
     final hasOutputPath = outputPath != null;
@@ -413,12 +460,14 @@ class TemplateService {
         modificationTemplate: fileToModify.modificationTemplate,
         name: name,
         templateName: templateName,
+        subfolder: subfolder,
       );
 
       final verboseMessage = templateModificationName(
         modificationName: fileToModify.modificationName,
         name: name,
         templateName: templateName,
+        subfolder: subfolder,
       );
 
       // Write the file back that was modified
@@ -440,6 +489,7 @@ class TemplateService {
     required String modificationName,
     required String name,
     required String templateName,
+    String? subfolder,
   }) {
     final template = Template(
       modificationName,
@@ -449,6 +499,7 @@ class TemplateService {
     final templateRenderData = getTemplateRenderData(
       templateName: templateName,
       name: name,
+      subfolder: subfolder,
     );
 
     final renderedTemplate = template.renderString(templateRenderData);
@@ -461,6 +512,7 @@ class TemplateService {
     required String modificationIdentifier,
     required String name,
     required String templateName,
+    String? subfolder,
   }) {
     final template = Template(
       modificationTemplate,
@@ -470,6 +522,7 @@ class TemplateService {
     final templateRenderData = getTemplateRenderData(
       templateName: templateName,
       name: name,
+      subfolder: subfolder,
     );
 
     final renderedTemplate = template.renderString(templateRenderData);

@@ -5,21 +5,26 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 /// Definition of a function that when executed returns a Map<String, String>
-typedef RenderFunction = Map<String, String> Function(ReCase value);
+typedef RenderFunction = Map<String, String> Function(ReCase value, [String? subfolder]);
 
 Map<String, RenderFunction> renderFunctions = {
-  kTemplateNameView: (ReCase value) {
+  kTemplateNameView: (ReCase value, [String? subfolder]) {
+    // Generate viewFolderName with subfolder if provided
+    final viewFolderName = subfolder != null
+        ? '$subfolder/${value.snakeCase}'
+        : value.snakeCase;
+
     return {
       kTemplatePropertyViewName: '${value.pascalCase}View',
       kTemplatePropertyViewFileName: '${value.snakeCase}_view.dart',
       kTemplatePropertyViewFileNameWithoutExtension: '${value.snakeCase}_view',
       kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
-      kTemplatePropertyViewFolderName: value.snakeCase,
+      kTemplatePropertyViewFolderName: viewFolderName,
       kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
-  kTemplateNameService: (ReCase value, [map]) {
+  kTemplateNameService: (ReCase value, [String? subfolder]) {
     final configService = locator<ConfigService>();
     return {
       kTemplatePropertyServiceName: '${value.pascalCase}Service',
@@ -30,7 +35,7 @@ Map<String, RenderFunction> renderFunctions = {
           configService.registerMocksFunction,
     };
   },
-  kTemplateNameApp: (ReCase value, [map]) {
+  kTemplateNameApp: (ReCase value, [String? subfolder]) {
     return {
       kTemplatePropertyRelativeBottomSheetFilePath: getFilePath(
         builder: 'bottomsheets',
@@ -40,7 +45,7 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeRouterFilePath: getFilePath(builder: 'router'),
     };
   },
-  kTemplateNameBottomSheet: (ReCase value) {
+  kTemplateNameBottomSheet: (ReCase value, [String? subfolder]) {
     return {
       kTemplatePropertySheetName: '${value.pascalCase}Sheet',
       kTemplatePropertySheetFilename: '${value.snakeCase}_sheet.dart',
@@ -52,7 +57,7 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
-  kTemplateNameDialog: (ReCase value) {
+  kTemplateNameDialog: (ReCase value, [String? subfolder]) {
     return {
       kTemplatePropertyDialogName: '${value.pascalCase}Dialog',
       kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog.dart',
@@ -64,7 +69,7 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
-  kTemplateNameWidget: (ReCase value) {
+  kTemplateNameWidget: (ReCase value, [String? subfolder]) {
     return {
       kTemplatePropertyWidgetName: value.pascalCase,
       kTemplatePropertyWidgetFileName: '${value.snakeCase}.dart',
