@@ -62,11 +62,6 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
-      )
-      ..addFlag(
-        ksNoTest,
-        defaultsTo: false,
-        help: kCommandHelpNoTest,
       );
   }
 
@@ -93,19 +88,28 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       templateType ??= _configService.preferWeb ? 'web' : 'empty';
 
       for (var i = 0; i < viewNames.length; i++) {
+        // Parse the view name to support subdirectories
+        // e.g., "sales/dashboard" -> subfolder: "sales", viewName: "dashboard"
+        final viewPath = viewNames[i];
+        final pathParts = viewPath.split('/');
+        final viewName = pathParts.last;
+        final subfolders = pathParts.length > 1
+            ? pathParts.sublist(0, pathParts.length - 1).join('/')
+            : null;
+
         await _templateService.renderTemplate(
           templateName: name,
-          name: viewNames[i],
+          name: viewName,
+          subfolder: subfolders,
           outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeRoute],
           useBuilder: argResults![ksV1] ?? _configService.v1,
           templateType: templateType,
-          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createViewEvent(
-          name: viewNames[i],
+          name: viewPath,
           arguments: argResults!.arguments,
         );
       }
