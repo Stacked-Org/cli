@@ -62,11 +62,6 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
-      )
-      ..addFlag(
-        ksNoTest,
-        defaultsTo: false,
-        help: kCommandHelpNoTest,
       );
   }
 
@@ -85,19 +80,27 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < dialogNames.length; i++) {
+        // Parse the dialog name to support subdirectories
+        final dialogPath = dialogNames[i];
+        final pathParts = dialogPath.split('/');
+        final dialogName = pathParts.last;
+        final subfolders = pathParts.length > 1
+            ? pathParts.sublist(0, pathParts.length - 1).join('/')
+            : null;
+
         await _templateService.renderTemplate(
           templateName: name,
-          name: dialogNames[i],
+          name: dialogName,
+          subfolder: subfolders,
           outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeRoute],
           hasModel: argResults![ksModel],
           templateType: templateType,
-          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createDialogEvent(
-          name: dialogNames[i],
+          name: dialogPath,
           arguments: argResults!.arguments,
         );
       }

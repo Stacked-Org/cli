@@ -1,4 +1,4 @@
-/// NOTE: This is generated code from the compileTemplates command. Do not
+/// NOTE: This is generated code from the compileTemplates command. Do not 
 ///       modify by hand.
 ///       This file should be checked into source control.
 
