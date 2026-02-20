@@ -1,3 +1,10 @@
+## [1.15.5](https://github.com/Stacked-Org/cli/compare/v1.15.4...v1.15.5) (2026-02-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency get_it to v9.2.1 ([#70](https://github.com/Stacked-Org/cli/issues/70)) ([a4d2b2c](https://github.com/Stacked-Org/cli/commit/a4d2b2cc8a1879dfd46dd36cffb693c118b2fe00))
+
 ## [1.15.4](https://github.com/Stacked-Org/cli/compare/v1.15.3...v1.15.4) (2025-12-04)
 
 
