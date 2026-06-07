@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
@@ -81,21 +82,40 @@ class ProcessService {
     );
   }
 
-  /// Runs the dart format . command on the app's source code.
+  /// Runs dart format on the app's source directories.
+  ///
+  /// When [filePath] is provided, only that path is formatted. Otherwise,
+  /// existing directories from [formatSourceDirectories] are formatted.
   ///
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runFormat({String? appName, String? filePath}) async {
+    final formatPaths =
+        filePath != null ? [filePath] : await _resolveFormatPaths(appName);
+
     await _runProcess(
       programName: ksDart,
       arguments: [
         ksFormat,
-        filePath ?? ksCurrentDirectory,
+        ...formatPaths,
         '-l',
-        _formattingLineLength
+        _formattingLineLength,
       ],
       workingDirectory: appName,
     );
+  }
+
+  Future<List<String>> _resolveFormatPaths(String? workingDirectory) async {
+    final base = workingDirectory ?? Directory.current.path;
+    final paths = <String>[];
+
+    for (final dir in formatSourceDirectories) {
+      if (await Directory(p.join(base, dir)).exists()) {
+        paths.add(dir);
+      }
+    }
+
+    return paths.isEmpty ? [ksCurrentDirectory] : paths;
   }
 
   /// It runs the `dart pub global activate` command in the app's directory
