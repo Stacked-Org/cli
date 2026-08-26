@@ -57,7 +57,15 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-      final dialogName = argResults!.rest.first;
+
+      // Parse dialog path to support subdirectories
+      final dialogPath = argResults!.rest.first;
+      final pathParts = dialogPath.split('/');
+      final dialogName = pathParts.last;
+      final subfolder = pathParts.length > 1
+          ? pathParts.sublist(0, pathParts.length - 1).join('/')
+          : null;
+
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -65,9 +73,14 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
       _processService.formattingLineLength = argResults?[ksLineLength];
       await _pubspecService.initialise(workingDirectory: workingDirectory);
       await validateStructure(outputPath: workingDirectory);
-      await _deleteDialog(outputPath: workingDirectory, dialogName: dialogName);
+      await _deleteDialog(
+          outputPath: workingDirectory,
+          dialogName: dialogName,
+          subfolder: subfolder);
       await _removeDialogFromDependency(
-          outputPath: workingDirectory, dialogName: dialogName);
+          outputPath: workingDirectory,
+          dialogName: dialogName,
+          subfolder: subfolder);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       await _analyticsService.deleteDialogEvent(
         name: argResults!.rest.first,
@@ -96,12 +109,18 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   ///  `outputPath` (String): The path to the output folder.
   ///
   ///  `dialogName` (String): The name of the dialog.
-  Future<void> _deleteDialog(
-      {String? outputPath, required String dialogName}) async {
+  ///
+  ///  `subfolder` (String): Optional subfolder path for organized dialogs.
+  Future<void> _deleteDialog({
+    String? outputPath,
+    required String dialogName,
+    String? subfolder,
+  }) async {
     /// Deleting the dialog folder.
     String directoryPath = _templateService.getTemplateOutputPath(
       inputTemplatePath: 'lib/ui/dialogs/generic',
       name: dialogName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
     await _fileService.deleteFolder(directoryPath: directoryPath);
@@ -110,6 +129,7 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
     final filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kDialogEmptyTemplateGenericDialogModelTestPath,
       name: dialogName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
 
@@ -126,11 +146,17 @@ class DeleteDialogCommand extends Command with ProjectStructureValidator {
   ///  `outputPath` (String): The path to the output folder.
   ///
   ///  `dialogName` (String): The name of the dialog.
-  Future<void> _removeDialogFromDependency(
-      {String? outputPath, required String dialogName}) async {
+  ///
+  ///  `subfolder` (String): Optional subfolder path for organized dialogs.
+  Future<void> _removeDialogFromDependency({
+    String? outputPath,
+    required String dialogName,
+    String? subfolder,
+  }) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
       name: dialogName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(

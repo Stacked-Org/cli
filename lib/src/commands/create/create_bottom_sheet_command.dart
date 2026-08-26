@@ -62,11 +62,6 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       ..addOption(
         ksProjectPath,
         help: kCommandHelpProjectPath,
-      )
-      ..addFlag(
-        ksNoTest,
-        defaultsTo: false,
-        help: kCommandHelpNoTest,
       );
   }
 
@@ -85,19 +80,27 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       await validateStructure(outputPath: argResults![ksProjectPath]);
 
       for (var i = 0; i < bottomSheetNames.length; i++) {
+        // Parse the bottom sheet name to support subdirectories
+        final sheetPath = bottomSheetNames[i];
+        final pathParts = sheetPath.split('/');
+        final sheetName = pathParts.last;
+        final subfolders = pathParts.length > 1
+            ? pathParts.sublist(0, pathParts.length - 1).join('/')
+            : null;
+
         await _templateService.renderTemplate(
           templateName: name,
-          name: bottomSheetNames[i],
+          name: sheetName,
+          subfolder: subfolders,
           outputPath: argResults![ksProjectPath],
           verbose: true,
           excludeRoute: argResults![ksExcludeRoute],
           hasModel: argResults![ksModel],
           templateType: templateType,
-          noTest: argResults![ksNoTest],
         );
 
         await _analyticsService.createBottomSheetEvent(
-          name: bottomSheetNames[i],
+          name: sheetPath,
           arguments: argResults!.arguments,
         );
       }

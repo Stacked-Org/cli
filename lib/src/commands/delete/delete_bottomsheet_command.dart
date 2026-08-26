@@ -57,7 +57,15 @@ class DeleteBottomsheetCommand extends Command with ProjectStructureValidator {
     try {
       final workingDirectory =
           argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-      final bottomsheetName = argResults!.rest.first;
+
+      // Parse bottomsheet path to support subdirectories
+      final bottomsheetPath = argResults!.rest.first;
+      final pathParts = bottomsheetPath.split('/');
+      final bottomsheetName = pathParts.last;
+      final subfolder = pathParts.length > 1
+          ? pathParts.sublist(0, pathParts.length - 1).join('/')
+          : null;
+
       await _configService.composeAndLoadConfigFile(
         configFilePath: argResults![ksConfigPath],
         projectPath: workingDirectory,
@@ -67,9 +75,13 @@ class DeleteBottomsheetCommand extends Command with ProjectStructureValidator {
 
       await validateStructure(outputPath: workingDirectory);
       await _deletebottomsheet(
-          outputPath: workingDirectory, bottomsheetName: bottomsheetName);
+          outputPath: workingDirectory,
+          bottomsheetName: bottomsheetName,
+          subfolder: subfolder);
       await _removebottomsheetFromDependency(
-          outputPath: workingDirectory, bottomsheetName: bottomsheetName);
+          outputPath: workingDirectory,
+          bottomsheetName: bottomsheetName,
+          subfolder: subfolder);
       await _processService.runBuildRunner(workingDirectory: workingDirectory);
       await _analyticsService.deleteBottomsheetEvent(
         name: argResults!.rest.first,
@@ -98,12 +110,18 @@ class DeleteBottomsheetCommand extends Command with ProjectStructureValidator {
   ///  `outputPath` (String): The path to the output folder.
   ///
   ///  `bottomsheetName` (String): The name of the bottomsheet.
-  Future<void> _deletebottomsheet(
-      {String? outputPath, required String bottomsheetName}) async {
+  ///
+  ///  `subfolder` (String): Optional subfolder path for organized bottomsheets.
+  Future<void> _deletebottomsheet({
+    String? outputPath,
+    required String bottomsheetName,
+    String? subfolder,
+  }) async {
     /// Deleting the bottomsheet folder.
     String directoryPath = _templateService.getTemplateOutputPath(
       inputTemplatePath: 'lib/ui/bottom_sheets/generic',
       name: bottomsheetName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
     await _fileService.deleteFolder(directoryPath: directoryPath);
@@ -112,6 +130,7 @@ class DeleteBottomsheetCommand extends Command with ProjectStructureValidator {
     final filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kBottomSheetEmptyTemplateGenericSheetModelTestPath,
       name: bottomsheetName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
 
@@ -128,11 +147,17 @@ class DeleteBottomsheetCommand extends Command with ProjectStructureValidator {
   ///  `outputPath` (String): The path to the output folder.
   ///
   ///  `bottomsheetName` (String): The name of the bottomsheet.
-  Future<void> _removebottomsheetFromDependency(
-      {String? outputPath, required String bottomsheetName}) async {
+  ///
+  ///  `subfolder` (String): Optional subfolder path for organized bottomsheets.
+  Future<void> _removebottomsheetFromDependency({
+    String? outputPath,
+    required String bottomsheetName,
+    String? subfolder,
+  }) async {
     String filePath = _templateService.getTemplateOutputPath(
       inputTemplatePath: kAppMobileTemplateAppPath,
       name: bottomsheetName,
+      subfolder: subfolder,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
