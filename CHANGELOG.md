@@ -1,3 +1,10 @@
+## [1.15.7](https://github.com/Stacked-Org/cli/compare/v1.15.6...v1.15.7) (2026-09-01)
+
+
+### Bug Fixes
+
+* format only source directories, skip build/ ([#72](https://github.com/Stacked-Org/cli/issues/72)) ([0cf3e0f](https://github.com/Stacked-Org/cli/commit/0cf3e0f0ac112373cb75663c2ef1de646b7015ae))
+
 ## [1.15.6](https://github.com/Stacked-Org/cli/compare/v1.15.5...v1.15.6) (2026-08-10)
 
 
