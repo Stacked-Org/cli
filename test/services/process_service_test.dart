@@ -12,7 +12,8 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
     group('runFormat -', () {
-      test('when called should run dart format . and finish in exit code 0',
+      test(
+          'when called should format source directories and finish in exit code 0',
           () async {
         var clog = getAndRegisterColorizedLogService();
         var service = _getService();
@@ -21,12 +22,19 @@ void main() {
       });
 
       test(
-          'when called should run dart format . and ouput error if appName is not found',
+          'when called should format source directories and output error if appName is not found',
           () async {
         var clog = getAndRegisterColorizedLogService();
         var service = _getService();
         await service.runFormat(appName: "xyz");
         verify(clog.error(message: anyNamed('message')));
+      });
+
+      test('when filePath is provided should format only that path', () async {
+        var clog = getAndRegisterColorizedLogService();
+        var service = _getService();
+        await service.runFormat(filePath: 'lib');
+        verify(clog.success(message: 'Command complete. ExitCode: 0'));
       });
     });
   });

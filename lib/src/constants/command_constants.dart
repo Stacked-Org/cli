@@ -38,6 +38,14 @@ const String ksAppPlatforms = 'platforms';
 const String ksProjectPath = 'project-path';
 const String ksNoTest = 'no-test';
 
+/// Source directories to format when no explicit file path is provided.
+const List<String> formatSourceDirectories = [
+  'lib',
+  'test',
+  'integration_test',
+  'bin',
+];
+
 /// A list of strings that are used to run the run build_runner
 /// [build or watch] --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [
